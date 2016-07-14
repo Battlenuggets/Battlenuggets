@@ -1,4 +1,5 @@
 angular.module('battle', [
+    'battle.services',
     'battle.auth',
     'ngRoute'
   ])
