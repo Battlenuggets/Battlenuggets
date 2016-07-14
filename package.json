@@ -4,11 +4,10 @@
   "description": "battlenuggets",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BScookies/hrr17-rattata.git"
+    "url": "git+https://github.com/hrr17-rattata/hrr17-rattata.git"
   },
   "keywords": [
     "battle",
@@ -19,7 +18,7 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/BScookies/hrr17-rattata/issues"
+    "url": "https://github.com/hrr17-rattata/hrr17-rattata/issues"
   },
-  "homepage": "https://github.com/BScookies/hrr17-rattata#readme"
+  "homepage": "https://github.com/hrr17-rattata/hrr17-rattata#readme"
 }
