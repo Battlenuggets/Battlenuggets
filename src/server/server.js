@@ -12,7 +12,9 @@ app.use(express.static(__dirname + '/../client'));
 require('./routes.js')(app, express);
 
 // start listening to requests on port 8000
-app.listen(8000);
+var port = process.env.PORT || 8000;
+
+app.listen(port);
 console.log('listening to 8000');
 
 
