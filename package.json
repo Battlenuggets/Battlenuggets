@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "battlenuggets",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "node server/server.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hrr17-rattata/hrr17-rattata.git"
