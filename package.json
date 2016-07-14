@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "description": "battlenuggets",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hrr17-rattata/hrr17-rattata.git"
@@ -20,5 +19,10 @@
   "bugs": {
     "url": "https://github.com/hrr17-rattata/hrr17-rattata/issues"
   },
-  "homepage": "https://github.com/hrr17-rattata/hrr17-rattata#readme"
+  "homepage": "https://github.com/hrr17-rattata/hrr17-rattata#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0"
+  }
 }
