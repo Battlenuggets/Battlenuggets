@@ -1,0 +1,25 @@
+{
+  "name": "battlenuggets",
+  "version": "0.0.1",
+  "description": "battlenuggets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BScookies/hrr17-rattata.git"
+  },
+  "keywords": [
+    "battle",
+    "nuggets",
+    "fight",
+    "money"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BScookies/hrr17-rattata/issues"
+  },
+  "homepage": "https://github.com/BScookies/hrr17-rattata#readme"
+}
