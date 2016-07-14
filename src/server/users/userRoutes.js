@@ -1,3 +1,4 @@
+var user = require('./userModel');
 
 module.exports = {
   signin: function (req, res) {
