@@ -1,0 +1,20 @@
+{
+  "name": "battlenuggets",
+  "description": "battlenuggets",
+  "main": "index.js",
+  "license": "ISC",
+  "keywords": [
+    "battle",
+    "nuggets",
+    "fight",
+    "money"
+  ],
+  "homepage": "https://github.com/hrr17-rattata/hrr17-rattata#readme",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
