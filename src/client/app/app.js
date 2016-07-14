@@ -8,5 +8,9 @@ angular.module('battle', [
       templateUrl: 'app/auth/signin.html',
       controller: 'AuthController'
     })
+    .when('/signup', {
+      templateUrl: 'app/auth/signup.html',
+      controller: 'AuthController'
+    })
     .otherwise('/signin')
   })
