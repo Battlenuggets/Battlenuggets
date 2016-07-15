@@ -4,8 +4,8 @@ var db = require('../db/db');
 var User = db.define('user', {
   userId: Sequelize.STRING,
   currency: Sequelize.INTEGER
+}, {
+  timestamps: false  // for later debate
 });
-
-User.sync();
 
 module.exports = User;
