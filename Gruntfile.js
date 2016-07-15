@@ -19,6 +19,17 @@ module.exports = function(grunt) {
           { expand: true, cwd: 'src/client/', src: ['**'], dest: 'public/' }
         ]
       }
+    },
+
+    watch: {
+      client: {
+        files: [
+          'src/client/**'
+        ],
+        tasks: [
+          'copy:client'
+        ]
+      }
     }
   });
 
