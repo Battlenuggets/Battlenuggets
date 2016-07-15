@@ -11,6 +11,14 @@ module.exports = function(grunt) {
           'src/client/lib/**/*.js'
         ]
       }
+    },
+
+    copy: {
+      client: {
+        files: [
+          { expand: true, cwd: 'src/client/', src: ['**'], dest: 'public/' }
+        ]
+      }
     }
   });
 
