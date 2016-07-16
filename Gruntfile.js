@@ -30,6 +30,18 @@ module.exports = function(grunt) {
           'copy:client'
         ]
       }
+    },
+
+    mochaTest: {
+      options: {
+        reporter: 'nyan'
+      },
+      server: {
+        src: ['test/server/**/*.js']
+      },
+      client: {
+        src: ['test/client/**/*.js']
+      }
     }
   });
 
