@@ -1,4 +1,4 @@
-var userRoutes = require('./users/userRoutes')
+var userRoutes = require('./users/userRoutes');
 
 module.exports = function (app, express) {
 
