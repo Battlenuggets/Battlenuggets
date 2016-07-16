@@ -42,6 +42,15 @@ module.exports = function(grunt) {
       client: {
         src: ['test/client/**/*.js']
       }
+    },
+
+    nodemon: {
+      dev: {
+        script: 'src/server/server.js',
+        options: {
+          watch: ['src/server']
+        }
+      }
     }
   });
 
@@ -49,4 +58,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-nodemon');
 };
