@@ -69,6 +69,15 @@ module.exports = function(grunt) {
     grunt.task.run(['watch:client']);
   });
 
+  grunt.registerTask('build', [
+    'copy:client'
+  ]);
+
+  grunt.registerTask('test', [
+    'jshint',
+    'mochaTest'
+  ]);
+
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
