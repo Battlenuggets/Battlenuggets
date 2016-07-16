@@ -54,6 +54,21 @@ module.exports = function(grunt) {
     }
   });
 
+  // watches both client and server for changes
+  grunt.registerTask('dev', function () {
+    var nodemon = grunt.util.spawn({
+         cmd: 'grunt',
+         grunt: true,
+         args: 'nodemon'
+    });
+
+    // pipe nodemon output to our terminal
+    nodemon.stdout.pipe(process.stdout);
+    nodemon.stderr.pipe(process.stderr);
+
+    grunt.task.run(['watch:client']);
+  });
+
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
