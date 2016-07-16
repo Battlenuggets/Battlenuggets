@@ -28,4 +28,4 @@ angular.module('battle.services', [])
       signin: signin,
       signup: signup
     };
-  })
+  });

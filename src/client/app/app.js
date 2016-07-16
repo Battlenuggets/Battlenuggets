@@ -13,5 +13,5 @@ angular.module('battle', [
       templateUrl: 'app/auth/signup.html',
       controller: 'AuthController'
     })
-    .otherwise('/signin')
-  })
+    .otherwise('/signin');
+  });
