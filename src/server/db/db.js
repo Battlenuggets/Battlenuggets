@@ -1,5 +1,5 @@
 var Sequelize = require('sequelize');
-var settings = require('../settings');
+var settings = require('./settings');
 
 var url = process.env.DATABASE_URL || settings.DBURL;
 
