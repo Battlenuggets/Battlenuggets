@@ -38,6 +38,12 @@ module.exports = function (grunt) {
           watch: ['src/server']
         }
       }
+    },
+
+    shell: {
+      lint: {
+        command: 'eslint --color src/ test/'
+      }
     }
   });
 
@@ -68,4 +74,5 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-shell');
 };
