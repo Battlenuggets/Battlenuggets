@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/server/server.js",
-    "postinstall": "bower install"
+    "postinstall": "bower install",
+    "lint": "eslint --color . || exit 0"
   },
   "repository": {
     "type": "git",
@@ -42,6 +43,7 @@
     "sequelize": "^3.23.4"
   },
   "devDependencies": {
+    "eslint": "^3.1.0",
     "nodemon": "^1.9.2"
   }
 }
