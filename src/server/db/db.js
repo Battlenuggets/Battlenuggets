@@ -1,10 +1,7 @@
 var Sequelize = require('sequelize');
+var settings = require('../settings');
 
-var dbname = 'daghgmnrb6tjeh';
-var username = 'temhxbwqyzuvgl';
-var password = 'ShZB_n-4FIZVt9SSvZ0aHix-je';
-var url = process.env.DATABASE_URL ||
-  `postgres://${username}:${password}@localhost:5432/${dbname}`;
+var url = process.env.DATABASE_URL || settings.DBURL;
 
 /**
  * heroku requires ssl for pg conns, so

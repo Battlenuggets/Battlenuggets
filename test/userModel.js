@@ -1,6 +1,7 @@
 var User = require('../src/server/users/userModel');
 var expect = require('chai').expect;
 var pgp = require('pg-promise')();
+var settings = require('../src/server/settings');
 
 describe('User table', function () {
   var db;
@@ -13,19 +14,12 @@ describe('User table', function () {
   });
 
   beforeEach(function () {
-    var options = {
-      host: process.env.DATABASE_URL || 'localhost',
-      port: 5432,
-      database: 'd414dlcug3njlv',
-      user: 'dvxtkxwgylbtrz',
-      password: 'OkJpl2NmJfYhnlOSTjAepdXN29'
-    };
-    db = pgp(options);
+    var url = process.env.DATABASE_URL || settings.DBURL;
+    db = pgp(url);
 
     // get rid of all bacon oriented fake data
     // before each test. also run a user sync
     // before anything executes.
-
     return db.query('delete from $1~ where $2~ like $3', [
       'users',
       'userId',
