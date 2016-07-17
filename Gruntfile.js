@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
   grunt.initConfig({
     jshint: {
       files: [
@@ -57,9 +57,9 @@ module.exports = function(grunt) {
   // watches both client and server for changes
   grunt.registerTask('dev', function () {
     var nodemon = grunt.util.spawn({
-         cmd: 'grunt',
-         grunt: true,
-         args: 'nodemon'
+      cmd: 'grunt',
+      grunt: true,
+      args: 'nodemon'
     });
 
     // pipe nodemon output to our terminal
