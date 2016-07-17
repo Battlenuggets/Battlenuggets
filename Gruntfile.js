@@ -70,6 +70,10 @@ module.exports = function (grunt) {
     'mochaTest'
   ]);
 
+  grunt.registerTask('lint', [
+    'shell:lint'
+  ]);
+
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-mocha-test');
