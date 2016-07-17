@@ -1,4 +1,4 @@
-var User = require('../src/server/users/userModel');
+var User = require('../../../src/server/users/userModel');
 var expect = require('chai').expect;
 var pgp = require('pg-promise')();
 var settings = require('../src/server/settings');
