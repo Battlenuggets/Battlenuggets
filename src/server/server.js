@@ -2,13 +2,14 @@ var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var db = require('./db/db');
+var path = require('path');
 
 var app = express();
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/../client'));
+app.use(express.static(path.join(__dirname, '/../client')));
 
 require('./routes.js')(app, express);
 
@@ -21,12 +22,6 @@ db.sync().then(function () {
   app.listen(port);
   console.log('listening to 8000');
 });
-
-
-
-
-
-
 
 // export our app for testing and flexibility, required by index.js
 module.exports = app;

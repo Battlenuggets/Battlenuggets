@@ -8,7 +8,7 @@ module.exports = {
     var password = req.body.password;
 
     user.findOne({ where: {userId: userId } })
-      .then(function(foundUser) {
+      .then(function (foundUser) {
         if (!foundUser) {
           res.sendStatus(404);
         } else {
@@ -26,9 +26,9 @@ module.exports = {
     var password = req.body.password;
 
     user.findOrCreate({ where: {userId: userId}, defaults: {password: password, currency: 0} })
-      .spread(function(user, created) {
+      .spread(function (userResult, created) {
         if (created) {
-          var token = jwt.encode(user, secret);
+          var token = jwt.encode(userResult, secret);
           res.json({token: token});
         } else {
           res.sendStatus(401);

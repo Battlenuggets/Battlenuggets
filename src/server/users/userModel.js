@@ -9,7 +9,4 @@ var User = db.define('user', {
   timestamps: false  // for later debate
 });
 
-
-
-
 module.exports = User;

@@ -45,9 +45,9 @@ describe('User table', function () {
     })
     .then(function () {
       return db.query('select * from $1~ where $2~=$3', [
-          'users',
-          'userId',
-          'bacon sandwich'
+        'users',
+        'userId',
+        'bacon sandwich'
       ]);
     })
     .then(function (result) {
