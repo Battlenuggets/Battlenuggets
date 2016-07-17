@@ -1,18 +1,5 @@
 module.exports = function (grunt) {
   grunt.initConfig({
-    jshint: {
-      files: [
-        'src/**/*.js'
-      ],
-      options: {
-        force: 'true',
-        jshintrc: '.jshintrc',
-        ignores: [
-          'src/client/lib/**/*.js'
-        ]
-      }
-    },
-
     copy: {
       client: {
         files: [
@@ -51,6 +38,12 @@ module.exports = function (grunt) {
           watch: ['src/server']
         }
       }
+    },
+
+    shell: {
+      lint: {
+        command: 'eslint --color src/ test/'
+      }
     }
   });
 
@@ -74,13 +67,16 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('test', [
-    'jshint',
     'mochaTest'
   ]);
 
-  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.registerTask('lint', [
+    'shell:lint'
+  ]);
+
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-shell');
 };
