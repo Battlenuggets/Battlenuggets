@@ -28,6 +28,7 @@ db.sync().then(function () {
 });
 
 //listen on the connection even for incoming sockets
+//possible refactor later to move into seperate file
 io.sockets.on('connection', function (socket) {
   socket.on('send msg', function (data) {
     io.sockets.emit('get msg', data);
