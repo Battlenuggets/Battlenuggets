@@ -39,5 +39,20 @@ describe('Auth API', function () {
         .send(wrongPassword)
         .expect(401, done);
     });
+
+    it('should respond with a token if user exists and password is correct', function(done) {
+      var user = {
+        username: testUser.userId,
+        password: testUser.password
+      }
+
+      request(app)
+        .post('/api/users/signin')
+        .send(user)
+        .then(function(res) {
+          expect(res.body.token).to.exist;
+          done();
+        });
+    });
   });
 });
