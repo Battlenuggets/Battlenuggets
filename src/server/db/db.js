@@ -18,7 +18,9 @@ var options = process.env.DATABASE_URL ?
     }
   }
 } :
-{};
+{
+  logging: false // logging messes up tests
+};
 
 var sequelize = new Sequelize(url, options);
 
