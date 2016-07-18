@@ -69,4 +69,19 @@ describe('Auth API', function () {
         .expect(401, done);
     })
   });
+
+  it('should respond with a token if user is nonexistent', function(done) {
+      var user = {
+        username: 'totallynewuser',
+        password: 'sickpasswordbro'
+      }
+
+      request(app)
+        .post('/api/users/signup')
+        .send(user)
+        .then(function(res) {
+          expect(res.body.token).to.exist;
+          done();
+        });
+    });
 });
