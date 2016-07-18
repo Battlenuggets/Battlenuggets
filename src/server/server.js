@@ -5,14 +5,13 @@ var db = require('./db/db');
 var path = require('path');
 
 var app = express();
-var server = require('http').createServer(app); //added for sockets
-var io = require('socket.io').listen(server); //added for sockets
+var server = require('http').createServer(app); // added for sockets
+var io = require('socket.io').listen(server); // added for sockets
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/../client')));
-// app.use(express.static(path.join(__dirname + '/../client/chat')));
 
 require('./routes.js')(app, express);
 
@@ -27,8 +26,8 @@ db.sync().then(function () {
   console.log('listening to 8000');
 });
 
-//listen on the connection even for incoming sockets
-//possible refactor later to move into seperate file
+// listen on the connection even for incoming sockets
+// possible refactor later to move into seperate file
 io.sockets.on('connection', function (socket) {
   socket.on('send msg', function (data) {
     io.sockets.emit('get msg', data);
