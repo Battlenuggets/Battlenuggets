@@ -1,7 +1,8 @@
 angular.module('battle', [
   'battle.services',
   'battle.auth',
-  'ngRoute'
+  'ngRoute',
+  'chatRoom'
 ])
 
 .config(function ($routeProvider) {
@@ -13,6 +14,9 @@ angular.module('battle', [
   .when('/signup', {
     templateUrl: 'app/auth/signup.html',
     controller: 'AuthController'
+  })
+  .when('/chat', {
+    templateUrl: 'app/chat/chat.html'
   })
   .otherwise('/signin');
 });
