@@ -55,4 +55,18 @@ describe('Auth API', function () {
         });
     });
   });
+
+  describe('Sign-up', function () {
+    it('should respond with a 401 if user already exists', function(done) {
+      var user = {
+        username: testUser.userId,
+        password: testUser.password
+      }
+
+      request(app)
+        .post('/api/users/signup')
+        .send(user)
+        .expect(401, done);
+    })
+  });
 });
