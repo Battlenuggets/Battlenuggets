@@ -1,6 +1,6 @@
 angular.module('chatRoom', [])
   .factory('socket', function () {
-    return io.connect('http://localhost:8000');
+    return io.connect();
   })
 
   .controller('ChatCtrl', function ($scope, socket) {
