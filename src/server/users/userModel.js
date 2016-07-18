@@ -15,7 +15,6 @@ User.hook('beforeCreate', function(user) {
   return bcrypt.hashAsync(user.password, null, null)
     .then(function (hash) {
       user.password = hash;
-      console.log(user.password);
   });
 })
 
