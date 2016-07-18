@@ -11,9 +11,14 @@ var testUser = {
 
 describe('Auth API', function () {
 
-  beforeEach(function () {
+  before(function () {
     User.create(testUser);
   });
+
+  after(function () {
+    User.destroy({ where: { userId: 'iamatestuser'} });
+    User.destroy({ where: { userId: 'totallynewuser'} });
+  })
 
   describe('Sign-In', function () {
     it('should respond with a 404 if user not found', function(done) {
@@ -68,20 +73,20 @@ describe('Auth API', function () {
         .send(user)
         .expect(401, done);
     })
-  });
 
-  it('should respond with a token if user is nonexistent', function(done) {
-      var user = {
-        username: 'totallynewuser',
-        password: 'sickpasswordbro'
-      }
+    it('should respond with a token if user is nonexistent', function(done) {
+        var user = {
+          username: 'totallynewuser',
+          password: 'sickpasswordbro'
+        }
 
-      request(app)
-        .post('/api/users/signup')
-        .send(user)
-        .then(function(res) {
-          expect(res.body.token).to.exist;
-          done();
-        });
+        request(app)
+          .post('/api/users/signup')
+          .send(user)
+          .then(function(res) {
+            expect(res.body.token).to.exist;
+            done();
+          });
     });
+  });
 });
