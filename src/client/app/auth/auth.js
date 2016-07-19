@@ -16,6 +16,12 @@ angular.module('battle.auth', [])
       });
   };
   $scope.signup = function () {
-    Auth.signup($scope.user);
+    Auth.signup($scope.user)
+      .then(function (_) {
+        $location.path('/signin');
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
   };
 });
