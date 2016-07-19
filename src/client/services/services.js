@@ -1,5 +1,5 @@
 angular.module('battle.services', [])
-  .factory('Auth', function ($http) {
+  .factory('Auth', function ($http, $window) {
     var signin = function (user) {
       return $http({
         method: 'POST',
