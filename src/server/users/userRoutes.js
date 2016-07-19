@@ -12,14 +12,17 @@ module.exports = {
         if (!foundUser) {
           res.sendStatus(404);
         } else {
-          if (foundUser.password === password) {
-            var token = jwt.encode(foundUser, secret);
-            res.json({token: token});
-          } else {
-            res.sendStatus(401);
-          }
-        }
-      });
+          user.comparePasswords(password, foundUser.password)
+            .then(function (passwordMatch) {
+              if (passwordMatch) {
+                var token = jwt.encode(foundUser, secret);
+                res.json({token: token});
+              } else {
+                res.sendStatus(401);
+              }
+            });
+      }
+    });
   },
   signup: function (req, res) {
     var userId = req.body.username;
