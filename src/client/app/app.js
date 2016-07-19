@@ -3,10 +3,11 @@ angular.module('battle', [
   'battle.auth',
   'battle.main',
   'ngRoute',
-  'chatRoom'
+  'chatRoom',
+  'ui.router'
 ])
 
-.config(function ($routeProvider) {
+.config(function ($routeProvider, $stateProvider, $urlRouterProvider) {
   $routeProvider
   .when('/signin', {
     templateUrl: 'app/auth/signin.html',
