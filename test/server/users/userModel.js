@@ -14,7 +14,7 @@ describe('User table', function () {
   });
 
   beforeEach(function () {
-    var url = process.env.DATABASE_URL || settings.DBURL;
+    var url = settings.DBURL;
     db = pgp(url);
 
     // get rid of all bacon oriented fake data
