@@ -21,8 +21,8 @@ module.exports = {
                 res.sendStatus(401);
               }
             });
-      }
-    });
+        }
+      });
   },
   signup: function (req, res) {
     var userId = req.body.username;

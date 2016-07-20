@@ -17,7 +17,7 @@ angular.module('battle.auth', [])
   };
   $scope.signup = function () {
     Auth.signup($scope.user)
-      .then(function (_) {
+      .then(function () {
         $location.path('/signin');
       })
       .catch(function (err) {
