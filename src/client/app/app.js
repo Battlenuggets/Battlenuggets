@@ -3,11 +3,12 @@ angular.module('battle', [
   'battle.auth',
   'battle.main',
   'chatRoom',
-  'ui.router'
+  'ui.router',
+  'ui.bootstrap'
 ])
 
 .config(function ($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/signin');
+  $urlRouterProvider.otherwise('/');
 
   $stateProvider
     .state('home', {

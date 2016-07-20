@@ -1,9 +1,5 @@
 /*main page*/
 
-.titlebar {
-  background: lightblue;
-}
-
 [ui-view='left'] {
   float: left;
   width: 25%;
