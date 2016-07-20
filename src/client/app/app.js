@@ -37,6 +37,21 @@ angular.module('battle', [
       controller: 'MainController',
       authenticate: true
     })
+    .state('main.left', {
+      views: {
+        'left': {
+          templateUrl: 'app/chat/chat.html',
+          controller: 'ChatCtrl'
+        }
+      }
+    })
+    .state('main.right', {
+      views: {
+        'right': {
+          template: '<h3><a href="#" ui-sref="main">Change back to right side original State</a></h3>'
+        }
+      }
+    })
     .state('signin', {
       url: '/signin',
       templateUrl: 'app/auth/signin.html',
@@ -51,7 +66,7 @@ angular.module('battle', [
       url: '/chat',
       templateUrl: 'app/chat/chat.html',
       controller: 'ChatCtrl'
-    })
+    });
 })
 
 .factory('AttachTokens', function ($window) {
