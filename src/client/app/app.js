@@ -33,14 +33,6 @@ angular.module('battle', [
       controller: 'MainController',
       authenticate: true
     })
-    .state('main.left', {
-      views: {
-        'left': {
-          templateUrl: 'app/chat/chat.html',
-          controller: 'ChatCtrl'
-        }
-      }
-    })
     .state('signin', {
       url: '/signin',
       templateUrl: 'app/auth/signin.html',
@@ -50,11 +42,6 @@ angular.module('battle', [
       url: '/signup',
       templateUrl: 'app/auth/signup.html',
       controller: 'AuthController'
-    })
-    .state('chat', {
-      url: '/chat',
-      templateUrl: 'app/chat/chat.html',
-      controller: 'ChatCtrl'
     });
 })
 
