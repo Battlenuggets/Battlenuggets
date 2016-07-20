@@ -10,7 +10,7 @@
   height: 650px;
 }
 
-[ui-view='right'] {
+[ui-view='gameview'] {
   float: right;
   width: 75%;
   height: 650px;

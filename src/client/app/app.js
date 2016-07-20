@@ -2,32 +2,11 @@ angular.module('battle', [
   'battle.services',
   'battle.auth',
   'battle.main',
-  // 'ngRoute',
   'chatRoom',
   'ui.router'
 ])
 
 .config(function ($stateProvider, $urlRouterProvider) {
-  // $routeProvider
-  // .when('/signin', {
-  //   templateUrl: 'app/auth/signin.html',
-  //   controller: 'AuthController'
-  // })
-  // .when('/signup', {
-  //   templateUrl: 'app/auth/signup.html',
-  //   controller: 'AuthController'
-  // })
-  // .when('/chat', {
-  //   templateUrl: 'app/chat/chat.html'
-  // })
-  // .when('/', {
-  //   templateUrl: 'app/main/main.html',
-  //   controller: 'MainController',
-  //   authenticate: true
-  // })
-  // .otherwise({
-  //   redirectTo: '/signin'
-  // });
   $urlRouterProvider.otherwise('/signin');
 
   $stateProvider
@@ -42,13 +21,6 @@ angular.module('battle', [
         'left': {
           templateUrl: 'app/chat/chat.html',
           controller: 'ChatCtrl'
-        }
-      }
-    })
-    .state('main.right', {
-      views: {
-        'right': {
-          template: '<h3><a href="#" ui-sref="main">Change back to right side original State</a></h3>'
         }
       }
     })
