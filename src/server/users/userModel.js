@@ -11,15 +11,15 @@ var User = db.define('user', {
   timestamps: false  // for later debate
 });
 
-User.hook('beforeCreate', function(user) {
+User.hook('beforeCreate', function (user) {
   return bcrypt.hashAsync(user.password, null, null)
     .then(function (hash) {
       user.password = hash;
   });
-})
+});
 
 User.comparePasswords = function(possPassword, currPassword) {
   return bcrypt.compareAsync(possPassword, currPassword);
-}
+};
 
 module.exports = User;

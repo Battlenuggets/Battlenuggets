@@ -2,31 +2,47 @@ angular.module('battle', [
   'battle.services',
   'battle.auth',
   'battle.main',
-  'ngRoute',
-  'chatRoom'
+  'chatRoom',
+  'ui.router'
 ])
 
-.config(function ($routeProvider) {
-  $routeProvider
-  .when('/signin', {
-    templateUrl: 'app/auth/signin.html',
-    controller: 'AuthController'
-  })
-  .when('/signup', {
-    templateUrl: 'app/auth/signup.html',
-    controller: 'AuthController'
-  })
-  .when('/chat', {
-    templateUrl: 'app/chat/chat.html'
-  })
-  .when('/', {
-    templateUrl: 'app/main/main.html',
-    controller: 'MainController',
-    authenticate: true
-  })
-  .otherwise({
-    redirectTo: '/signin'
-  });
+.config(function ($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise('/signin');
+
+  $stateProvider
+    .state('home', {
+      url: '/',
+      templateUrl: 'index.html',
+      views: {
+        'left': {
+          template: '<h3>Future Score Board</h3>'
+        },
+        'gameview': {
+          templateUrl: 'app/main/main.html',
+          controller: 'MainController'
+        },
+        'right': {
+          templateUrl: 'app/chat/chat.html',
+          controller: 'ChatCtrl'
+        }
+      }
+    })
+    .state('main', {
+      url: '/main',
+      templateUrl: 'app/main/main.html',
+      controller: 'MainController',
+      authenticate: true
+    })
+    .state('signin', {
+      url: '/signin',
+      templateUrl: 'app/auth/signin.html',
+      controller: 'AuthController'
+    })
+    .state('signup', {
+      url: '/signup',
+      templateUrl: 'app/auth/signup.html',
+      controller: 'AuthController'
+    });
 })
 
 .factory('AttachTokens', function ($window) {
