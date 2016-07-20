@@ -10,8 +10,25 @@ angular.module('battle', [
   $urlRouterProvider.otherwise('/signin');
 
   $stateProvider
-    .state('main', {
+    .state('home', {
       url: '/',
+      templateUrl: 'index.html',
+      views: {
+        'left': {
+          template: '<h3>Future Score Board</h3>'
+        },
+        'gameview': {
+          templateUrl: 'app/main/main.html',
+          controller: 'MainController'
+        },
+        'right': {
+          templateUrl: 'app/chat/chat.html',
+          controller: 'ChatCtrl'
+        }
+      }
+    })
+    .state('main', {
+      url: '/main',
       templateUrl: 'app/main/main.html',
       controller: 'MainController',
       authenticate: true

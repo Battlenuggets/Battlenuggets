@@ -8,8 +8,7 @@
 </style>
 
 <div ng-controller="ChatCtrl" >
-  <h3><a href="#" ui-sref="main">Close Chat Room</a></h3>
-  <h1>Chat Room</h1>
+  <h3>Chat Room</h3>
   <div class="chatWrap">
     <ul class="messages">
       <li ng-repeat="msg in msgs track by $index" >{{ msg }}</li>

@@ -8,11 +8,19 @@
   float: left;
   width: 25%;
   height: 650px;
+  background: lightgreen;
 }
 
 [ui-view='gameview'] {
-  float: right;
-  width: 75%;
+  float: left;
+  width: 50%;
   height: 650px;
   background: lightgray;
+}
+
+[ui-view='right'] {
+  float: left;
+  width: 25%;
+  height: 650px;
+  background: lightyellow;
 }
