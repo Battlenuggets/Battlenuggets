@@ -35,6 +35,7 @@ describe('User table', function () {
     // its success by using 'raw' pg queries (sorta)
     return User.create({
       userId: 'bacon sandwich',
+      password: 'ryeguy27',
       currency: 15
     })
     .then(function () {
@@ -52,11 +53,13 @@ describe('User table', function () {
   it('should fetch an existing user', function () {
     // flip it - use direct queries to insert
     // use the ORM to fetch it out again
-    return db.query('insert into $1~ ($2~, $3~) values ($4, $5)', [
+    return db.query('insert into $1~ ($2~, $3~, $4~) values ($5, $6, $7)', [
       'users',
       'userId',
+      'password',
       'currency',
       'bacon sandwich',
+      'ryeguy27',
       22
     ])
     .then(function () {
@@ -69,6 +72,24 @@ describe('User table', function () {
     })
     .then(function (result) {
       expect(result).to.not.be.null;
+    });
+  });
+
+  it('should hash user passwords', function () {
+    return User.create({
+      userId: 'bacon sandwich',
+      password: 'ryeguy27',
+      currency: 15
+    })
+    .then(function () {
+      return User.findOne({
+        where: {
+          userId: 'bacon sandwich'
+        }
+      });
+    })
+    .then(function (result) {
+      expect(result.password).to.not.equal('ryeguy27');
     });
   });
 
