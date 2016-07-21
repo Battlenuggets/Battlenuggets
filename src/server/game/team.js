@@ -11,8 +11,11 @@ function Team (id, fighters) {
 }
 
 // choose a target from the team for another fighter to attack.
+// only choose from the fighters that are alive
 Team.prototype.chooseTarget = function () {
-  return _.sample(this.fighters);
+  return _.sample(this.fighters.filter(function (fighter) {
+    return !fighter.isDead();
+  }));
 };
 
 Team.prototype.getFighter = function (position) {
