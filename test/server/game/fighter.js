@@ -43,4 +43,15 @@ describe('Fighter', function () {
       position: 4
     });
   });
+
+  it('should be serializable', function () {
+    var serializedFighter = fighter.serialize();
+
+    expect(serializedFighter.combat.health).to.equal(fighter.health);
+    expect(serializedFighter.combat.attack).to.equal(fighter.attack);
+
+    // not on a team yet
+    expect(serializedFighter.team.name).to.equal(null);
+    expect(serializedFighter.team.position).to.equal(null);
+  });
 });

@@ -97,4 +97,12 @@ describe('Battle', function () {
     expect(battle.isEnded()).to.equal(true);
     expect(battle.getEndOfBattleData().winningTeamId).to.equal(0);
   });
+
+  it('should serialize its fighters', function () {
+    var fighters = battle.getAllFighters();
+    var serializedFighters = battle.getSerializedFighterData();
+
+    expect(serializedFighters.length).to.equal(fighters.length);
+    expect(serializedFighters[0]).to.deep.equal(fighters[0].serialize());
+  });
 });
