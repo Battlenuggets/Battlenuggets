@@ -6,15 +6,19 @@ var endOfBattleEvent = 'endOfBattle';
 // an instance of `Director` is a wrapper around a `Battle` instance,
 // providing a simple API for advancing the battle and for communicating
 // it to the clients.
-
-// eventually, would be nice to plug in `battleConfig` or something as an
-// argument, so that the director can set up the `Battle` instance itself
 function Director (battle, tickInterval) {
-  this.battle = battle;
-  this.tickInterval = tickInterval;
+  this.setBattle(battle);
+  this.setTickInterval(tickInterval);
 
-  this.round = 1;
   this.emitter = ee();
+}
+
+Director.prototype.setBattle = function (battle) {
+  this.battle = battle;
+};
+
+Director.prototype.setTickInterval = function (tickInterval) {
+  this.tickInterval = tickInterval;
 }
 
 // begin the `setInterval` calling `tick`
@@ -41,7 +45,6 @@ Director.prototype.tick = function () {
   var attackActions = this.battle.generateAttackActions(attackOrder);
 
   this.battle.executeAttackActions(attackActions);
-  this.round += 1;
 
   // if the battle's over, emit `endOfBattleEvent` and stop ticking
   if (this.battle.isEnded()) {
