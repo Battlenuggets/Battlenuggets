@@ -1,5 +1,13 @@
 /*main page*/
 
+.navbar {
+  margin-bottom: 0;
+}
+
+body {
+  background: black;
+}
+
 [ui-view='left'] {
   float: left;
   width: 25%;
@@ -19,4 +27,11 @@
   width: 25%;
   height: 650px;
   background: lightyellow;
+}
+
+/*Chat Window*/
+
+.messages {
+  overflow: auto;
+  height: 500px;
 }

@@ -3,6 +3,7 @@ angular.module('battle', [
   'battle.auth',
   'battle.main',
   'chatRoom',
+  'luegg.directives',
   'ui.router',
   'ui.bootstrap'
 ])

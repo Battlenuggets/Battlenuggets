@@ -1,16 +1,16 @@
 <style>
-  form { background: #000; padding: 3px; position: fixed; bottom: 50px; width: 24%; }
-  form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+  form { background: #000; padding: 3px; position: fixed; bottom: 77px; width: 24%; }
+  form input { border: 0; padding: 10px; width: 91%; margin-right: .5%; }
   form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
   .messages { list-style-type: none; margin: 0; padding: 0; }
   .messages li { padding: 5px 10px; }
   .messages li:nth-child(odd) { background: #eee; }
 </style>
 
-<div ng-controller="ChatCtrl" >
+<div class="chatroom" ng-controller="ChatCtrl" >
   <h3>Chat Room</h3>
-  <div class="chatWrap">
-    <ul class="messages">
+  <div class="chatview" >
+    <ul class="messages" scroll-glue>
       <li ng-repeat="msg in msgs track by $index" >{{ msg }}</li>
     </ul>
   </div>
