@@ -32,4 +32,5 @@ angular.module('battle.services', [])
       signup: signup,
       authed: authed
     };
-  });
+  })
+

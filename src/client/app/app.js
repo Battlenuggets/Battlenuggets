@@ -60,10 +60,12 @@ angular.module('battle', [
   };
 })
 
-.run(function ($rootScope, $location, Auth) {
+.run(function ($rootScope, $location, Auth, $state) {
+  $rootScope.$state = $state;
   $rootScope.$on('$routeChangeStart', function (e, next, cur) {
     if (next.$$route && next.$$route.authenticate && !Auth.authed()) {
       $location.path('/signin');
     }
   });
-});
+})
+

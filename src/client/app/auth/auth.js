@@ -8,7 +8,7 @@ angular.module('battle.auth', [])
         var token = response.data.token;
         if (token) {
           $window.localStorage.setItem('nuggets', token);
-          $location.path('/');
+          $location.path('home');
         }
       })
       .catch(function (err) {

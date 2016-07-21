@@ -4,9 +4,9 @@
   margin-bottom: 0;
 }
 
-body {
+/*body {
   background: black;
-}
+}*/
 
 [ui-view='left'] {
   float: left;
@@ -27,6 +27,8 @@ body {
   width: 25%;
   height: 650px;
   background: lightyellow;
+  border: black;
+  border-radius: 60px;
 }
 
 /*Chat Window*/
