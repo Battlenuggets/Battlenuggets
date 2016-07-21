@@ -28,6 +28,10 @@ describe('Team', function () {
     });
   });
 
+  it('should get a fighter by its position', function () {
+    expect(team.getFighter(1)).to.equal(fighters[1]);
+  });
+
   it('should select a fighter as a target', function () {
     var target = team.chooseTarget();
 

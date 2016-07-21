@@ -15,6 +15,10 @@ Team.prototype.chooseTarget = function () {
   return _.sample(this.fighters);
 };
 
+Team.prototype.getFighter = function (position) {
+  return this.fighters[position];
+};
+
 // checks if every fighter on the team is dead
 Team.prototype.isDead = function () {
   return _.every(this.fighters, function (fighter) {
