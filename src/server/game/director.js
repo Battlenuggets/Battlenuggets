@@ -52,4 +52,11 @@ Director.prototype.tick = function () {
   }
 };
 
+// serialize the state of a battle, to be used in the initial client rendering
+Director.prototype.serializeBattle = function () {
+  return {
+    fighters: this.battle.getSerializedFighterData()
+  };
+};
+
 module.exports = Director;
