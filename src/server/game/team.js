@@ -1,7 +1,14 @@
 var _ = require('lodash');
 
-function Team (fighters) {
+function Team (name, fighters) {
+  this.name = name;
   this.fighters = fighters;
+
+  _.each(fighters, function (fighter, index) {
+  // a fighter's `teamPosition` is their index
+  // in the `fighters` array
+    fighter.setTeamPosition(name, index);
+  });
 }
 
 // choose a target from the team for another fighter to attack.
