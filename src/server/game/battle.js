@@ -31,18 +31,20 @@ Battle.prototype.generateAttackOrder = function () {
   return _.shuffle(this.getAllFighters());
 };
 
-Battle.prototype.generateAttackActions = function (attackOrder) {
-  return attackOrder.map(function (attacker) {
-    var defender = this.chooseDefender(attacker);
+Battle.prototype.generateAttackAction = function (attacker) {
+  var defender = this.chooseDefender(attacker);
 
-    // this is the shape of a serialized attack action
-    // that we can send over the socket
-    return {
-      attacker: attacker.getTeamData(),
-      defender: defender.getTeamData(),
-      damage: attacker.getDamageRoll()
-    };
-  }.bind(this));
+  // this is the shape of a serialized attack action
+  // that we can send over the socket
+  return {
+    attacker: attacker.getTeamData(),
+    defender: defender.getTeamData(),
+    damage: attacker.getDamageRoll()
+  };
+};
+
+Battle.prototype.generateAttackActions = function (attackOrder) {
+  return attackOrder.map(this.generateAttackAction.bind(this));
 };
 
 // execute a single serialized attack action
