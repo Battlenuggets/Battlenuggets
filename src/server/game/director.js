@@ -3,6 +3,10 @@ var ee = require('event-emitter');
 var tickEvent = 'tick';
 var endOfBattleEvent = 'endOfBattle';
 
+// an instance of `Director` is a wrapper around a `Battle` instance,
+// providing a simple API for advancing the battle and for communicating
+// it to the clients.
+
 // eventually, would be nice to plug in `battleConfig` or something as an
 // argument, so that the director can set up the `Battle` instance itself
 function Director (battle, tickInterval) {
@@ -13,14 +17,17 @@ function Director (battle, tickInterval) {
   this.emitter = ee();
 }
 
+// begin the `setInterval` calling `tick`
 Director.prototype.startBattle = function () {
   this.tickTimeout = setInterval(this.tick.bind(this), this.tickInterval);
 };
 
+// add a callback to be called after each tick
 Director.prototype.onTick = function (callback) {
   this.emitter.on(tickEvent, callback);
 };
 
+// add a callback to be called at the end of battle
 Director.prototype.onEndOfBattle = function (callback) {
   this.emitter.on(endOfBattleEvent, callback);
 };
