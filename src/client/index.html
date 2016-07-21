@@ -5,25 +5,39 @@
   <meta charset="utf-8">
 
   <title>Battlenuggets</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="styles/style.css" />
 </head>
 
 <body>
 
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Battle Nuggets</a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a ui-sref="signin">Login</a></li>
+        <li><a ui-sref="signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      </ul>
+    </div>
+  </nav>
+
   <div ui-view></div>
 
-  <div class='titlebar'>
-    <h1>Battle Nuggets</h1>
+  <div ng-show="$state.includes('home')" >
+    <div ui-view="left" ></div>
+    <div ui-view='gameview'></div>
+    <div ui-view='right'></div>
   </div>
-
-  <div ui-view="left"></div>
-  <div ui-view='gameview'></div>
-  <div ui-view='right'></div>
 
   <script src="lib/angular/angular.js"></script>
   <script src="lib/angular-route/angular-route.js"></script>
   <script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
-  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="lib/angular-scroll-glue/src/scrollglue.js"></script>
 
   <script src="services/services.js"></script>
   <script src="app/auth/auth.js"></script>

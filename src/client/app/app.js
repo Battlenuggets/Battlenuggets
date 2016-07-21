@@ -3,11 +3,13 @@ angular.module('battle', [
   'battle.auth',
   'battle.main',
   'chatRoom',
-  'ui.router'
+  'luegg.directives',
+  'ui.router',
+  'ui.bootstrap'
 ])
 
 .config(function ($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/signin');
+  $urlRouterProvider.otherwise('/');
 
   $stateProvider
     .state('home', {
@@ -58,10 +60,12 @@ angular.module('battle', [
   };
 })
 
-.run(function ($rootScope, $location, Auth) {
+.run(function ($rootScope, $location, Auth, $state) {
+  $rootScope.$state = $state;
   $rootScope.$on('$routeChangeStart', function (e, next, cur) {
     if (next.$$route && next.$$route.authenticate && !Auth.authed()) {
       $location.path('/signin');
     }
   });
-});
+})
+
