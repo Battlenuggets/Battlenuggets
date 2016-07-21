@@ -1,8 +1,6 @@
 var _ = require('lodash');
 var expect = require('chai').expect;
-var Battle = require('../../../src/server/game/battle');
-var Team = require('../../../src/server/game/team');
-var Fighter = require('../../../src/server/game/fighter');
+var getMockBattle = require('./mockBattle');
 
 describe('Battle', function () {
   var battle;
@@ -11,24 +9,12 @@ describe('Battle', function () {
   var team1Fighters;
 
   beforeEach(function () {
-    team0Fighters = [
-      new Fighter(),
-      new Fighter(),
-      new Fighter()
-    ];
+    var mockBattle = getMockBattle();
 
-    team1Fighters = [
-      new Fighter(),
-      new Fighter(),
-      new Fighter()
-    ];
-
-    teams = [
-      new Team(0, team0Fighters),
-      new Team(1, team1Fighters)
-    ];
-
-    battle = new Battle(teams);
+    team0Fighters = mockBattle.team0Fighters;
+    team1Fighters = mockBattle.team1Fighters;
+    teams = mockBattle.teams;
+    battle = mockBattle.battle;
   });
 
   it('should generate a list of all fighters', function () {
