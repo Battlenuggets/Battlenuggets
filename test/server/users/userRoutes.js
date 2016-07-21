@@ -7,10 +7,9 @@ var testUser = {
   userId: 'iamatestuser',
   password: 'supersecret',
   currency: 0
-}
+};
 
 describe('Auth API', function () {
-
   before(function () {
     User.create(testUser);
   });
@@ -18,14 +17,14 @@ describe('Auth API', function () {
   after(function () {
     User.destroy({ where: { userId: 'iamatestuser'} });
     User.destroy({ where: { userId: 'totallynewuser'} });
-  })
+  });
 
   describe('Sign-In', function () {
-    it('should respond with a 404 if user not found', function(done) {
+    it('should respond with a 404 if user not found', function (done) {
       var nonexistentUser = {
         username: 'billyjofosho',
         password: 'letmein'
-      }
+      };
 
       request(app)
         .post('/api/users/signin')
@@ -33,11 +32,11 @@ describe('Auth API', function () {
         .expect(404, done);
     });
 
-    it('should respond with a 401 if wrong password is used', function(done) {
+    it('should respond with a 401 if wrong password is used', function (done) {
       var wrongPassword = {
         username: 'iamatestuser',
-        password: 'badPassword',
-      }
+        password: 'badPassword'
+      };
 
       request(app)
         .post('/api/users/signin')
@@ -45,16 +44,16 @@ describe('Auth API', function () {
         .expect(401, done);
     });
 
-    it('should respond with a token if user exists and password is correct', function(done) {
+    it('should respond with a token if user exists and password is correct', function (done) {
       var user = {
         username: testUser.userId,
         password: testUser.password
-      }
+      };
 
       request(app)
         .post('/api/users/signin')
         .send(user)
-        .then(function(res) {
+        .then(function (res) {
           expect(res.body.token).to.exist;
           done();
         });
@@ -62,31 +61,28 @@ describe('Auth API', function () {
   });
 
   describe('Sign-up', function () {
-    it('should respond with a 401 if user already exists', function(done) {
+    it('should respond with a 401 if user already exists', function (done) {
       var user = {
         username: testUser.userId,
         password: testUser.password
-      }
+      };
 
       request(app)
         .post('/api/users/signup')
         .send(user)
         .expect(401, done);
-    })
+    });
 
-    it('should respond with a token if user is nonexistent', function(done) {
-        var user = {
-          username: 'totallynewuser',
-          password: 'sickpasswordbro'
-        }
+    it('should respond with a 201 if user is nonexistent', function (done) {
+      var user = {
+        username: 'totallynewuser',
+        password: 'sickpasswordbro'
+      };
 
-        request(app)
-          .post('/api/users/signup')
-          .send(user)
-          .then(function(res) {
-            expect(res.body.token).to.exist;
-            done();
-          });
+      request(app)
+        .post('/api/users/signup')
+        .send(user)
+        .expect(201, done);
     });
   });
 });

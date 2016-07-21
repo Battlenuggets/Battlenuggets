@@ -23,7 +23,7 @@ module.exports = {
     var password = req.body.password;
     user.signUp(userId, password)
       .then(function (created) {
-        res.sendStatus(created ? 201 : 401)
+        res.sendStatus(created ? 201 : 401);
       });
   }
 };
