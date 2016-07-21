@@ -49,4 +49,23 @@ describe('Director', function () {
       done();
     }, tickInterval * 2.5);
   });
+
+  it('should notify listeners on battle end', function (done) {
+    var called = false;
+    var callback = function () {
+      called = true;
+    };
+
+    director.onEndOfBattle(callback);
+    director.startBattle();
+
+    // just fake it for now; this will probably break at some point
+    director.battle.ended = true;
+
+    // the battle will end after the first tick, so check after
+    setTimeout(function () {
+      expect(called).to.equal(true);
+      done();
+    }, tickInterval * 1.5);
+  });
 });
