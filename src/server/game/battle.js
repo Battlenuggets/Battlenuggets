@@ -17,7 +17,7 @@ Battle.prototype.isEnded = function () {
 // send this to clients at the end of a battle
 Battle.prototype.getEndOfBattleData = function () {
   return {
-    winningTeam: this.winningTeamId;
+    winningTeam: this.winningTeamId
   };
 };
 

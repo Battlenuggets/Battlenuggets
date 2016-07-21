@@ -13,7 +13,7 @@ describe('Director', function () {
   });
 
   it('should tick the battle forward', function () {
-    var data = director.tick();
+    director.tick();
 
     // increment the round after a tick
     expect(director.round).to.equal(2);

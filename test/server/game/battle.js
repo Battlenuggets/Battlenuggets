@@ -4,7 +4,6 @@ var getMockBattle = require('./mockBattle');
 
 describe('Battle', function () {
   var battle;
-  var teams;
   var team0Fighters;
   var team1Fighters;
 
@@ -13,7 +12,6 @@ describe('Battle', function () {
 
     team0Fighters = mockBattle.team0Fighters;
     team1Fighters = mockBattle.team1Fighters;
-    teams = mockBattle.teams;
     battle = mockBattle.battle;
   });
 
