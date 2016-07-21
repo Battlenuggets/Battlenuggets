@@ -41,4 +41,21 @@ Fighter.prototype.getTeamData = function () {
   return this.team;
 };
 
+// serialized combat data
+Fighter.prototype.getCombatData = function () {
+  return {
+    health: this.health,
+    attack: this.attack
+  };
+};
+
+// serialize the fighter, to be sent at the beginning of a battle for
+// the initial client rendering
+Fighter.prototype.serialize = function () {
+  return {
+    combat: this.getCombatData(),
+    team: this.getTeamData()
+  };
+};
+
 module.exports = Fighter;
