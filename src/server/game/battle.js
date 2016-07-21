@@ -5,12 +5,20 @@ function Battle (teams) {
   // TODO: make this an object keyed by each team's `id` field
   this.teams = teams;
 
-  // set this to true when the battle's over
+  // update these when the battle's over
   this.ended = false;
+  this.winningTeamId = null;
 }
 
 Battle.prototype.isEnded = function () {
   return this.ended;
+};
+
+// send this to clients at the end of a battle
+Battle.prototype.getEndOfBattleData = function () {
+  return {
+    winningTeam: this.winningTeamId;
+  };
 };
 
 Battle.prototype.getAllFighters = function () {
@@ -69,6 +77,7 @@ Battle.prototype.executeAttackAction = function (attackAction) {
   // false every time any team dies
   if (defendingTeam.isDead()) {
     this.ended = true;
+    this.winningTeamId = attackAction.getTeamData().id;
     return false;
   }
 };
