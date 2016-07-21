@@ -15,10 +15,10 @@ User.hook('beforeCreate', function (user) {
   return bcrypt.hashAsync(user.password, null, null)
     .then(function (hash) {
       user.password = hash;
-  });
+    });
 });
 
-User.comparePasswords = function(possPassword, currPassword) {
+User.comparePasswords = function (possPassword, currPassword) {
   return bcrypt.compareAsync(possPassword, currPassword);
 };
 
@@ -27,20 +27,20 @@ User.signUp = function (username, password) {
       .spread(function (userResult, created) {
         return created;
       });
-}
+};
 
 User.signIn = function (username, password) {
-    return User.findOne({ where: {userId: username } })
-      .then(function (foundUser) {
-        if (!foundUser) {
-          return null;
-        } else {
-          User.comparePasswords(password, foundUser.password)
-            .then(function (passwordMatch) {
-              return passwordMatch ? foundUser : null;
-            });
-	      }
-      });
+  return User.findOne({ where: {userId: username } })
+    .then(function (foundUser) {
+      if (!foundUser) {
+        return null;
+      } else {
+        return User.comparePasswords(password, foundUser.password)
+          .then(function (passwordMatch) {
+            return passwordMatch ? foundUser : null;
+          });
+      }
+    });
 };
 
 module.exports = User;
