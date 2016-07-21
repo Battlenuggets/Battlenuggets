@@ -26,10 +26,10 @@ Fighter.prototype.isDead = function () {
   return this.health <= 0;
 };
 
-// set a fighter's team information (used when adding them to a team)
-Fighter.prototype.setTeam = function (teamName, teamPosition) {
+// set a fighter's team data (called automatically when adding to a team)
+Fighter.prototype.setTeamData = function (teamId, teamPosition) {
   this.team = {
-    name: teamName,
+    id: teamId,
     position: teamPosition
   };
 };
@@ -37,7 +37,7 @@ Fighter.prototype.setTeam = function (teamName, teamPosition) {
 // this can we used to serialize the fighter in the context of a
 // battle, since knowing the team name and position uniquely
 // determines the fighter
-Fighter.prototype.getTeam = function () {
+Fighter.prototype.getTeamData = function () {
   return this.team;
 };
 

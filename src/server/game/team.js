@@ -1,13 +1,12 @@
 var _ = require('lodash');
 
-function Team (name, fighters) {
-  this.name = name;
+function Team (id, fighters) {
+  this.id = id;
   this.fighters = fighters;
 
   _.each(fighters, function (fighter, index) {
-  // a fighter's `teamPosition` is their index
-  // in the `fighters` array
-    fighter.setTeamPosition(name, index);
+    // a fighter's `teamPosition` is their index in the `fighters` array
+    fighter.setTeamData(id, index);
   });
 }
 
