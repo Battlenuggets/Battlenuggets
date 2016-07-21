@@ -81,4 +81,20 @@ describe('Battle', function () {
 
     expect(initialHealth - 20).to.equal(finalHealth);
   });
+
+  it('should know when the battle is over', function () {
+    var blowoutActions = [0, 1, 2].map(function (enemyPosition) {
+      // an action where a team 0 fighter annihilates a team 1 fighter
+      return {
+        attacker: { id: 0, position: 0 },
+        defender: { id: 1, position: enemyPosition },
+        damage: Infinity
+      };
+    });
+
+    battle.executeAttackActions(blowoutActions);
+
+    expect(battle.isEnded()).to.equal(true);
+    expect(battle.getEndOfBattleData().winningTeamId).to.equal(0);
+  });
 });

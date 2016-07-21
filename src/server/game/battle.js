@@ -17,7 +17,7 @@ Battle.prototype.isEnded = function () {
 // send this to clients at the end of a battle
 Battle.prototype.getEndOfBattleData = function () {
   return {
-    winningTeam: this.winningTeamId
+    winningTeamId: this.winningTeamId
   };
 };
 
@@ -77,7 +77,7 @@ Battle.prototype.executeAttackAction = function (attackAction) {
   // false every time any team dies
   if (defendingTeam.isDead()) {
     this.ended = true;
-    this.winningTeamId = attackAction.getTeamData().id;
+    this.winningTeamId = attackAction.attacker.id;
     return false;
   }
 };
