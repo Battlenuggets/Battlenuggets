@@ -10,10 +10,13 @@ function Director (battle) {
 }
 
 Director.prototype.tick = function () {
+  // don't tick if the battle's over
+  // return `null` to let the caller know
+  if (this.battle.isEnded()) return null;
+
   var attackOrder = battle.generateAttackOrder();
 
-  // this is what we'd want to send over the socket to render
-  // client-side
+  // this is what we'd want to send over the socket to be rendered client-side
   var attackActions = battle.generateAttackActions(attackOrder);
 
   battle.executeAttackActions(attackActions);

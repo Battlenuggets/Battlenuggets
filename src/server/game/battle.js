@@ -2,8 +2,16 @@ var _ = require('lodash');
 
 // `teams` is an array of `Team` instances
 function Battle (teams) {
+  // TODO: make this an object keyed by each team's `id` field
   this.teams = teams;
+
+  // set this to true when the battle's over
+  this.ended = false;
 }
+
+Battle.prototype.isEnded = function () {
+  return this.ended;
+};
 
 Battle.prototype.getAllFighters = function () {
   var fighterArrays = _.map(this.teams, 'fighters');
@@ -50,7 +58,19 @@ Battle.prototype.generateAttackActions = function (attackOrder) {
 // execute a single serialized attack action
 Battle.prototype.executeAttackAction = function (attackAction) {
   var defender = this.getFighterFromTeamData(attackAction.defender);
+  var defendingTeam = this.teams[defender.getTeamData().id];
+
   defender.takeDamage(attackAction.damage);
+
+  // if the defending team dies here, we return `false` to stop the `_.each`
+  // loop early.
+  // TODO: if we ever want to have more than 2 teams, we'd only want to
+  // return false when ALL teams besides one is dead; this would return
+  // false every time any team dies
+  if (defendingTeam.isDead()) {
+    this.ended = true;
+    return false;
+  }
 };
 
 // execute an array of serialized attack actions in order
