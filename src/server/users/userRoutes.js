@@ -25,6 +25,15 @@ module.exports = {
       .then(function (created) {
         res.sendStatus(created ? 201 : 401);
       });
+  },
+
+  findUser: function (req, res) {
+    var decodedId = jwt.decode(req.headers['x-access-token'], secret).id;
+
+    user.findById(decodedId)
+      .then(function (foundUser) {
+        res.json({ userId: foundUser.userId, currency: foundUser.currency });
+      });
   }
 };
 

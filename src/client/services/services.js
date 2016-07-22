@@ -33,4 +33,25 @@ angular.module('battle.services', [])
       authed: authed
     };
   })
+  .factory('Bets', function ($http) {
+    var currency;
 
+    var getCurrencyFromServer = function () {
+      return $http({
+        method: 'GET',
+        url: '/api/users/user'
+      })
+        .then(function (res) {
+          currency = res.data.currency;
+        });
+    };
+
+    var getCurrency = function () {
+      return currency;
+    };
+
+    return {
+      getCurrencyFromServer: getCurrencyFromServer,
+      getCurrency: getCurrency
+    };
+  });
