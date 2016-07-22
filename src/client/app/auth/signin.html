@@ -1,9 +1,16 @@
-<div id='signin'>
-  <h1>signin</h1>
-  <form name="signinForm" ng-submit='signin()'>
-    <input type='text' ng-model='user.username'>
-    <input type="password" ng-model='user.password'>
-    <button>signin</button>
+<div class='col-md-6 col-md-offset-3' >
+  <h1>Sign In</h1>
+  <form name='signinForm' role='form' ng-submit='signin()'>
+    <div class='form-group'>
+      <label>User Name</label>
+      <input type='text' name='username' class='form-control' placeholder= 'Please Enter Your User Name' ng-model='user.username'>
+    </div>
+    <div class='form-group' >
+      <input type='password' name='password' class='form-control' placeholder='Password'ng-model='user.password'>
+    </div>
+    <div class='form-actions' >
+      <button type='submit' class='btn btn-primary'>signin</button>
+      <a href='#/signup' class='btn btn-link'>Don't have an account? <strong>Signup</strong> ...</a>
+    </div>
   </form>
-  <a href="#/signup">Don't have an account? <strong>Signup</strong> ...</a>
 </div>

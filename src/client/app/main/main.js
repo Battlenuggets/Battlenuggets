@@ -1,4 +1,4 @@
 angular.module('battle.main', ['betting'])
 
-.controller('MainController', function ($scope, $window, $location) {
-});
+.controller('MainController', ['$scope', '$window', '$location', function ($scope, $window, $location) {
+}]);

@@ -27,13 +27,42 @@
   width: 25%;
   height: 650px;
   background: lightyellow;
-  border: black;
-  border-radius: 60px;
 }
 
 /*Chat Window*/
 
-.messages {
+.browser-window {
+  height: 538px;
+  width: 335px;
+  margin: auto;
+  position:relative;
+}
+
+.viewport {
   overflow: auto;
   height: 500px;
 }
+
+.row-chat {
+  position:absolute;
+  bottom: -90px;
+  margin: 0;
+  width: 330px;
+}
+
+.bubble-container {
+  display:block;
+  position:relative;
+  margin-bottom:10px;
+}
+
+.bubble {
+  padding: 13px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #575858;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
