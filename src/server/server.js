@@ -33,14 +33,9 @@ db.sync().then(function () {
 // listen on the connection even for incoming sockets
 // possible refactor later to move into seperate file
 io.sockets.on('connection', function (socket) {
-<<<<<<< f1c93741cac24a3dd5fb42f90e9d4c4bd1ed2466
 
   socket.emit('all bets', betMaster.bets);
 
-||||||| merged common ancestors
-
-=======
->>>>>>> (style) change signin, signup and chat styles
   socket.on('send msg', function (data) {
     io.sockets.emit('get msg', data);
   });
@@ -49,10 +44,9 @@ io.sockets.on('connection', function (socket) {
     io.sockets.emit('new user', user.name + ' has joined.');
   });
 
-  socket.on('message', function (msg) {
+  socket.on('message', function(msg){
     io.sockets.emit('message', msg);
   });
-<<<<<<< f1c93741cac24a3dd5fb42f90e9d4c4bd1ed2466
 
   socket.on('placing bet', function (data) {
     // get id from token in bet
@@ -64,10 +58,6 @@ io.sockets.on('connection', function (socket) {
         io.sockets.emit('placed bet', completedBet);
       });
   });
-||||||| merged common ancestors
-
-=======
->>>>>>> (style) change signin, signup and chat styles
 });
 
 // export our app for testing and flexibility

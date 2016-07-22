@@ -1,9 +1,9 @@
 angular.module('battle', [
   'battle.services',
   'battle.auth',
+  'battle.chatRoom',
   'battle.main',
   'betboard',
-  'chatRoom',
   'luegg.directives',
   'ui.router',
   'ui.bootstrap'
