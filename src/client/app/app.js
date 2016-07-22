@@ -16,7 +16,6 @@ angular.module('battle', [
   $stateProvider
     .state('home', {
       url: '/',
-      authenticate: true,
       templateUrl: 'index.html',
       views: {
         'left': {
