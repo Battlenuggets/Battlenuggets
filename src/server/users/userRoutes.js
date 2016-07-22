@@ -3,43 +3,28 @@ var jwt = require('jwt-simple');
 var secret = process.env.AUTH_SECRET || 'nuggthuggs';
 
 module.exports = {
-  signin: function (req, res) {
+  signIn: function (req, res) {
     var userId = req.body.username;
     var password = req.body.password;
 
-    user.findOne({ where: {userId: userId } })
+    user.signIn(userId, password)
       .then(function (foundUser) {
         if (!foundUser) {
-          res.sendStatus(404);
+          res.sendStatus(401);
         } else {
-          user.comparePasswords(password, foundUser.password)
-            .then(function (passwordMatch) {
-              if (passwordMatch) {
-                var token = jwt.encode(foundUser, secret);
-                res.json({token: token});
-              } else {
-                res.sendStatus(401);
-              }
-            });
+          var token = jwt.encode(foundUser, secret);
+          res.json({token: token});
         }
       });
   },
-  signup: function (req, res) {
+
+  signUp: function (req, res) {
     var userId = req.body.username;
     var password = req.body.password;
-
-    user.findOrCreate({ where: {userId: userId}, defaults: {password: password, currency: 0} })
-      .spread(function (userResult, created) {
-        if (created) {
-          var token = jwt.encode(userResult, secret);
-          res.json({token: token});
-        } else {
-          res.sendStatus(401);
-        }
+    user.signUp(userId, password)
+      .then(function (created) {
+        res.sendStatus(created ? 201 : 401);
       });
-  },
-  checkAuth: function (req, res) {
-    res.send('hi');
   }
 };
 
