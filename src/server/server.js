@@ -30,9 +30,19 @@ db.sync().then(function () {
 // listen on the connection even for incoming sockets
 // possible refactor later to move into seperate file
 io.sockets.on('connection', function (socket) {
+
   socket.on('send msg', function (data) {
     io.sockets.emit('get msg', data);
   });
+  // added following two for tests
+  socket.on('connection name', function (user) {
+    io.sockets.emit('new user', user.name + ' has joined.');
+  });
+
+  socket.on('message', function(msg){
+    io.sockets.emit('message', msg);
+  });
+
 });
 
 // export our app for testing and flexibility
