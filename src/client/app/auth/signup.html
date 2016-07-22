@@ -1,10 +1,18 @@
-<div id='signup'>
-  <h1>signup</h1>
-  <form name="signupForm" ng-submit='signup()'>
-    <input type='text' ng-model='user.username'>
-    <input type="password" ng-model='user.password'>
-    <button>signup</button>
+<div class='col-md-6 col-md-offset-3'>
+  <h2>Sign Up</h2>
+  <form name="signupForm" role='form' ng-submit='signup()'>
+    <div class='form-group'>
+      <label> User Name </label>
+      <input type='text' class='form-control' placeholder='Enter new user name'ng-model='user.username'>
+    </div>
+    <div class='form-group'>
+      <label>Choose your password</label>
+      <input type="password" class='form-control' placeholder='New password' ng-model='user.password'>
+    </div>
+    <div class='form-actions'>
+      <button type='submit' class="btn btn-primary">signup</button>
+      <a href="#/signin" class="btn btn-link" >Already have an account? <strong>Signin</strong> ...</a>
+    </div>
     <h1>{{ user }}</h1>
   </form>
-  <a href="#/signin">Already have an account? <strong>Signin</strong> ...</a>
 </div>
