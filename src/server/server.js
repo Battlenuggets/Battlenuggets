@@ -49,8 +49,10 @@ io.sockets.on('connection', function (socket) {
   });
 
   socket.on('placing bet', function (data) {
+    // get id from token in bet
     data.id = jwt.decode(data.id, secret).id;
 
+    // attempt to place bet and emit it to all clients when done
     betMaster.placeBet(data)
       .then(function (completedBet) {
         io.sockets.emit('placed bet', completedBet);
