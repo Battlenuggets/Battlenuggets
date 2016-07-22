@@ -1,7 +1,11 @@
 <h3>Game View</h3>
 
 <div class="betPanel" ng-controller="BetCtrl" >
-  <form>
+  <form ng-submit="placeBet()">
     <h4 class="amount">${{ currency() }}</h4>
+    <div ng-if="message">{{ message }}</div>
+    <input type="number" ng-model="bet.amount" ng-change="errorMessage = false" min="0" />
+    <button ng-click="bet.team = 0">Team 1</button>
+    <button ng-click="bet.team = 1">Team 2</button>
   </form>
 </div>

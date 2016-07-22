@@ -33,7 +33,7 @@ angular.module('battle.services', [])
       authed: authed
     };
   })
-  .factory('Bets', function ($http) {
+  .factory('Bets', function ($http, socket) {
     var currency;
 
     var getCurrencyFromServer = function () {
@@ -50,8 +50,20 @@ angular.module('battle.services', [])
       return currency;
     };
 
+    var placeBet = function (bet) {
+      if (!bet.amount || bet.amount <= 0) {
+        throw new Error('Please enter a valid bet amount');
+      } else if (bet.amount > currency) {
+        throw new Error('Can\'t bet more than you have!');
+      } else {
+        currency -= bet.amount;
+        socket.emit('placing bet', bet);
+      }
+    };
+
     return {
       getCurrencyFromServer: getCurrencyFromServer,
-      getCurrency: getCurrency
+      getCurrency: getCurrency,
+      placeBet: placeBet
     };
   });
