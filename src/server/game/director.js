@@ -42,19 +42,12 @@ Director.prototype.getNewBattle = function () {
   return getMockBattle().battle;
 };
 
-// serialize the state of a battle, to be used in the initial client rendering
-Director.prototype.serializeBattle = function () {
-  return {
-    fighters: this.battle.getSerializedFighterData()
-  };
-};
-
 // begin the `setInterval` calling `tick`, and emit `startOfBattleEvent`
 Director.prototype.startBattle = function () {
   this.tickTimeout = setInterval(this.tick.bind(this), this.tickInterval);
 
   // emit the initial state of the battle when it starts
-  this.emitter.emit(startOfBattleEvent, this.serializeBattle());
+  this.emitter.emit(startOfBattleEvent, this.battle.serialize());
 };
 
 // wait `timeBetweenBattles` ms, then create and start a new battle

@@ -78,11 +78,4 @@ describe('Director', function () {
       done();
     }, tickInterval * 1.5);
   });
-
-  it('should serialize its battle', function () {
-    var serialized = director.serializeBattle();
-
-    expect(serialized.fighters)
-      .to.deep.equal(director.battle.getSerializedFighterData());
-  });
 });
