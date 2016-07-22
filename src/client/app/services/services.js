@@ -75,5 +75,40 @@ angular.module('battle.services', [])
     };
   })
   .factory('Store', function ($http) {
-    return {};
+    var getCurrencyFromServer = function () {
+      return $http({
+        method: 'GET',
+        url: '/api/users/user'
+      })
+        .then(function (res) {
+          return res.data.currency;
+        });
+    };
+
+    var getInventoryFromServer = function () {
+      return $http({
+        method: 'GET',
+        url: '/api/users/user'
+      })
+        .then(function (res) {
+          return res.data.items;
+        });
+    }
+
+    var purchase = function (item) {
+      return $http({
+        method: 'POST',
+        url: '/api/users/purchase',
+        data: item
+      })
+        .then(function (res) {
+          return res;
+        });
+    }
+
+    return {
+      getCurrency: getCurrencyFromServer,
+      getInventory: getInventoryFromServer,
+      purchase: purchase
+    }
   });
