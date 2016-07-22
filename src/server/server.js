@@ -12,6 +12,9 @@ var app = express();
 var server = http.createServer(app); // added for sockets
 var io = require('socket.io').listen(server); // added for sockets
 
+// send game state data to clients through the socket server
+require('./game/initGameSender')(io);
+
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -33,7 +36,6 @@ db.sync().then(function () {
 // listen on the connection even for incoming sockets
 // possible refactor later to move into seperate file
 io.sockets.on('connection', function (socket) {
-
   socket.emit('all bets', betMaster.bets);
 
   socket.on('send msg', function (data) {
@@ -44,7 +46,7 @@ io.sockets.on('connection', function (socket) {
     io.sockets.emit('new user', user.name + ' has joined.');
   });
 
-  socket.on('message', function(msg){
+  socket.on('message', function (msg) {
     io.sockets.emit('message', msg);
   });
 
