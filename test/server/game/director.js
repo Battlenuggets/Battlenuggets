@@ -47,6 +47,18 @@ describe('Director', function () {
     }, tickInterval * 2.5);
   });
 
+  it('should notify listeners on the start of battle', function () {
+    var called = false;
+    var callback = function () {
+      called = true;
+    };
+
+    director.onStartOfBattle(callback);
+    director.startBattle();
+
+    expect(called).to.equal(true);
+  });
+
   it('should notify listeners on battle end', function (done) {
     var called = false;
     var callback = function () {

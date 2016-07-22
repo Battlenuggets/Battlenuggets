@@ -1,6 +1,7 @@
 var ee = require('event-emitter');
 
 var tickEvent = 'tick';
+var startOfBattleEvent = 'startOfBattle';
 var endOfBattleEvent = 'endOfBattle';
 
 // an instance of `Director` is a wrapper around a `Battle` instance,
@@ -19,16 +20,23 @@ Director.prototype.setBattle = function (battle) {
 
 Director.prototype.setTickInterval = function (tickInterval) {
   this.tickInterval = tickInterval;
-}
+};
 
-// begin the `setInterval` calling `tick`
+// begin the `setInterval` calling `tick`, and emit `startOfBattleEvent`
 Director.prototype.startBattle = function () {
   this.tickTimeout = setInterval(this.tick.bind(this), this.tickInterval);
+
+  this.emitter.emit(startOfBattleEvent, this.serializeBattle());
 };
 
 // add a callback to be called after each tick
 Director.prototype.onTick = function (callback) {
   this.emitter.on(tickEvent, callback);
+};
+
+// add a callback to be called at the start of battle
+Director.prototype.onStartOfBattle = function (callback) {
+  this.emitter.on(startOfBattleEvent, callback);
 };
 
 // add a callback to be called at the end of battle
