@@ -21,14 +21,20 @@ Battle.prototype.getEndOfBattleData = function () {
   };
 };
 
-// serialize each fighter in the battle, to be sent at the beginning
-// of a battle for the initial client rendering
+// serialize each fighter in the battle
 Battle.prototype.getSerializedFighterData = function () {
   var fighters = this.getAllFighters();
 
   return _.map(fighters, function (fighter) {
     return fighter.serialize();
   });
+};
+
+// serialize the state of a battle, to be used in the initial client rendering
+Battle.prototype.serialize = function () {
+  return {
+    fighters: this.getSerializedFighterData()
+  };
 };
 
 // returns a flat array of all fighters in the battle (not grouped by team)

@@ -7,17 +7,15 @@ describe('Director', function () {
   var battle;
   var director;
   var tickInterval = 30;
+  var timeBetweenBattles = 50;
 
   beforeEach(function () {
     battle = getMockBattle().battle;
-    director = new Director(battle, tickInterval);
+    director = new Director(tickInterval, timeBetweenBattles, battle);
   });
 
   it('should tick the battle forward', function () {
     director.tick();
-
-    // increment the round after a tick
-    expect(director.round).to.equal(2);
 
     // check that the attack actions were actually followed by making
     // sure that at least one of the nugs got hit by something. out of
@@ -50,6 +48,18 @@ describe('Director', function () {
     }, tickInterval * 2.5);
   });
 
+  it('should notify listeners on the start of battle', function () {
+    var called = false;
+    var callback = function () {
+      called = true;
+    };
+
+    director.onStartOfBattle(callback);
+    director.startBattle();
+
+    expect(called).to.equal(true);
+  });
+
   it('should notify listeners on battle end', function (done) {
     var called = false;
     var callback = function () {
@@ -67,12 +77,5 @@ describe('Director', function () {
       expect(called).to.equal(true);
       done();
     }, tickInterval * 1.5);
-  });
-
-  it('should serialize its battle', function () {
-    var serialized = director.serializeBattle();
-
-    expect(serialized.fighters)
-      .to.deep.equal(director.battle.getSerializedFighterData());
   });
 });
