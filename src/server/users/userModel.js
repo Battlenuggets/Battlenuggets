@@ -43,4 +43,16 @@ User.signIn = function (username, password) {
     });
 };
 
+User.placeBet = function (id, amount) {
+  return User.findById(id)
+    .then(function (user) {
+      if (user.currency >= amount) {
+        user.currency -= amount;
+        user.save();
+
+        return user;
+      }
+    });
+};
+
 module.exports = User;
