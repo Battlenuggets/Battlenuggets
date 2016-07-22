@@ -16,6 +16,7 @@ angular.module('battle', [
   $stateProvider
     .state('home', {
       url: '/',
+      authenticate: true,
       templateUrl: 'index.html',
       views: {
         'left': {
@@ -68,8 +69,8 @@ angular.module('battle', [
 .run(function ($rootScope, $location, Auth, Bets, $state) {
   $rootScope.$state = $state;
   Bets.getCurrencyFromServer();
-  $rootScope.$on('$routeChangeStart', function (e, next) {
-    if (next.$$route && next.$$route.authenticate && !Auth.authed()) {
+  $rootScope.$on('$stateChangeStart', function (e, next) {
+    if (next.authenticate && !Auth.authed()) {
       $location.path('/signin');
     }
   });
