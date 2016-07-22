@@ -1,1 +1,12 @@
-<h3>Store!</h3>
+<div class="container">
+  <h3>Store!</h3>
+
+  <div>Wallet: ${{ wallet }}</div>
+  <div>Inventory: {{ inventory | json }}</div>
+
+  <div class="row">
+    <div ng-repeat="item in items" class="col-sm-2">
+      {{ item.name }}: ${{ item.price }}
+      <button ng-click="purchase(item)" class="btn btn-primary btn-block">Purchase</button>
+  </div>
+</div>
