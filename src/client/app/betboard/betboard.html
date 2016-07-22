@@ -1,0 +1,43 @@
+<style>
+  .team0 { width: 50%; float: left; }
+  .team1 { margin-left: 50%; }
+  .team0 .bets { background-color: #ECE2E2; border-top: 1px solid rgb(176, 68, 68); }
+  .team1 .bets { background-color: #E0EAF3; border-top: 1px solid rgb(52, 158, 255);}
+  .user { padding-right: 8px; border-right: 1px solid; }
+  .bets { padding: 5px; }
+  .odds { text-align: center; }
+  .redtext { color: rgb(176, 68, 68); }
+  .bluetext { color: rgb(52, 158, 255); }
+  .amount { color: green; padding-left: 8px; }
+</style>
+
+<div class="betboard" ng-controller="BetboardCtrl" >
+  <h3>Bets</h3>
+  <div class="odds">
+    <span class="redtext">
+      {{ team0total / team1total > 1 ? (team0total / (team1total || 1) | number: 1) : 1 }}
+    </span>
+    <span>:</span>
+    <span class="bluetext">
+      {{ team1total / team0total > 1 ? (team1total / (team0total || 1) | number: 1) : 1 }}
+    </span>
+  </div>
+  <div class="team0">
+    <span class="redtext">Team 1</span>
+    <div class="bets">
+      <div ng-repeat="bet in bets | filter:{team: 0} | orderBy:'-amount'" >
+        <span class="user">{{ bet.username }}</span>
+        <span class="amount">${{ bet.amount }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="team1" >
+    <span class="bluetext">Team 2</span>
+    <div class="bets">
+      <div ng-repeat="bet in bets | filter:{team: 1} | orderBy:'-amount'" >
+        <span class="user">{{ bet.username }}</span>
+        <span class="amount">${{ bet.amount }}</span>
+      </div>
+    </div>
+  </div>
+</div>

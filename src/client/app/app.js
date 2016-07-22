@@ -2,6 +2,7 @@ angular.module('battle', [
   'battle.services',
   'battle.auth',
   'battle.main',
+  'betboard',
   'chatRoom',
   'luegg.directives',
   'ui.router',
@@ -17,7 +18,7 @@ angular.module('battle', [
       templateUrl: 'index.html',
       views: {
         'left': {
-          template: '<h3>Future Score Board</h3>'
+          templateUrl: 'app/betboard/betboard.html'
         },
         'gameview': {
           templateUrl: 'app/main/main.html',
