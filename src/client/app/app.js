@@ -73,5 +73,3 @@ angular.module('battle', [
     }
   });
 });
-
-

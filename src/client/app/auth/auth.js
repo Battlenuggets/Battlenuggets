@@ -1,6 +1,6 @@
 angular.module('battle.auth', [])
 
-.controller('AuthController', function ($scope, $window, $location, Auth) {
+.controller('AuthController', [ '$scope', '$window', '$location', 'Auth', function ($scope, $window, $location, Auth) {
   $scope.user = {};
   $scope.signin = function () {
     Auth.signin($scope.user)
@@ -24,4 +24,4 @@ angular.module('battle.auth', [])
         console.log(err);
       });
   };
-});
+}]);
