@@ -2,13 +2,14 @@ angular.module('battle', [
   'battle.services',
   'battle.auth',
   'battle.main',
+  'betboard',
   'chatRoom',
   'luegg.directives',
   'ui.router',
   'ui.bootstrap'
 ])
 
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
@@ -17,7 +18,7 @@ angular.module('battle', [
       templateUrl: 'index.html',
       views: {
         'left': {
-          template: '<h3>Future Score Board</h3>'
+          templateUrl: 'app/betboard/betboard.html'
         },
         'gameview': {
           templateUrl: 'app/main/main.html',
@@ -45,12 +46,14 @@ angular.module('battle', [
       templateUrl: 'app/auth/signup.html',
       controller: 'AuthController'
     });
+
+  $httpProvider.interceptors.push('AttachTokens');
 })
 
 .factory('AttachTokens', function ($window) {
   var attach = {
     request: function (object) {
-      var jwt = $window.localStorage.getItem('com.shortly');
+      var jwt = $window.localStorage.getItem('nuggets');
       if (jwt) {
         object.headers['x-access-token'] = jwt;
       }
@@ -58,14 +61,16 @@ angular.module('battle', [
       return object;
     }
   };
+  return attach;
 })
 
-.run(function ($rootScope, $location, Auth, $state) {
+.run(function ($rootScope, $location, Auth, Bets, $state) {
   $rootScope.$state = $state;
-  $rootScope.$on('$routeChangeStart', function (e, next, cur) {
+  Bets.getCurrencyFromServer();
+  $rootScope.$on('$routeChangeStart', function (e, next) {
     if (next.$$route && next.$$route.authenticate && !Auth.authed()) {
       $location.path('/signin');
     }
   });
-})
+});
 

@@ -4,6 +4,9 @@ var bodyParser = require('body-parser');
 var db = require('./db/db');
 var path = require('path');
 var http = require('http');
+var jwt = require('jwt-simple');
+var betMaster = require('./game/betMaster');
+var secret = process.env.AUTH_SECRET || 'nuggthuggs'; // TODO: refactor to shared server config
 
 var app = express();
 var server = http.createServer(app); // added for sockets
@@ -31,6 +34,8 @@ db.sync().then(function () {
 // possible refactor later to move into seperate file
 io.sockets.on('connection', function (socket) {
 
+  socket.emit('all bets', betMaster.bets);
+
   socket.on('send msg', function (data) {
     io.sockets.emit('get msg', data);
   });
@@ -43,6 +48,16 @@ io.sockets.on('connection', function (socket) {
     io.sockets.emit('message', msg);
   });
 
+  socket.on('placing bet', function (data) {
+    // get id from token in bet
+    data.id = jwt.decode(data.id, secret).id;
+
+    // attempt to place bet and emit it to all clients when done
+    betMaster.placeBet(data)
+      .then(function (completedBet) {
+        io.sockets.emit('placed bet', completedBet);
+      });
+  });
 });
 
 // export our app for testing and flexibility
