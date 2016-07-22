@@ -3,6 +3,7 @@ angular.module('battle', [
   'battle.auth',
   'battle.chatRoom',
   'battle.main',
+  'battle.game',
   'betboard',
   'luegg.directives',
   'ui.router',
@@ -21,8 +22,8 @@ angular.module('battle', [
           templateUrl: 'app/betboard/betboard.html'
         },
         'gameview': {
-          templateUrl: 'app/main/main.html',
-          controller: 'MainController'
+          templateUrl: 'app/game/game.html',
+          controller: 'GameCtrl'
         },
         'right': {
           templateUrl: 'app/chat/chat.html',
