@@ -73,4 +73,7 @@ angular.module('battle.services', [])
       getCurrency: getCurrency,
       placeBet: placeBet
     };
+  })
+  .factory('Store', function ($http) {
+    return {};
   });
