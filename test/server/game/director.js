@@ -7,10 +7,11 @@ describe('Director', function () {
   var battle;
   var director;
   var tickInterval = 30;
+  var timeBetweenBattles = 50;
 
   beforeEach(function () {
     battle = getMockBattle().battle;
-    director = new Director(battle, tickInterval);
+    director = new Director(tickInterval, timeBetweenBattles, battle);
   });
 
   it('should tick the battle forward', function () {

@@ -1,5 +1,9 @@
 var ee = require('event-emitter');
 
+// TODO: should probably not rely on this
+var getMockBattle = require('../../../test/server/game/mockBattle');
+
+// event name constants
 var tickEvent = 'tick';
 var startOfBattleEvent = 'startOfBattle';
 var endOfBattleEvent = 'endOfBattle';
@@ -7,27 +11,16 @@ var endOfBattleEvent = 'endOfBattle';
 // an instance of `Director` is a wrapper around a `Battle` instance,
 // providing a simple API for advancing the battle and for communicating
 // it to the clients.
-function Director (battle, tickInterval) {
-  this.setBattle(battle);
-  this.setTickInterval(tickInterval);
+function Director (tickInterval, timeBetweenBattles, battle) {
+  this.tickInterval = tickInterval;
+  this.timeBetweenBattles = timeBetweenBattles;
+  this.battle = battle;
 
   this.emitter = ee();
+
+  // queue the next battle when the last one ends
+  this.onEndOfBattle(this.queueNextBattle.bind(this));
 }
-
-Director.prototype.setBattle = function (battle) {
-  this.battle = battle;
-};
-
-Director.prototype.setTickInterval = function (tickInterval) {
-  this.tickInterval = tickInterval;
-};
-
-// begin the `setInterval` calling `tick`, and emit `startOfBattleEvent`
-Director.prototype.startBattle = function () {
-  this.tickTimeout = setInterval(this.tick.bind(this), this.tickInterval);
-
-  this.emitter.emit(startOfBattleEvent, this.serializeBattle());
-};
 
 // add a callback to be called after each tick
 Director.prototype.onTick = function (callback) {
@@ -42,6 +35,35 @@ Director.prototype.onStartOfBattle = function (callback) {
 // add a callback to be called at the end of battle
 Director.prototype.onEndOfBattle = function (callback) {
   this.emitter.on(endOfBattleEvent, callback);
+};
+
+// create a new battle to feed to the director
+Director.prototype.getNewBattle = function () {
+  return getMockBattle().battle;
+};
+
+// serialize the state of a battle, to be used in the initial client rendering
+Director.prototype.serializeBattle = function () {
+  return {
+    fighters: this.battle.getSerializedFighterData()
+  };
+};
+
+// begin the `setInterval` calling `tick`, and emit `startOfBattleEvent`
+Director.prototype.startBattle = function () {
+  this.tickTimeout = setInterval(this.tick.bind(this), this.tickInterval);
+
+  // emit the initial state of the battle when it starts
+  this.emitter.emit(startOfBattleEvent, this.serializeBattle());
+};
+
+// wait `timeBetweenBattles` ms, then create and start a new battle
+Director.prototype.queueNextBattle = function () {
+  setTimeout(function () {
+    var nextBattle = this.getNewBattle();
+    this.battle = nextBattle;
+    this.startBattle();
+  }.bind(this), this.timeBetweenBattles);
 };
 
 // execute a round of battle, where every nugget attacks some other one
@@ -61,13 +83,6 @@ Director.prototype.tick = function () {
   } else {
     this.emitter.emit(tickEvent, attackActions);
   }
-};
-
-// serialize the state of a battle, to be used in the initial client rendering
-Director.prototype.serializeBattle = function () {
-  return {
-    fighters: this.battle.getSerializedFighterData()
-  };
 };
 
 module.exports = Director;
