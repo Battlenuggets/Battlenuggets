@@ -34,6 +34,8 @@ db.sync().then(function () {
 // possible refactor later to move into seperate file
 io.sockets.on('connection', function (socket) {
 
+  socket.emit('all bets', betMaster.bets);
+
   socket.on('send msg', function (data) {
     io.sockets.emit('get msg', data);
   });
