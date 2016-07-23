@@ -1,5 +1,4 @@
-var nuggetImg = new Image();
-nuggetImg.src = '/img/battlenugget.png';
+
 
 function Nugget (x, y, w, h, img) {
   this.x = x;

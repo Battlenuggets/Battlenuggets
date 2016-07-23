@@ -2,16 +2,21 @@ function Game (w, h) {
   this.w = w;
   this.h = h;
 
-  var nuggetImg = new Image();
-  nuggetImg.src = '/img/battlenugget.png';
+  // load nugget image
+  this.nuggetImg = new Image();
+  this.nuggetImg.src = '/img/battlenugget.png';
+}
 
-  this.nuggets = [
-    new Nugget(20, 10, 30, 30, nuggetImg),
-    new Nugget(20, 40, 30, 30, nuggetImg),
-    new Nugget(20, 70, 30, 30, nuggetImg),
-    new Nugget(20, 100, 30, 30, nuggetImg)
-  ];
+Game.prototype.createNuggets = function (fighters) {
+  this.nuggets = fighters.map(function (fighter) {
+    // compute where to draw the nugget based on its team data
+    var w = 40;
+    var h = 40;
+    var x = fighter.team.id === 0 ? 50 : this.w - 50 - w;
+    var y = 30 + fighter.team.position * 60;
 
+    return new Nugget(x, y, w, h, this.nuggetImg);
+  }.bind(this));
 }
 
 Game.prototype.draw = function (ctx) {
@@ -23,6 +28,8 @@ Game.prototype.draw = function (ctx) {
 Game.prototype.update = function () {
 
 };
+
+var mockInitBattleData = JSON.parse('[{"combat":{"health":100,"attack":10},"team":{"id":0,"position":0}},{"combat":{"health":100,"attack":10},"team":{"id":0,"position":1}},{"combat":{"health":100,"attack":10},"team":{"id":0,"position":2}},{"combat":{"health":100,"attack":10},"team":{"id":1,"position":0}},{"combat":{"health":100,"attack":10},"team":{"id":1,"position":1}},{"combat":{"health":100,"attack":10},"team":{"id":1,"position":2}}]');
 
 setTimeout(function() {
   var canvas = document.getElementById('canvas');
@@ -40,6 +47,7 @@ setTimeout(function() {
   var nextTimestamp;
 
   var game = new Game(width, height);
+  game.createNuggets(mockInitBattleData);
 
   function gameloop(timestamp) {
     lastTimestamp = nextTimestamp;
