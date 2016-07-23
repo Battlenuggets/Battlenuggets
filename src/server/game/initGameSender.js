@@ -1,4 +1,5 @@
 var Director = require('./director');
+var betMaster = require('./betMaster');
 
 function initGameSender (io) {
   this.io = io;
@@ -12,6 +13,7 @@ function initGameSender (io) {
   // hook up event callbacks to send data to all connected clients
   director.onStartOfBattle(createSender(io, 'start of battle'));
   director.onTick(createSender(io, 'tick'));
+  director.onEndOfBattle(betMaster.payout);
   director.onEndOfBattle(createSender(io, 'end of battle'));
 }
 
