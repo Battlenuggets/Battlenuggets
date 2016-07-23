@@ -73,4 +73,50 @@ angular.module('battle.services', [])
       getCurrency: getCurrency,
       placeBet: placeBet
     };
+  })
+  .factory('Store', function ($http) {
+    var getCurrencyFromServer = function () {
+      return $http({
+        method: 'GET',
+        url: '/api/users/user'
+      })
+        .then(function (res) {
+          return res.data.currency;
+        });
+    };
+
+    var getInventoryFromServer = function () {
+      return $http({
+        method: 'GET',
+        url: '/api/users/user'
+      })
+        .then(function (res) {
+          return res.data.ownedIcons;
+        });
+    };
+
+    var purchase = function (item) {
+      return $http({
+        method: 'GET',
+        url: '/api/users/user'
+      })
+        .then(function (res) {
+          var ownedIcons = JSON.parse(res.data.ownedIcons);
+          ownedIcons.push(item.name);
+          return $http({
+            method: 'POST',
+            url: '/api/users/update',
+            data: {
+              currency: res.data.currency - item.price,
+              ownedIcons: JSON.stringify(ownedIcons)  // hahahahahahaha
+            }
+          });
+        });
+    };
+
+    return {
+      getCurrency: getCurrencyFromServer,
+      getInventory: getInventoryFromServer,
+      purchase: purchase
+    };
   });

@@ -1,0 +1,33 @@
+<div class="container">
+  <h3>Battlenuggets Chat Icon Store</h3>
+
+  <div ng-hide="authed()">Make an account to get nollars and shop!</div>
+  <div ng-show="authed()">
+    Wallet: ${{ wallet }} <br/>
+    Owned icons:
+    <ul>
+      <li ng-repeat="item in inventory">{{ item }}</li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <div ng-repeat="item in items" class="col-sm-2">
+      {{ item.name }}: ${{ item.price }} <br/>
+      <img ng-src="{{ item.img }}"/>
+      <button ng-disabled="!authed() || !canAfford(item) || alreadyOwns(item)" data-toggle="modal" data-target="#confirmPurchase" ng-click="nominate(item)" class="btn btn-primary btn-block">Purchase</button>
+  </div>
+
+  <div class="modal fade" id="confirmPurchase" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          Confirm purchase of {{ purchaseCandidate.name }} for {{ purchaseCandidate.price }}?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" ng-click="purchase()" class="btn btn-primary">Purchase</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

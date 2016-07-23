@@ -7,7 +7,8 @@ angular.module('battle', [
   'betboard',
   'luegg.directives',
   'ui.router',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'battle.store'
 ])
 
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
@@ -30,6 +31,11 @@ angular.module('battle', [
           controller: 'ChatCtrl'
         }
       }
+    })
+    .state('store', {
+      url: '/store',
+      templateUrl: 'app/store/store.html',
+      controller: 'StoreController'
     })
     .state('main', {
       url: '/main',

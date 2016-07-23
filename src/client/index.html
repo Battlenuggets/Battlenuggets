@@ -18,6 +18,9 @@
       <div class="navbar-header">
         <a class="navbar-brand" href="#">Battle Nuggets</a>
       </div>
+      <ul class="nav navbar-nav navbar-left">
+        <li><a ui-sref="store">Store</a></li>
+      </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a ui-sref="signin" ng-hide='authed()'>Login</a></li>
         <li><a ui-sref="signup" ng-hide='authed()'><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -49,6 +52,7 @@
   <script src="app/chat/chat.js"></script>
   <script src="app/main/betting.js"></script>
   <script src="app/betboard/betboard.js"></script>
+  <script src="app/store/store.js"></script>
 
 </body>
 </html>

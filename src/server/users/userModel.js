@@ -6,7 +6,9 @@ var db = require('../db/db');
 var User = db.define('user', {
   userId: Sequelize.STRING,
   password: Sequelize.STRING,
-  currency: Sequelize.INTEGER
+  currency: Sequelize.INTEGER,
+  currentIcon: Sequelize.STRING,
+  ownedIcons: Sequelize.TEXT
 }, {
   timestamps: false  // for later debate
 });
@@ -23,7 +25,7 @@ User.comparePasswords = function (possPassword, currPassword) {
 };
 
 User.signUp = function (username, password) {
-  return User.findOrCreate({ where: {userId: username}, defaults: {password: password, currency: 0} })
+  return User.findOrCreate({ where: {userId: username}, defaults: {password: password, currency: 0, ownedIcons: '[]', currentIcon: ''} })
       .spread(function (userResult, created) {
         return created;
       });
@@ -40,6 +42,16 @@ User.signIn = function (username, password) {
             return passwordMatch ? foundUser : null;
           });
       }
+    });
+};
+
+User.update = function (id, model) {
+  return User.findById(id)
+    .then(function (foundUser) {
+      for (var key in model) {
+        foundUser[key] = model[key];
+      }
+      foundUser.save();
     });
 };
 
