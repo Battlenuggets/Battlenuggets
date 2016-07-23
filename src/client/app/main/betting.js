@@ -1,9 +1,13 @@
 angular.module('betting', [])
 
-  .controller('BetCtrl', function ($scope, $window, socket, Bets) {
+  .controller('BetCtrl', function ($scope, $window, Auth, socket, Bets) {
     // all bets include auth token
     $scope.bet = {
       id: $window.localStorage.getItem('nuggets')
+    };
+
+    if(Auth.authed()) {
+      Bets.getCurrencyFromServer();
     };
 
     // binds factory currency to controller/view

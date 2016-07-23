@@ -74,7 +74,6 @@ angular.module('battle', [
 
 .run(function ($rootScope, $location, Auth, Bets, socket, $state) {
   $rootScope.$state = $state;
-  Bets.getCurrencyFromServer();
 
   $rootScope.$on('$stateChangeStart', function (e, next) {
     if (next.authenticate && !Auth.authed()) {
