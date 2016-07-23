@@ -25,7 +25,7 @@ User.comparePasswords = function (possPassword, currPassword) {
 };
 
 User.signUp = function (username, password) {
-  return User.findOrCreate({ where: {userId: username}, defaults: {password: password, currency: 0, ownedIcons: '[]', currentIcon: ''} })
+  return User.findOrCreate({ where: {userId: username}, defaults: {password: password, currency: 100, ownedIcons: '[]', currentIcon: ''} })
       .spread(function (userResult, created) {
         return created;
       });
