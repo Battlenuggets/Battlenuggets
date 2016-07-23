@@ -24,21 +24,21 @@ angular.module('battle.store', [])
         alert('purchased!');
         $scope.updateCurrency();
       });
-  }
+  };
 
   $scope.updateCurrency = function () {
     Store.getCurrency()
       .then(function (currency) {
         $scope.wallet = currency;
       });
-  }
+  };
 
   $scope.updateInventory = function () {
     Store.getInventory()
       .then(function (inventory) {
         $scope.inventory = inventory;
       });
-  }
+  };
 
   $scope.updateCurrency();
   $scope.updateInventory();

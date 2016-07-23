@@ -93,7 +93,7 @@ angular.module('battle.services', [])
         .then(function (res) {
           return res.data.items;
         });
-    }
+    };
 
     var purchase = function (item) {
       $http({
@@ -106,15 +106,15 @@ angular.module('battle.services', [])
             url: '/api/users/update',
             data: {
               currency: res.data.currency - item.price,
-              items: res.data.items.push(items)
+              items: res.data.items.push(item)
             }
-          })
-        })
-    }
+          });
+        });
+    };
 
     return {
       getCurrency: getCurrencyFromServer,
       getInventory: getInventoryFromServer,
       purchase: purchase
-    }
+    };
   });

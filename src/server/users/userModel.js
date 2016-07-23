@@ -51,7 +51,7 @@ User.update = function (id, model) {
       }
       foundUser.save();
     });
-}
+};
 
 User.placeBet = function (id, amount) {
   return User.findById(id)
