@@ -6,6 +6,7 @@ angular.module('battle', [
   'battle.game',
   'betboard',
   'luegg.directives',
+  'ngMessages',
   'ui.router',
   'ui.bootstrap',
   'battle.store'

@@ -63,4 +63,4 @@ angular.module('battle.game', [])
       $scope.woop = 'sjsjsjs';
 
       gameListeners.add(socket, renderer);
-  }]);
+    }]);
