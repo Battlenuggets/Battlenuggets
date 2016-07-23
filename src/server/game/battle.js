@@ -73,7 +73,7 @@ Battle.prototype.generateAttackAction = function (attacker) {
   return {
     attacker: attacker.getTeamData(),
     defender: defender.getTeamData(),
-    damage: attacker.getDamageRoll()
+    damage: attacker.getDamageRoll(),
   };
 };
 
@@ -82,11 +82,16 @@ Battle.prototype.generateAttackActions = function (attackOrder) {
 };
 
 // execute a single serialized attack action
+// note: this mutates `attackAction`
 Battle.prototype.executeAttackAction = function (attackAction) {
   var defender = this.getFighterFromTeamData(attackAction.defender);
   var defendingTeam = this.teams[defender.getTeamData().id];
 
   defender.takeDamage(attackAction.damage);
+
+  // not great to mutate state here, but it's the most straightforward way
+  // to add the defender's remaining health after the attack
+  attackAction.defenderHealth = Math.ceil(defender.health);
 
   // if the defending team dies here, we return `false` to stop the `_.each`
   // loop early.
