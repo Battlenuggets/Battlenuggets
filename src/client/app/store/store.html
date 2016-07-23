@@ -10,6 +10,6 @@
   <div class="row">
     <div ng-repeat="item in items" class="col-sm-2">
       {{ item.name }}: ${{ item.price }}
-      <button ng-click="purchase(item)" class="btn btn-primary btn-block">Purchase</button>
+      <button ng-disabled="!authed()" ng-click="purchase(item)" class="btn btn-primary btn-block">Purchase</button>
   </div>
 </div>
