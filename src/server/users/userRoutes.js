@@ -32,7 +32,7 @@ module.exports = {
 
     user.findById(decodedId)
       .then(function (foundUser) {
-        res.json({ userId: foundUser.userId, currency: foundUser.currency });
+        res.json(foundUser);
       });
   },
 
