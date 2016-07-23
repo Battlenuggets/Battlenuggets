@@ -67,7 +67,7 @@ User.placeBet = function (id, amount) {
     });
 };
 
-User.increaseCurrency = function(id, amount) {
+User.increaseCurrency = function (id, amount) {
   return User.findById(id)
     .then(function (user) {
       user.currency += amount;

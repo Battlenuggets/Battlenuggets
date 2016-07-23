@@ -26,5 +26,5 @@ angular.module('betboard', [])
       $scope.team0total = 0;
       $scope.team1total = 0;
       $scope.$digest();
-    })
+    });
   });

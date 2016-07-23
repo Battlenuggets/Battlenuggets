@@ -6,9 +6,9 @@ angular.module('betting', [])
       id: $window.localStorage.getItem('nuggets')
     };
 
-    if(Auth.authed()) {
+    if (Auth.authed()) {
       Bets.getCurrencyFromServer();
-    };
+    }
 
     // binds factory currency to controller/view
     $scope.currency = Bets.getCurrency;

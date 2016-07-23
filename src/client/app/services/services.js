@@ -122,4 +122,4 @@ angular.module('battle.services', [])
   })
   .factory('socket', function () {
     return io.connect();
-  })
+  });

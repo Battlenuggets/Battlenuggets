@@ -30,10 +30,10 @@ exports.payout = function (battleResults) {
         var winnings = bet.amount + Math.ceil(bet.amount * winMult);
         user.increaseCurrency(bet.id, winnings);
       }
-    })
+    });
   }
 
   bets.length = 0;
   totalBets[0] = 0;
   totalBets[1] = 0;
-}
+};
