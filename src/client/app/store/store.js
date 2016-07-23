@@ -4,31 +4,30 @@ angular.module('battle.store', [])
   $scope.wallet = 0;
   $scope.items = [
     {
-      name: 'nugget icon',
-      price: 15
-    },
-    {
-      name: 'nuggetlord icon',
-      price: 50
-    },
-    {
-      name: 'nuggetgod icon',
-      price: 500
+      name: 'test1',
+      price: 10,
+      img: 'img/chat1.ico'
     }
   ];
-  $scope.inventory = [];
+  $scope.inventory = '';
+  $scope.purchaseCandidate = {};
 
   $scope.authed = function () {
     return Auth.authed();
   };
 
-  $scope.purchase = function (item) {
-    Store.purchase(item)
+  $scope.nominate = function (item) {
+    $scope.purchaseCandidate = item;
+  };
+
+  $scope.purchase = function () {
+    Store.purchase($scope.purchaseCandidate)
       .then(function () {
         alert('purchased!');
         $scope.updateCurrency();
-      });
-  };
+        $scope.updateInventory();
+      })
+  }
 
   $scope.updateCurrency = function () {
     Store.getCurrency()

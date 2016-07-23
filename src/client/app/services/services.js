@@ -91,22 +91,24 @@ angular.module('battle.services', [])
         url: '/api/users/user'
       })
         .then(function (res) {
-          return res.data.items;
+          return res.data.ownedIcons;
         });
     };
 
     var purchase = function (item) {
-      $http({
+      return $http({
         method: 'GET',
         url: '/api/users/user'
       })
         .then(function (res) {
-          $http({
+          var ownedIcons = JSON.parse(res.data.ownedIcons);
+          ownedIcons.push(item.name);
+          return $http({
             method: 'POST',
             url: '/api/users/update',
             data: {
               currency: res.data.currency - item.price,
-              items: res.data.items.push(item)
+              ownedIcons: JSON.stringify(ownedIcons)  // hahahahahahaha
             }
           });
         });
