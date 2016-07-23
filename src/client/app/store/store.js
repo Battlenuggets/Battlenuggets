@@ -18,11 +18,11 @@ angular.module('battle.store', [])
 
   $scope.canAfford = function (item) {
     return $scope.wallet - item.price >= 0;
-  }
+  };
 
   $scope.alreadyOwns = function (item) {
     return $scope.inventory.indexOf(item.name) !== -1;
-  }
+  };
 
   $scope.nominate = function (item) {
     $scope.purchaseCandidate = item;
@@ -34,8 +34,8 @@ angular.module('battle.store', [])
         alert('purchased!');
         $scope.updateCurrency();
         $scope.updateInventory();
-      })
-  }
+      });
+  };
 
   $scope.updateCurrency = function () {
     Store.getCurrency()
