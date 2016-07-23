@@ -43,6 +43,9 @@ module.exports = function (grunt) {
     shell: {
       lint: {
         command: 'eslint --color src/ test/'
+      },
+      lintNoWarnings: {
+        command: 'eslint --color --quiet src/ test'
       }
     }
   });
