@@ -16,6 +16,10 @@ angular.module('battle.store', [])
     return Auth.authed();
   };
 
+  $scope.canAfford = function (item) {
+    return $scope.wallet - item.price >= 0;
+  }
+
   $scope.nominate = function (item) {
     $scope.purchaseCandidate = item;
   };

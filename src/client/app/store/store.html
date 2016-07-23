@@ -11,7 +11,7 @@
     <div ng-repeat="item in items" class="col-sm-2">
       {{ item.name }}: ${{ item.price }} <br/>
       <img ng-src="{{ item.img }}"/>
-      <button ng-disabled="!authed()" data-toggle="modal" data-target="#confirmPurchase" ng-click="nominate(item)" class="btn btn-primary btn-block">Purchase</button>
+      <button ng-disabled="!authed() || !canAfford(item)" data-toggle="modal" data-target="#confirmPurchase" ng-click="nominate(item)" class="btn btn-primary btn-block">Purchase</button>
   </div>
 
   <div class="modal fade" id="confirmPurchase" role="dialog">
