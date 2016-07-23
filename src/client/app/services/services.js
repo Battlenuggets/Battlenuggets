@@ -96,14 +96,20 @@ angular.module('battle.services', [])
     }
 
     var purchase = function (item) {
-      return $http({
-        method: 'POST',
-        url: '/api/users/purchase',
-        data: item
+      $http({
+        method: 'GET',
+        url: '/api/users/user'
       })
         .then(function (res) {
-          return res;
-        });
+          $http({
+            method: 'POST',
+            url: '/api/users/update',
+            data: {
+              currency: res.data.currency - item.price,
+              items: res.data.items.push(items)
+            }
+          })
+        })
     }
 
     return {
