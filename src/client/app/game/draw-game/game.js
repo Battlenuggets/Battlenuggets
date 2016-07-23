@@ -29,7 +29,7 @@ Game.prototype.update = function () {
 
 };
 
-var mockInitBattleData = JSON.parse('[{"combat":{"health":100,"attack":10},"team":{"id":0,"position":0}},{"combat":{"health":100,"attack":10},"team":{"id":0,"position":1}},{"combat":{"health":100,"attack":10},"team":{"id":0,"position":2}},{"combat":{"health":100,"attack":10},"team":{"id":1,"position":0}},{"combat":{"health":100,"attack":10},"team":{"id":1,"position":1}},{"combat":{"health":100,"attack":10},"team":{"id":1,"position":2}}]');
+var mockInitBattleData = JSON.parse('{"fighters":[{"combat":{"maxHealth":100,"health":100,"attack":10},"team":{"id":0,"position":0}},{"combat":{"maxHealth":100,"health":100,"attack":10},"team":{"id":0,"position":1}},{"combat":{"maxHealth":100,"health":100,"attack":10},"team":{"id":0,"position":2}},{"combat":{"maxHealth":100,"health":100,"attack":10},"team":{"id":1,"position":0}},{"combat":{"maxHealth":100,"health":100,"attack":10},"team":{"id":1,"position":1}},{"combat":{"maxHealth":100,"health":100,"attack":10},"team":{"id":1,"position":2}}]}');
 
 setTimeout(function() {
   var canvas = document.getElementById('canvas');
@@ -47,7 +47,7 @@ setTimeout(function() {
   var nextTimestamp;
 
   var game = new Game(width, height);
-  game.createNuggets(mockInitBattleData);
+  game.createNuggets(mockInitBattleData.fighters);
 
   function gameloop(timestamp) {
     lastTimestamp = nextTimestamp;
