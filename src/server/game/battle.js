@@ -66,6 +66,9 @@ Battle.prototype.generateAttackOrder = function () {
 };
 
 Battle.prototype.generateAttackAction = function (attacker) {
+  // do nothing if the attack is dead
+  if (attacker.isDead()) return null;
+
   var defender = this.chooseDefender(attacker);
 
   // this is the shape of a serialized attack action
@@ -84,6 +87,9 @@ Battle.prototype.generateAttackActions = function (attackOrder) {
 // execute a single serialized attack action
 // note: this mutates `attackAction`
 Battle.prototype.executeAttackAction = function (attackAction) {
+  // if attackAction is `null`, do nothing
+  if (!attackAction) return;
+
   var defender = this.getFighterFromTeamData(attackAction.defender);
   var defendingTeam = this.teams[defender.getTeamData().id];
 

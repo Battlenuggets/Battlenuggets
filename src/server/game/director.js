@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var ee = require('event-emitter');
 
 // TODO: should probably not rely on this
@@ -74,7 +75,9 @@ Director.prototype.tick = function () {
     this.emitter.emit(endOfBattleEvent, this.battle.getEndOfBattleData());
     clearTimeout(this.tickTimeout);
   } else {
-    this.emitter.emit(tickEvent, attackActions);
+    // `compact` will filter out all the `null` actions, that occur
+    // when dead fighters try to attack
+    this.emitter.emit(tickEvent, _.compact(attackActions));
   }
 };
 
