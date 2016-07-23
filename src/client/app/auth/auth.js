@@ -2,6 +2,8 @@ angular.module('battle.auth', [])
 
 .controller('AuthController', [ '$scope', '$window', '$location', 'Auth', function ($scope, $window, $location, Auth) {
   $scope.user = {};
+  $scope.signinFailed;
+  $scope.signupFailed;
 
   $scope.signin = function () {
     Auth.signin($scope.user)
@@ -14,6 +16,7 @@ angular.module('battle.auth', [])
       })
       .catch(function (err) {
         console.log(err);
+        $scope.signinFailed = 'Sign in failed try entering your your username and password again';
       });
   };
 
@@ -24,6 +27,7 @@ angular.module('battle.auth', [])
       })
       .catch(function (err) {
         console.log(err);
+        $scope.signupFailed = 'The username has already been taken, please select with a different one';
       });
   };
 
