@@ -119,4 +119,7 @@ angular.module('battle.services', [])
       getInventory: getInventoryFromServer,
       purchase: purchase
     };
-  });
+  })
+  .factory('socket', function () {
+    return io.connect();
+  })

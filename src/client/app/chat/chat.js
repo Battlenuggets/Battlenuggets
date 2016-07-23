@@ -1,8 +1,4 @@
 angular.module('battle.chatRoom', [])
-  .factory('socket', function () {
-    return io.connect();
-  })
-
   .controller('ChatCtrl', ['$scope', 'socket', function ($scope, socket) {
     // place holder incase we want chat messages to be sent
     // to the server and stored there instead
