@@ -20,4 +20,11 @@ angular.module('betboard', [])
       bet.team ? $scope.team1total += bet.amount : $scope.team0total += bet.amount; // TODO: write a function to handle total updates
       $scope.$digest();
     });
+
+    socket.on('end of battle', function () {
+      $scope.bets.length = 0;
+      $scope.team0total = 0;
+      $scope.team1total = 0;
+      $scope.$digest();
+    })
   });

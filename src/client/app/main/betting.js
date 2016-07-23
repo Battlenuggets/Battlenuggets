@@ -1,6 +1,6 @@
 angular.module('betting', [])
 
-  .controller('BetCtrl', function ($scope, $window, Bets) {
+  .controller('BetCtrl', function ($scope, $window, socket, Bets) {
     // all bets include auth token
     $scope.bet = {
       id: $window.localStorage.getItem('nuggets')
@@ -18,4 +18,8 @@ angular.module('betting', [])
         $scope.message = e.toString();
       }
     };
+
+    socket.on('end of battle', function () {
+      Bets.getCurrencyFromServer();
+    });
   });
