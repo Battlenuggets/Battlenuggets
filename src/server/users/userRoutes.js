@@ -34,6 +34,14 @@ module.exports = {
       .then(function (foundUser) {
         res.json({ userId: foundUser.userId, currency: foundUser.currency });
       });
+  },
+
+  updateUser: function (req, res) {
+    var decodedId = jwt.decode(req.headers['x-access-token'], secret).id;
+    user.update(decodedId, req.body)
+      .then(function () {
+        res.sendStatus(201);  // whats the correct status for modified?
+      });
   }
 };
 

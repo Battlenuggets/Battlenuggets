@@ -43,6 +43,16 @@ User.signIn = function (username, password) {
     });
 };
 
+User.update = function (id, model) {
+  return User.findById(id)
+    .then(function (foundUser) {
+      for (var key in model) {
+        foundUser[key] = model[key];
+      }
+      foundUser.save();
+    });
+}
+
 User.placeBet = function (id, amount) {
   return User.findById(id)
     .then(function (user) {
