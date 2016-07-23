@@ -73,7 +73,7 @@ Battle.prototype.generateAttackAction = function (attacker) {
   return {
     attacker: attacker.getTeamData(),
     defender: defender.getTeamData(),
-    damage: attacker.getDamageRoll(),
+    damage: attacker.getDamageRoll()
   };
 };
 
