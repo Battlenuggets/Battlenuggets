@@ -1,6 +1,6 @@
 angular.module('battle.store', [])
 
-.controller('StoreController', function ($scope, Store) {
+.controller('StoreController', function ($scope, Store, Auth) {
   $scope.wallet = 0;
   $scope.items = [
     {
@@ -17,6 +17,10 @@ angular.module('battle.store', [])
     }
   ];
   $scope.inventory = [];
+
+  $scope.authed = function () {
+    return Auth.authed();
+  };
 
   $scope.purchase = function (item) {
     Store.purchase(item)

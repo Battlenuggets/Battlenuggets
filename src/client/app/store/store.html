@@ -1,8 +1,11 @@
 <div class="container">
-  <h3>Store!</h3>
+  <h3>Battlenuggets Chat Icon Store</h3>
 
-  <div>Wallet: ${{ wallet }}</div>
-  <div>Inventory: {{ inventory | json }}</div>
+  <div ng-hide="authed()">Make an account to get nollars and shop!</div>
+  <div ng-show="authed()">
+    Wallet: ${{ wallet }} <br/>
+    Inventory: {{ inventory | json }}
+  </div>
 
   <div class="row">
     <div ng-repeat="item in items" class="col-sm-2">

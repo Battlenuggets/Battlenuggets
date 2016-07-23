@@ -8,7 +8,7 @@ angular.module('battle', [
   'luegg.directives',
   'ui.router',
   'ui.bootstrap',
-  'battle.store',
+  'battle.store'
 ])
 
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
@@ -35,8 +35,7 @@ angular.module('battle', [
     .state('store', {
       url: '/store',
       templateUrl: 'app/store/store.html',
-      controller: 'StoreController',
-      authenticate: true
+      controller: 'StoreController'
     })
     .state('main', {
       url: '/main',
