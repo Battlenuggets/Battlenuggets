@@ -13,14 +13,15 @@
 
 <body>
 
-  <nav class="navbar navbar-inverse">
+  <nav class="navbar navbar-inverse" ng-controller='AuthController'>
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" href="#">Battle Nuggets</a>
       </div>
       <ul class="nav navbar-nav navbar-right">
-        <li><a ui-sref="signin">Login</a></li>
-        <li><a ui-sref="signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a ui-sref="signin" ng-hide='authed()'>Login</a></li>
+        <li><a ui-sref="signup" ng-hide='authed()'><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a ui-sref="signin" ng-click='signout()' ng-show='authed()'>Sign Out</a></li>
       </ul>
     </div>
   </nav>
@@ -39,7 +40,7 @@
   <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="lib/angular-scroll-glue/src/scrollglue.js"></script>
 
-  <script src="services/services.js"></script>
+  <script src="app/services/services.js"></script>
   <script src="app/auth/auth.js"></script>
   <script src="app/main/main.js"></script>
   <script src="app/app.js"></script>

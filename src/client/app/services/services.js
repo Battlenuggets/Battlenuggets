@@ -1,5 +1,5 @@
 angular.module('battle.services', [])
-  .factory('Auth', function ($http, $window) {
+  .factory('Auth', function ($http, $window, $location) {
     var signin = function (user) {
       return $http({
         method: 'POST',
@@ -27,10 +27,16 @@ angular.module('battle.services', [])
       return !!$window.localStorage.getItem('nuggets');
     };
 
+    var signout = function () {
+      $window.localStorage.removeItem('nuggets');
+      $location.path('/signin');
+    };
+
     return {
       signin: signin,
       signup: signup,
-      authed: authed
+      authed: authed,
+      signout: signout
     };
   })
   .factory('Bets', function ($http, socket) {
