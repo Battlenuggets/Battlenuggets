@@ -5,11 +5,11 @@ angular.module('battle.store', [])
   $scope.items = [
     {
       name: 'test1',
-      price: 10,
+      price: 0,
       img: 'img/chat1.ico'
     }
   ];
-  $scope.inventory = '';
+  $scope.inventory = [];
   $scope.purchaseCandidate = {};
 
   $scope.authed = function () {
@@ -18,6 +18,10 @@ angular.module('battle.store', [])
 
   $scope.canAfford = function (item) {
     return $scope.wallet - item.price >= 0;
+  }
+
+  $scope.alreadyOwns = function (item) {
+    return $scope.inventory.indexOf(item.name) !== -1;
   }
 
   $scope.nominate = function (item) {
@@ -43,7 +47,7 @@ angular.module('battle.store', [])
   $scope.updateInventory = function () {
     Store.getInventory()
       .then(function (inventory) {
-        $scope.inventory = inventory;
+        $scope.inventory = JSON.parse(inventory);
       });
   };
 
