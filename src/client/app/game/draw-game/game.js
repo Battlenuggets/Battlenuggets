@@ -15,7 +15,7 @@ Game.prototype.createNuggets = function (fighters) {
     var x = fighter.team.id === 0 ? 50 : this.w - 50 - w;
     var y = 30 + fighter.team.position * 60;
 
-    return new Nugget(x, y, w, h, this.nuggetImg);
+    return new Nugget(x, y, w, h, this.nuggetImg, fighter.combat);
   }.bind(this));
 }
 
