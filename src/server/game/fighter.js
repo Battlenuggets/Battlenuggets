@@ -2,6 +2,7 @@ var _ = require('lodash');
 
 function Fighter () {
   // combat stats
+  this.maxHealth = 100;
   this.health = 100;
   this.attack = 10;
 
@@ -44,6 +45,7 @@ Fighter.prototype.getTeamData = function () {
 // serialized combat data
 Fighter.prototype.getCombatData = function () {
   return {
+    maxHealth: this.maxHealth,
     health: this.health,
     attack: this.attack
   };
