@@ -5,17 +5,30 @@ function Game (w, h) {
   // load nugget image
   this.nuggetImg = new Image();
   this.nuggetImg.src = '/img/battlenugget.png';
+
+  this.projectiles = [];
+}
+
+Game.prototype.getFighterDimensions = function (teamData) {
+  var w = 40;
+  var h = 40;
+  var x = teamData.id === 0 ? 50 : this.w - 50 - w;
+  var y = 30 + teamData.position * 60;
+
+  return {
+    w: w,
+    h: h,
+    x: x,
+    y: y
+  };
 }
 
 Game.prototype.createNuggets = function (fighters) {
   this.nuggets = fighters.map(function (fighter) {
     // compute where to draw the nugget based on its team data
-    var w = 40;
-    var h = 40;
-    var x = fighter.team.id === 0 ? 50 : this.w - 50 - w;
-    var y = 30 + fighter.team.position * 60;
+    var dims = this.getFighterDimensions(fighter.team);
 
-    return new Nugget(x, y, w, h, this.nuggetImg, fighter.combat);
+    return new Nugget(dims.x, dims.y, dims.w, dims.h, this.nuggetImg, fighter.combat);
   }.bind(this));
 }
 
@@ -25,7 +38,7 @@ Game.prototype.draw = function (ctx) {
   })
 };
 
-Game.prototype.update = function () {
+Game.prototype.update = function (dt) {
 
 };
 
