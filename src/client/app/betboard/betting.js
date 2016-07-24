@@ -6,6 +6,9 @@ angular.module('betting', [])
       id: $window.localStorage.getItem('nuggets')
     };
 
+
+    $scope.authed = Auth.authed;
+
     if (Auth.authed()) {
       Bets.getCurrencyFromServer();
     }

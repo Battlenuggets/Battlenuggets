@@ -41,7 +41,7 @@
       </div>
     </div>
   </div>
-  <div class="betPanel" ng-controller="BetCtrl" >
+  <div ng-show="authed()" class="betPanel" ng-controller="BetCtrl" >
     <form ng-submit="placeBet()">
       <h4 class="amount">${{ currency() }}</h4>
       <div ng-if="message">{{ message }}</div>
