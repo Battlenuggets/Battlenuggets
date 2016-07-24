@@ -6,6 +6,7 @@ function Game (w, h) {
   this.nuggetImg = new Image();
   this.nuggetImg.src = '/img/battlenugget.png';
 
+  this.nuggets = [];
   this.projectiles = [];
 }
 
@@ -22,6 +23,18 @@ Game.prototype.getFighterDimensions = function (teamData) {
     x: x,
     y: y
   };
+};
+
+// this could be obsoleted by storing `this.fighters` more intelligently
+Game.prototype.findNuggetByTeamData = function (target) {
+  var team;
+
+  for (var i = 0; i < this.nuggets.length; i++) {
+    team = this.nuggets[i].team;
+    if (team.id === target.id && team.position === target.position) {
+      return this.nuggets[i];
+    }
+  }
 };
 
 // create nugget instances based on raw fighter data from server
@@ -44,20 +57,29 @@ Game.prototype.createNuggets = function (fighters) {
 Game.prototype.handleTick = function (tickData) {
   var self = this;
 
-  tickData.forEach(function (attack, index) {
+  tickData.forEach(function (attackData, index) {
     setTimeout(function () {
-      self.startAttack(attack.attacker, attack.defender);
+      self.startAttack(attackData);
     }, index * 250);
   });
 };
 
-Game.prototype.startAttack = function (attackerTeamData, defenderTeamData) {
+Game.prototype.startAttack = function (attackData) {
+  var attackerTeamData = attackData.attacker;
+  var defenderTeamData = attackData.defender;
+  var defenderHealth = attackData.defenderHealth;
+
   var p0 = this.getFighterDimensions(attackerTeamData);
   var p1 = this.getFighterDimensions(defenderTeamData);
 
   var projectile = new Projectile(p0.x, p0.y, p1.x, p1.y, .3);
   projectile.onComplete(function () {
+    // remove the projectile once it's reached its target
     this.removeProjectile(projectile);
+
+    // set the defender's health to its new, lower, value
+    var defender = this.findNuggetByTeamData(defenderTeamData);
+    defender.combat.health = defenderHealth;
   }.bind(this));
 
   this.projectiles.push(projectile);
@@ -90,39 +112,3 @@ Game.prototype.update = function (dt) {
     projectile.update(dt);
   });
 };
-
-var mockInitBattleData = JSON.parse('{"fighters":[{"combat":{"maxHealth":100,"health":100,"attack":10},"team":{"id":0,"position":0}},{"combat":{"maxHealth":100,"health":100,"attack":10},"team":{"id":0,"position":1}},{"combat":{"maxHealth":100,"health":100,"attack":10},"team":{"id":0,"position":2}},{"combat":{"maxHealth":100,"health":100,"attack":10},"team":{"id":1,"position":0}},{"combat":{"maxHealth":100,"health":100,"attack":10},"team":{"id":1,"position":1}},{"combat":{"maxHealth":100,"health":100,"attack":10},"team":{"id":1,"position":2}}]}');
-var mockTickData = JSON.parse('[{"attacker":{"id":0,"position":2},"defender":{"id":1,"position":0},"damage":9.503545632331114,"defenderHealth":91},{"attacker":{"id":1,"position":0},"defender":{"id":0,"position":1},"damage":9.772131064288445,"defenderHealth":91},{"attacker":{"id":0,"position":0},"defender":{"id":1,"position":2},"damage":9.639313302645022,"defenderHealth":91},{"attacker":{"id":0,"position":1},"defender":{"id":1,"position":0},"damage":9.206152604338044,"defenderHealth":82},{"attacker":{"id":1,"position":1},"defender":{"id":0,"position":1},"damage":9.210204284026208,"defenderHealth":82},{"attacker":{"id":1,"position":2},"defender":{"id":0,"position":2},"damage":8.932462905388546,"defenderHealth":92}]');
-
-setTimeout(function() {
-  var canvas = document.getElementById('canvas');
-
-  // TODO: either make entire page statically sized, or somehow add
-  // resize handlers to this
-  var width = canvas.width = 500;
-  var height = canvas.height = 500;
-
-  var ctx = canvas.getContext('2d');
-  ctx.fillStyle = 'white';
-  ctx.fillRect(0, 0, width, height);
-
-  var lastTimestamp;
-  var nextTimestamp;
-
-  var game = new Game(width, height);
-  game.createNuggets(mockInitBattleData.fighters);
-
-  game.handleTick(mockTickData);
-
-  function gameloop(timestamp) {
-    lastTimestamp = nextTimestamp;
-    nextTimestamp = timestamp;
-
-    game.update((nextTimestamp - lastTimestamp) / 1000);
-    game.draw(ctx);
-
-    requestAnimationFrame(gameloop);
-  }
-
-  requestAnimationFrame(gameloop);
-}, 800);
