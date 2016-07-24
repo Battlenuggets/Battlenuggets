@@ -1,5 +1,5 @@
-angular.module('betboard', [])
-  .controller('BetboardCtrl', function ($scope, socket) {
+angular.module('betboard', ['betting'])
+  .controller('BetboardCtrl', ['$scope', 'socket', function ($scope, socket) {
     $scope.bets = [];
     $scope.team0total = 0; // total amount spent on bets for team 0
     $scope.team1total = 0; // total amount spent on bets for team 1
@@ -27,4 +27,4 @@ angular.module('betboard', [])
       $scope.team1total = 0;
       $scope.$digest();
     });
-  });
+  }]);
