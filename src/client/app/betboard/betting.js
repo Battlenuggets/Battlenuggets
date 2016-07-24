@@ -31,6 +31,7 @@ angular.module('betting', [])
 
     socket.on('end of battle', function () {
       $scope.betMade = false;
+      $scope.message = '';
       Bets.getCurrencyFromServer();
     });
   }]);
