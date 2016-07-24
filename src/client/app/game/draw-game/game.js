@@ -14,6 +14,18 @@ function Game (w, h) {
 
   this.nuggets = [];
   this.projectiles = [];
+
+  this.inBattle = true;
+}
+
+Game.prototype.startBattle = function (data) {
+  this.inBattle = true;
+  this.createNuggets(data.fighters);
+};
+
+Game.prototype.endBattle = function (data) {
+  this.inBattle = false;
+  this.winningTeamId = data.winningTeamId;
 }
 
 // compute where to draw the nugget based on its team data
@@ -63,7 +75,7 @@ Game.prototype.createNuggets = function (fighters) {
   }.bind(this));
 };
 
-Game.prototype.handleTick = function (tickData) {
+Game.prototype.tick = function (tickData) {
   var self = this;
 
   tickData.forEach(function (attackData, index) {
