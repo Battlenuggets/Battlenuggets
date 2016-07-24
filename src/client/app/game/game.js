@@ -13,37 +13,37 @@ angular.module('battle.game', [])
     };
   })
   .factory('renderer', function () {
-    var canvas = document.getElementById('canvas');
+    var width = 500;
+    var height = 500;
 
-    // TODO: either make entire page statically sized, or somehow add
-    // resize handlers to this
-    var width = canvas.width = 500;
-    var height = canvas.height = 500;
-
-    var ctx = canvas.getContext('2d');
-    ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, width, height);
-
-    var lastTimestamp;
-    var nextTimestamp;
-
+    var ctx;
     var game = new Game(width, height);
 
-    function gameloop(timestamp) {
-      lastTimestamp = nextTimestamp;
-      nextTimestamp = timestamp;
-
-      game.update((nextTimestamp - lastTimestamp) / 1000);
-      game.draw(ctx);
-
-      requestAnimationFrame(gameloop);
-    }
-
-    requestAnimationFrame(gameloop);
-
     return {
+      // find the canvas in the dom, and start rendering to it via `gameloop`.
       start: function () {
-        // create a new game object here, and start up the game loop
+        // find and resize the canvas
+        var canvas = document.getElementById('canvas');
+        canvas.width = width;
+        canvas.height = height;
+
+        // update `ctx` in the outer scope
+        ctx = canvas.getContext('2d');
+
+        var lastTimestamp;
+        var nextTimestamp;
+
+        function gameloop(timestamp) {
+          lastTimestamp = nextTimestamp;
+          nextTimestamp = timestamp;
+
+          game.update((nextTimestamp - lastTimestamp) / 1000);
+          game.draw(ctx);
+
+          requestAnimationFrame(gameloop);
+        }
+
+        requestAnimationFrame(gameloop);
       },
 
       // use these handlers to update the game
@@ -67,7 +67,7 @@ angular.module('battle.game', [])
     'gameListeners',
     'renderer',
     function ($scope, socket, gameListeners, renderer) {
-      $scope.woop = 'sjsjsjs';
-
       gameListeners.add(socket, renderer);
-    }]);
+      renderer.start();
+    }
+  ]);
