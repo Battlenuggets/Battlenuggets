@@ -6,6 +6,10 @@ angular.module('betting', [])
       id: $window.localStorage.getItem('nuggets')
     };
 
+    $scope.authed = Auth.authed;
+    $scope.betMade = false;
+    $scope.started = false;
+
     if (Auth.authed()) {
       Bets.getCurrencyFromServer();
     }
@@ -15,15 +19,39 @@ angular.module('betting', [])
 
     // attempts to place bet, otherwise displays error
     $scope.placeBet = function () {
-      try {
-        Bets.placeBet($scope.bet);
-        $scope.message = 'Bet placed!';
-      } catch (e) {
-        $scope.message = e.toString();
+      if (!$scope.betMade) {
+        try {
+          Bets.placeBet($scope.bet);
+          $scope.message = 'Bet placed!';
+          $scope.betMade = true;
+        } catch (e) {
+          $scope.message = e.toString();
+        }
       }
     };
 
+    socket.on('tick', function () {
+      $scope.$apply(function () {
+        $scope.started = true;
+      });
+    });
+
+    socket.on('start of battle', function () {
+      $scope.$apply(function () {
+        $scope.started = true;
+      });
+    });
+
     socket.on('end of battle', function () {
+      $scope.started = false;
+      $scope.betMade = false;
+      $scope.message = '';
       Bets.getCurrencyFromServer();
+    });
+
+    socket.on('countdown', function () {
+      $scope.$apply(function () {
+        $scope.started = false;
+      });
     });
   }]);

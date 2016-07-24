@@ -13,6 +13,7 @@
 
 <div class="betboard" ng-controller="BetboardCtrl" >
   <h3>Bets</h3>
+  <h4>Time to next battle: {{ countdown }} seconds</h4>
   <!-- Odds are just determining which side has more bets. If larger, divide the larger total by the smaller total or 1. If smaller, just display 1. Round results to nearest decimal place. -->
   <div class="odds">
     <span class="redtext">
@@ -24,7 +25,7 @@
     </span>
   </div>
   <div class="team0">
-    <span class="redtext">Team 1</span>
+    <span class="redtext">Chicken</span>
     <div class="bets">
       <div ng-repeat="bet in bets | filter:{team: 0} | orderBy:'-amount'" >
         <span class="user">{{ bet.username }}</span>
@@ -33,7 +34,7 @@
     </div>
   </div>
   <div class="team1" >
-    <span class="bluetext">Team 2</span>
+    <span class="bluetext">Gold</span>
     <div class="bets">
       <div ng-repeat="bet in bets | filter:{team: 1} | orderBy:'-amount'" >
         <span class="user">{{ bet.username }}</span>
@@ -41,13 +42,13 @@
       </div>
     </div>
   </div>
-  <div class="betPanel" ng-controller="BetCtrl" >
+  <div ng-show="authed()" ng-hide="betMade || started" class="betPanel" ng-controller="BetCtrl" >
     <form ng-submit="placeBet()">
       <h4 class="amount">${{ currency() }}</h4>
       <div ng-if="message">{{ message }}</div>
       <input type="number" ng-model="bet.amount" ng-change="message = false" min="0" />
-      <button ng-click="bet.team = 0">Team 1</button>
-      <button ng-click="bet.team = 1">Team 2</button>
+      <button ng-click="bet.team = 0">Chicken</button>
+      <button ng-click="bet.team = 1">Gold</button>
     </form>
   </div>
 </div>

@@ -3,6 +3,8 @@ angular.module('betboard', ['betting'])
     $scope.bets = [];
     $scope.team0total = 0; // total amount spent on bets for team 0
     $scope.team1total = 0; // total amount spent on bets for team 1
+    $scope.countdown = 0;
+    $scope.started = true;
 
     // run on first connect to the server, sets local bets equal to the bets from the server
     socket.on('all bets', function (bets) {
@@ -21,10 +23,32 @@ angular.module('betboard', ['betting'])
       $scope.$digest();
     });
 
+    socket.on('tick', function () {
+      $scope.$apply(function () {
+        $scope.started = true;
+        $scope.countdown = 0;
+      });
+    });
+
+    socket.on('start of battle', function () {
+      $scope.$apply(function () {
+        $scope.countdown = 0;
+        $scope.started = true;
+      });
+    });
+
     socket.on('end of battle', function () {
+      $scope.started = false;
       $scope.bets.length = 0;
       $scope.team0total = 0;
       $scope.team1total = 0;
       $scope.$digest();
+    });
+
+    socket.on('countdown', function (timeleft) {
+      $scope.$apply(function () {
+        $scope.started = false;
+        $scope.countdown = timeleft;
+      });
     });
   }]);
