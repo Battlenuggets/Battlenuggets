@@ -20,6 +20,8 @@ function Projectile (x0, y0, x1, y1, duration) {
   // callback to run when motion is complete
   this.completedCallback = null;
   this.completed = false;
+
+  this.size = 6;
 }
 
 Projectile.prototype.onComplete = function (callback) {
@@ -50,7 +52,7 @@ Projectile.prototype.draw = function (ctx) {
   ctx.translate(this.x, this.y);
 
   ctx.fillStyle = 'red';
-  ctx.fillRect(-5, -5, 10, 10);
+  ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
 
   ctx.restore();
 };
