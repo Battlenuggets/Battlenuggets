@@ -67,7 +67,6 @@ angular.module('battle', [
 
 .run(function ($rootScope, $location, Auth, Bets, socket, $state) {
   $rootScope.$state = $state;
-  Auth.getUserIdFromServer();
   $rootScope.$on('$stateChangeStart', function (e, next) {
     if (next.authenticate && !Auth.authed()) {
       $location.path('/signin');
