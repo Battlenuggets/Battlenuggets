@@ -10,8 +10,11 @@ function initGameSender (io) {
   // queue up the first battle
   director.queueNextBattle();
 
+  // if a battle is ongoing, send its state to the client when they connect
   io.sockets.on('connection', function (socket) {
-    socket.emit('start of battle', director.battle.serialize());
+    if (director.battle) {
+      socket.emit('start of battle', director.battle.serialize());
+    }
   });
 
   // hook up event callbacks to send data to all connected clients
