@@ -20,6 +20,8 @@ function Projectile (x0, y0, x1, y1, duration) {
   // callback to run when motion is complete
   this.completedCallback = null;
   this.completed = false;
+
+  this.size = 6;
 }
 
 Projectile.prototype.onComplete = function (callback) {
@@ -41,8 +43,14 @@ Projectile.prototype.update = function (dt) {
 
   this.elapsed += dt;
 
-  this.x += (dt / this.duration) * this.dx;
-  this.y += (dt / this.duration) * this.dy;
+  if (this.elapsed < this.duration) {
+    this.x += (dt / this.duration) * this.dx;
+    this.y += (dt / this.duration) * this.dy;
+  } else {
+    this.x = this.x1;
+    this.y = this.y1;
+  }
+
 };
 
 Projectile.prototype.draw = function (ctx) {
@@ -50,7 +58,7 @@ Projectile.prototype.draw = function (ctx) {
   ctx.translate(this.x, this.y);
 
   ctx.fillStyle = 'red';
-  ctx.fillRect(-5, -5, 10, 10);
+  ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
 
   ctx.restore();
 };

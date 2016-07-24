@@ -63,16 +63,18 @@ Director.prototype.queueNextBattle = function () {
 // execute a round of battle, where every nugget attacks some other one
 // in a random order
 Director.prototype.tick = function () {
+  // generate a random attack order
   var attackOrder = this.battle.generateAttackOrder();
-
-  // this is what we'd want to send over the socket to be rendered client-side
   var attackActions = this.battle.generateAttackActions(attackOrder);
 
   this.battle.executeAttackActions(attackActions);
 
-  // `compact` will filter out all the `null` actions, that occur
-  // when dead fighters try to attack
-  this.emitter.emit(tickEvent, _.compact(attackActions));
+  // filter out `null` actions and actions where `valid` is false
+  var validAttackActions = _.filter(attackActions, function (action) {
+    return action && action.valid;
+  });
+
+  this.emitter.emit(tickEvent, validAttackActions);
 
   // if the battle's over, emit `endOfBattleEvent` and stop ticking
   if (this.battle.isEnded()) {

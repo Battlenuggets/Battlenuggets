@@ -7,10 +7,27 @@ function Game (w, h) {
   this.leftImg.src = '/img/battlenugget.png';
   this.rightImg = new Image();
   this.rightImg.src = '/img/goldnugget.png';
+  this.deadLeftImg = new Image();
+  this.deadLeftImg.src = '/img/deadnugget.png';
+  this.deadRightImg = new Image();
+  this.deadRightImg.src = '/img/deadgoldnugget.png';
 
   this.nuggets = [];
   this.projectiles = [];
+
+  this.inBattle = true;
 }
+
+Game.prototype.startBattle = function (data) {
+  this.inBattle = true;
+  this.createNuggets(data.fighters);
+};
+
+// this isn't doing anything right now
+Game.prototype.endBattle = function (data) {
+  this.inBattle = false;
+  this.winningTeamId = data.winningTeamId;
+};
 
 // compute where to draw the nugget based on its team data
 Game.prototype.getFighterDimensions = function (teamData) {
@@ -44,6 +61,7 @@ Game.prototype.createNuggets = function (fighters) {
   this.nuggets = fighters.map(function (fighter) {
     var dims = this.getFighterDimensions(fighter.team);
     var img = fighter.team.id === 0 ? this.leftImg : this.rightImg;
+    var deadImg = fighter.team.id === 0 ? this.deadLeftImg : this.deadRightImg;
 
     return new Nugget(
       dims.x,
@@ -51,19 +69,20 @@ Game.prototype.createNuggets = function (fighters) {
       dims.w,
       dims.h,
       img,
+      deadImg,
       fighter.team,
       fighter.combat
     );
   }.bind(this));
 };
 
-Game.prototype.handleTick = function (tickData) {
+Game.prototype.tick = function (tickData) {
   var self = this;
 
   tickData.forEach(function (attackData, index) {
     setTimeout(function () {
       self.startAttack(attackData);
-    }, index * 25);
+    }, index * 40);
   });
 };
 
@@ -72,17 +91,25 @@ Game.prototype.startAttack = function (attackData) {
   var defenderTeamData = attackData.defender;
   var defenderHealth = attackData.defenderHealth;
 
-  var p0 = this.getFighterDimensions(attackerTeamData);
-  var p1 = this.getFighterDimensions(defenderTeamData);
+  var attacker = this.findNuggetByTeamData(attackerTeamData);
+  var defender = this.findNuggetByTeamData(defenderTeamData);
 
-  var projectile = new Projectile(p0.x, p0.y, p1.x, p1.y, .3);
+  var x0 = attacker.cx;
+  var y0 = attacker.cy;
+  var x1 = defender.cx;
+  var y1 = defender.cy;
+
+  // send a projectile from the attacker to the defender
+  var projectile = new Projectile(x0, y0, x1, y1, .3);
+
   projectile.onComplete(function () {
-    // remove the projectile once it's reached its target
+    // remove the projectile once it reaches its target
     this.removeProjectile(projectile);
 
     // set the defender's health to its new, lower, value
     var defender = this.findNuggetByTeamData(defenderTeamData);
     defender.combat.health = defenderHealth;
+    defender.addKnockback(10);
   }.bind(this));
 
   this.projectiles.push(projectile);
@@ -110,6 +137,10 @@ Game.prototype.draw = function (ctx) {
 
 Game.prototype.update = function (dt) {
   if (!dt) return;
+
+  this.nuggets.forEach(function (nugget) {
+    nugget.update(dt);
+  });
 
   this.projectiles.forEach(function (projectile) {
     projectile.update(dt);
