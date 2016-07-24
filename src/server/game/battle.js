@@ -94,7 +94,12 @@ Battle.prototype.executeAttackAction = function (attackAction) {
 
   // the attacker may have been slain during this round of attacks,
   // in which case we'd want to interrupt its impending attack
-  if (attacker.isDead()) return;
+  if (attacker.isDead()) {
+    attackAction.valid = false;
+    return;
+  };
+
+  attackAction.valid = true;
 
   var defender = this.getFighterFromTeamData(attackAction.defender);
   var defendingTeam = this.teams[defender.getTeamData().id];
