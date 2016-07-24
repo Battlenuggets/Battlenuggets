@@ -47,6 +47,7 @@ angular.module('betboard', ['betting'])
 
     socket.on('countdown', function (timeleft) {
       $scope.$apply(function () {
+        $scope.started = false;
         $scope.countdown = timeleft;
       });
     });

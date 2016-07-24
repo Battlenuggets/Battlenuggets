@@ -48,4 +48,10 @@ angular.module('betting', [])
       $scope.message = '';
       Bets.getCurrencyFromServer();
     });
+
+    socket.on('countdown', function () {
+      $scope.$apply(function () {
+        $scope.started = false;
+      });
+    });
   }]);
