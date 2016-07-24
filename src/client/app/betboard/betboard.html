@@ -13,6 +13,7 @@
 
 <div class="betboard" ng-controller="BetboardCtrl" >
   <h3>Bets</h3>
+  <h4>Time to next battle: {{ countdown }} seconds</h4>
   <!-- Odds are just determining which side has more bets. If larger, divide the larger total by the smaller total or 1. If smaller, just display 1. Round results to nearest decimal place. -->
   <div class="odds">
     <span class="redtext">
@@ -41,7 +42,7 @@
       </div>
     </div>
   </div>
-  <div ng-show="authed()" ng-hide="betMade" class="betPanel" ng-controller="BetCtrl" >
+  <div ng-show="authed()" ng-hide="betMade || started" class="betPanel" ng-controller="BetCtrl" >
     <form ng-submit="placeBet()">
       <h4 class="amount">${{ currency() }}</h4>
       <div ng-if="message">{{ message }}</div>

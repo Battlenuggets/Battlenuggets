@@ -16,6 +16,7 @@ function Director (tickInterval, timeBetweenBattles, battle) {
   this.tickInterval = tickInterval;
   this.timeBetweenBattles = timeBetweenBattles;
   this.battle = battle;
+  this.countdownInterval;
 
   this.emitter = ee();
 
@@ -30,6 +31,7 @@ Director.prototype.onTick = function (callback) {
 
 // add a callback to be called at the start of battle
 Director.prototype.onStartOfBattle = function (callback) {
+  clearInterval(this.countdownInterval);
   this.emitter.on(startOfBattleEvent, callback);
 };
 
@@ -50,6 +52,19 @@ Director.prototype.startBattle = function () {
   // emit the initial state of the battle when it starts
   this.emitter.emit(startOfBattleEvent, this.battle.serialize());
 };
+
+Director.prototype.startCountdown = function (io) {
+  // in between battle countdown
+  var countdown = 14;
+  this.countdownInterval = setInterval(function () {
+    io.sockets.emit('countdown', countdown);
+    countdown--;
+  }, 1000);
+}
+
+Director.prototype.stopCountdown = function () {
+  clearInterval(this.countdownInterval);
+}
 
 // wait `timeBetweenBattles` ms, then create and start a new battle
 Director.prototype.queueNextBattle = function () {

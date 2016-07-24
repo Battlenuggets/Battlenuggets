@@ -8,6 +8,7 @@ angular.module('betting', [])
 
     $scope.authed = Auth.authed;
     $scope.betMade = false;
+    $scope.started = false;
 
     if (Auth.authed()) {
       Bets.getCurrencyFromServer();
@@ -29,7 +30,20 @@ angular.module('betting', [])
       }
     };
 
+    socket.on('tick', function () {
+      $scope.$apply(function () {
+        $scope.started = true;
+      });
+    });
+
+    socket.on('start of battle', function () {
+      $scope.$apply(function () {
+        $scope.started = true;
+      });
+    });
+
     socket.on('end of battle', function () {
+      $scope.started = false;
       $scope.betMade = false;
       $scope.message = '';
       Bets.getCurrencyFromServer();
