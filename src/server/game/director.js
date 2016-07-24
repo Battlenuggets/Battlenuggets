@@ -2,7 +2,7 @@ var _ = require('lodash');
 var ee = require('event-emitter');
 
 // TODO: should probably not rely on this
-var getMockBattle = require('../../../test/server/game/mockBattle');
+var getMockBattle = require('./newBattle');
 
 // event name constants
 var tickEvent = 'tick';

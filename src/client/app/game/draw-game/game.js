@@ -63,7 +63,7 @@ Game.prototype.handleTick = function (tickData) {
   tickData.forEach(function (attackData, index) {
     setTimeout(function () {
       self.startAttack(attackData);
-    }, index * 250);
+    }, index * 25);
   });
 };
 
