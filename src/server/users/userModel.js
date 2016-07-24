@@ -25,7 +25,7 @@ User.comparePasswords = function (possPassword, currPassword) {
 };
 
 User.signUp = function (username, password) {
-  return User.findOrCreate({ where: {userId: username}, defaults: {password: password, currency: 0, ownedIcons: '[]', currentIcon: ''} })
+  return User.findOrCreate({ where: {userId: username}, defaults: {password: password, currency: 100, ownedIcons: '[]', currentIcon: ''} })
       .spread(function (userResult, created) {
         return created;
       });
@@ -64,6 +64,14 @@ User.placeBet = function (id, amount) {
 
         return user;
       }
+    });
+};
+
+User.increaseCurrency = function (id, amount) {
+  return User.findById(id)
+    .then(function (user) {
+      user.currency += amount;
+      user.save();
     });
 };
 

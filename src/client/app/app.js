@@ -72,12 +72,13 @@ angular.module('battle', [
   return attach;
 })
 
-.run(function ($rootScope, $location, Auth, Bets, $state) {
+.run(function ($rootScope, $location, Auth, Bets, socket, $state) {
   $rootScope.$state = $state;
-  Bets.getCurrencyFromServer();
+
   $rootScope.$on('$stateChangeStart', function (e, next) {
     if (next.authenticate && !Auth.authed()) {
       $location.path('/signin');
     }
+    socket.removeAllListeners();
   });
 });

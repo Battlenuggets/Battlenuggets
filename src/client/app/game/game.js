@@ -5,17 +5,7 @@ angular.module('battle.game', [])
     var endOfBattleEvent = 'end of battle';
 
     return {
-      remove: function (socket) {
-        socket.removeAllListeners(startOfBattleEvent);
-        socket.removeAllListeners(tickEvent);
-        socket.removeAllListeners(endOfBattleEvent);
-      },
-
       add: function (socket, renderer) {
-        // remove the existing listeners on the gamestate events so
-        // that we don't have duplicate listeners
-        this.remove(socket);
-
         socket.on(startOfBattleEvent, renderer.onStartOfBattle);
         socket.on(tickEvent, renderer.onTick);
         socket.on(endOfBattleEvent, renderer.onEndOfBattle);
