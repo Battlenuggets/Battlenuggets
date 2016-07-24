@@ -63,9 +63,8 @@ Director.prototype.queueNextBattle = function () {
 // execute a round of battle, where every nugget attacks some other one
 // in a random order
 Director.prototype.tick = function () {
+  // generate a random attack order
   var attackOrder = this.battle.generateAttackOrder();
-
-  // this is what we'd want to send over the socket to be rendered client-side
   var attackActions = this.battle.generateAttackActions(attackOrder);
 
   this.battle.executeAttackActions(attackActions);
