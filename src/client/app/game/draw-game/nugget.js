@@ -1,4 +1,4 @@
-function Nugget (x, y, w, h, img, team, combat) {
+function Nugget (x, y, w, h, img, deadImg, team, combat) {
   // coordinates of upper-left hand corner
   this.x = x;
   this.y = y;
@@ -12,6 +12,7 @@ function Nugget (x, y, w, h, img, team, combat) {
   this.cy = this.y + this.h / 2;
 
   this.img = img;
+  this.deadImg = deadImg;
 
   // team and combat stats, sent from server
   this.team = team;
@@ -42,8 +43,13 @@ Nugget.prototype.draw = function (ctx) {
   ctx.save();
   ctx.translate(this.x, this.y);
 
-  ctx.drawImage(this.img, 0, 0, this.w, this.h);
-  this.drawHealthBar(ctx);
+  if (this.combat.health > 0) {
+    ctx.drawImage(this.img, 0, 0, this.w, this.h);
+    this.drawHealthBar(ctx);
+  } else {
+    ctx.drawImage(this.deadImg, 0, 0, this.w, this.h);
+  }
+
 
   ctx.restore();
 };
