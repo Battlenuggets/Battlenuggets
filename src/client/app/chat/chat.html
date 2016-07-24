@@ -1,18 +1,30 @@
 <div class="browser-window" ng-controller="ChatCtrl" >
-  <h4 class='text-center'>Battle Nuggets Chat</h4>
-  <div class="viewport" scroll-glue>
-    <div class='viewport-content' >
-      <div class="bubble-container" ng-repeat="msg in msgs track by $index" >
-        <div class="bubble bubble-{{msg.side}}">{{ msg }}</div>
-      </div>
+
+  <div class='login page' ng-hide='myform.$submitted'>
+    <div class='form'>
+      <h3 class='title'>Enter Your Chat Name</h3>
+      <form name='myform' ng-submit='setUsername()'>
+        <input type="text" class="usernameInput"></input>
+      </form>
     </div>
   </div>
-  <form class="row row-chat" ng-submit="sendMsg()" >
-    <div class='input-group'>
-      <input type="text" class="form-control" placeholder='Type your message' ng-model="chatmsg" />
-      <span class="input-group-btn">
-        <button type="submit" class="btn btn-primary">Send</button>
-      </span>
+
+  <div ng-hide='hasUser'>
+    <h4 class='text-center'>Battle Nuggets Chat</h4>
+    <div class="viewport" scroll-glue>
+      <div class='viewport-content' >
+        <div class="bubble-container" ng-repeat="msg in msgs track by $index" >
+          <div class="bubble bubble-{{msg.side}}"><strong>{{msg.username}}: </strong> {{ msg.message }}</div>
+        </div>
+      </div>
     </div>
-  </form>
+    <form class="row row-chat" ng-submit="sendMsg()" >
+      <div class='input-group'>
+        <input type="text" class="form-control" placeholder='Type your message' ng-model="chatmsg" />
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-primary">Send</button>
+        </span>
+      </div>
+    </form>
+  </div>
 </div>

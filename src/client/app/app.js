@@ -2,7 +2,6 @@ angular.module('battle', [
   'battle.services',
   'battle.auth',
   'battle.chatRoom',
-  'battle.main',
   'battle.game',
   'betboard',
   'luegg.directives',
@@ -38,12 +37,6 @@ angular.module('battle', [
       templateUrl: 'app/store/store.html',
       controller: 'StoreController'
     })
-    .state('main', {
-      url: '/main',
-      templateUrl: 'app/main/main.html',
-      controller: 'MainController',
-      authenticate: true
-    })
     .state('signin', {
       url: '/signin',
       templateUrl: 'app/auth/signin.html',
@@ -74,7 +67,6 @@ angular.module('battle', [
 
 .run(function ($rootScope, $location, Auth, Bets, socket, $state) {
   $rootScope.$state = $state;
-
   $rootScope.$on('$stateChangeStart', function (e, next) {
     if (next.authenticate && !Auth.authed()) {
       $location.path('/signin');
