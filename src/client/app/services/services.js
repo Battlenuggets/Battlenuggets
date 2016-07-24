@@ -1,5 +1,6 @@
 angular.module('battle.services', [])
-  .factory('Auth', function ($http, $window, $location) {
+  .factory('Auth', ['$http', '$window', '$location', function ($http, $window, $location) {
+    var userId;
     var signin = function (user) {
       return $http({
         method: 'POST',
@@ -32,16 +33,31 @@ angular.module('battle.services', [])
       $location.path('/signin');
     };
 
+    var getUserIdFromServer = function () {
+      return $http({
+        method: 'GET',
+        url: '/api/users/user'
+      })
+        .then(function (res) {
+          userId = res.data.userId;
+        });
+    };
+
+    var getId = function () {
+      return userId;
+    };
+
     return {
       signin: signin,
       signup: signup,
       authed: authed,
-      signout: signout
+      signout: signout,
+      getUserIdFromServer: getUserIdFromServer,
+      getId: getId
     };
-  })
-  .factory('Bets', function ($http, socket) {
+  }])
+  .factory('Bets', ['$http', 'socket', function ($http, socket) {
     var currency;
-
     // get user's currency from server and set local currency var
     var getCurrencyFromServer = function () {
       return $http({
@@ -73,8 +89,8 @@ angular.module('battle.services', [])
       getCurrency: getCurrency,
       placeBet: placeBet
     };
-  })
-  .factory('Store', function ($http) {
+  }])
+  .factory('Store', ['$http', function ($http) {
     var getCurrencyFromServer = function () {
       return $http({
         method: 'GET',
@@ -119,7 +135,7 @@ angular.module('battle.services', [])
       getInventory: getInventoryFromServer,
       purchase: purchase
     };
-  })
+  }])
   .factory('socket', function () {
     return io.connect();
   });

@@ -10,6 +10,7 @@ angular.module('battle.auth', [])
       .then(function (response) {
         var token = response.data.token;
         if (token) {
+          Auth.getUserIdFromServer();
           $window.localStorage.setItem('nuggets', token);
           $location.path('home');
         }
@@ -23,6 +24,7 @@ angular.module('battle.auth', [])
   $scope.signup = function () {
     Auth.signup($scope.user)
       .then(function () {
+        Auth.getUserIdFromServer();
         $location.path('/signin');
       })
       .catch(function (err) {
