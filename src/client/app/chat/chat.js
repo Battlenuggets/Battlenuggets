@@ -17,8 +17,12 @@ angular.module('battle.chatRoom', [])
     socket.emit('connection name', Auth.getId());
 
     socket.on('new user', function () {
-      Auth.getUserIdFromServer();
-      $scope.id = Auth.getId() || 'Anonymous';
+      if (Auth.authed()) {
+        Auth.getUserIdFromServer();
+        $scope.id = Auth.getId()
+      } else {
+        $scope.id ='Anonymous';
+      }
     });
 
     socket.on('get msg', function (data) {
