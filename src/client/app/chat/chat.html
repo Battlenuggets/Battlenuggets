@@ -3,7 +3,7 @@
   <div class="viewport" scroll-glue>
     <div class='viewport-content' >
       <div class="bubble-container" ng-repeat="msg in msgs track by $index" >
-        <div class="bubble bubble-{{msg.side}}">{{ msg }}</div>
+        <div class="bubble bubble-{{msg.side}}"><strong>{{id}}: </strong> {{ msg }}</div>
       </div>
     </div>
   </div>
