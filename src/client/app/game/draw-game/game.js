@@ -23,10 +23,11 @@ Game.prototype.startBattle = function (data) {
   this.createNuggets(data.fighters);
 };
 
+// this isn't doing anything right now
 Game.prototype.endBattle = function (data) {
   this.inBattle = false;
   this.winningTeamId = data.winningTeamId;
-}
+};
 
 // compute where to draw the nugget based on its team data
 Game.prototype.getFighterDimensions = function (teamData) {

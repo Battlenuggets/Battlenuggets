@@ -57,7 +57,6 @@ angular.module('battle.game', [])
 
       onEndOfBattle: function (data) {
         game.endBattle(data);
-        console.log('end', data);
       }
     };
   })

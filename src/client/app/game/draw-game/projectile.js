@@ -43,8 +43,14 @@ Projectile.prototype.update = function (dt) {
 
   this.elapsed += dt;
 
-  this.x += (dt / this.duration) * this.dx;
-  this.y += (dt / this.duration) * this.dy;
+  if (this.elapsed < this.duration) {
+    this.x += (dt / this.duration) * this.dx;
+    this.y += (dt / this.duration) * this.dy;
+  } else {
+    this.x = this.x1;
+    this.y = this.y1;
+  }
+
 };
 
 Projectile.prototype.draw = function (ctx) {
