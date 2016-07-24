@@ -7,6 +7,10 @@ function Game (w, h) {
   this.leftImg.src = '/img/battlenugget.png';
   this.rightImg = new Image();
   this.rightImg.src = '/img/goldnugget.png';
+  this.deadLeftImg = new Image();
+  this.deadLeftImg.src = '/img/deadnugget.png';
+  this.deadRightImg = new Image();
+  this.deadRightImg.src = '/img/deadgoldnugget.png';
 
   this.nuggets = [];
   this.projectiles = [];
@@ -44,6 +48,7 @@ Game.prototype.createNuggets = function (fighters) {
   this.nuggets = fighters.map(function (fighter) {
     var dims = this.getFighterDimensions(fighter.team);
     var img = fighter.team.id === 0 ? this.leftImg : this.rightImg;
+    var deadImg = fighter.team.id === 0 ? this.deadLeftImg : this.deadRightImg;
 
     return new Nugget(
       dims.x,
@@ -51,6 +56,7 @@ Game.prototype.createNuggets = function (fighters) {
       dims.w,
       dims.h,
       img,
+      deadImg,
       fighter.team,
       fighter.combat
     );
