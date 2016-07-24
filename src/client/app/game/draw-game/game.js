@@ -109,6 +109,7 @@ Game.prototype.startAttack = function (attackData) {
     // set the defender's health to its new, lower, value
     var defender = this.findNuggetByTeamData(defenderTeamData);
     defender.combat.health = defenderHealth;
+    defender.addKnockback(10);
   }.bind(this));
 
   this.projectiles.push(projectile);
@@ -136,6 +137,10 @@ Game.prototype.draw = function (ctx) {
 
 Game.prototype.update = function (dt) {
   if (!dt) return;
+
+  this.nuggets.forEach(function (nugget) {
+    nugget.update(dt);
+  });
 
   this.projectiles.forEach(function (projectile) {
     projectile.update(dt);
