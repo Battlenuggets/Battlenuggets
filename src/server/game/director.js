@@ -70,14 +70,14 @@ Director.prototype.tick = function () {
 
   this.battle.executeAttackActions(attackActions);
 
+  // `compact` will filter out all the `null` actions, that occur
+  // when dead fighters try to attack
+  this.emitter.emit(tickEvent, _.compact(attackActions));
+
   // if the battle's over, emit `endOfBattleEvent` and stop ticking
   if (this.battle.isEnded()) {
     this.emitter.emit(endOfBattleEvent, this.battle.getEndOfBattleData());
     clearTimeout(this.tickTimeout);
-  } else {
-    // `compact` will filter out all the `null` actions, that occur
-    // when dead fighters try to attack
-    this.emitter.emit(tickEvent, _.compact(attackActions));
   }
 };
 
