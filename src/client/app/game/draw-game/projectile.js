@@ -16,10 +16,28 @@ function Projectile (x0, y0, x1, y1, duration) {
   // total duration and elapsed duration
   this.duration = duration;
   this.elapsed = 0;
+
+  // callback to run when motion is complete
+  this.completedCallback = null;
+  this.completed = false;
 }
 
+Projectile.prototype.onComplete = function (callback) {
+  this.completedCallback = callback;
+};
+
 Projectile.prototype.update = function (dt) {
-  if (this.elapsed > this.duration) return;
+  if (this.completed) return;
+
+  if (!this.completed && this.elapsed > this.duration) {
+    this.completed = true;
+
+    if (this.completedCallback) {
+      this.completedCallback();
+    }
+
+    return;
+  }
 
   this.elapsed += dt;
 

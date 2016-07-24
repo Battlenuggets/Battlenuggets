@@ -1,9 +1,20 @@
-function Nugget (x, y, w, h, img, combat) {
+function Nugget (x, y, w, h, img, team, combat) {
+  // coordinates of upper-left hand corner
   this.x = x;
   this.y = y;
+
+  // width and height
   this.w = w;
   this.h = h;
+
+  // coordinates of center
+  this.cx = this.x + this.w / 2;
+  this.cy = this.y + this.h / 2;
+
   this.img = img;
+
+  // team and combat stats, sent from server
+  this.team = team;
   this.combat = combat;
 
   this.healthBarThickness = 4;
