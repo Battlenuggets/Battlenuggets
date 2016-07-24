@@ -37,12 +37,6 @@ angular.module('battle', [
       templateUrl: 'app/store/store.html',
       controller: 'StoreController'
     })
-    .state('main', {
-      url: '/main',
-      templateUrl: 'app/main/main.html',
-      controller: 'MainController',
-      authenticate: true
-    })
     .state('signin', {
       url: '/signin',
       templateUrl: 'app/auth/signin.html',
