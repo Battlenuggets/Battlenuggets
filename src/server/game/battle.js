@@ -90,13 +90,19 @@ Battle.prototype.executeAttackAction = function (attackAction) {
   // if attackAction is `null`, do nothing
   if (!attackAction) return;
 
+  var attacker = this.getFighterFromTeamData(attackAction.attacker);
+
+  // the attacker may have been slain during this round of attacks,
+  // in which case we'd want to interrupt its impending attack
+  if (attacker.isDead()) return;
+
   var defender = this.getFighterFromTeamData(attackAction.defender);
   var defendingTeam = this.teams[defender.getTeamData().id];
 
   defender.takeDamage(attackAction.damage);
 
   // not great to mutate state here, but it's the most straightforward way
-  // to add the defender's remaining health after the attack
+  // to add the defender's remaining health to `attackAction`
   attackAction.defenderHealth = Math.ceil(defender.health);
 
   // if the defending team dies here, we return `false` to stop the `_.each`

@@ -13,7 +13,6 @@ angular.module('battle.game', [])
     };
   })
   .factory('renderer', function () {
-    var gameview = document.getElementsByClassName('gameview')[0];
     var canvas = document.getElementById('canvas');
 
     // TODO: either make entire page statically sized, or somehow add
@@ -25,6 +24,23 @@ angular.module('battle.game', [])
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, width, height);
 
+    var lastTimestamp;
+    var nextTimestamp;
+
+    var game = new Game(width, height);
+
+    function gameloop(timestamp) {
+      lastTimestamp = nextTimestamp;
+      nextTimestamp = timestamp;
+
+      game.update((nextTimestamp - lastTimestamp) / 1000);
+      game.draw(ctx);
+
+      requestAnimationFrame(gameloop);
+    }
+
+    requestAnimationFrame(gameloop);
+
     return {
       start: function () {
         // create a new game object here, and start up the game loop
@@ -32,11 +48,12 @@ angular.module('battle.game', [])
 
       // use these handlers to update the game
       onStartOfBattle: function (data) {
-        console.log('start', data);
+        game.createNuggets(data.fighters);
       },
 
       onTick: function (data) {
-        console.log('tick', data);
+        game.handleTick(data);
+        console.log('tick', data)
       },
 
       onEndOfBattle: function (data) {

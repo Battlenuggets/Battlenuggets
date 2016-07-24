@@ -2,6 +2,7 @@ var _ = require('lodash');
 
 function Fighter () {
   // combat stats
+  this.maxHealth = 100;
   this.health = 100;
   this.attack = 10;
 
@@ -19,7 +20,7 @@ Fighter.prototype.getDamageRoll = function () {
 };
 
 Fighter.prototype.takeDamage = function (damage) {
-  this.health -= damage;
+  this.health = Math.max(0, this.health - damage);
 };
 
 Fighter.prototype.isDead = function () {
@@ -44,6 +45,7 @@ Fighter.prototype.getTeamData = function () {
 // serialized combat data
 Fighter.prototype.getCombatData = function () {
   return {
+    maxHealth: this.maxHealth,
     health: this.health,
     attack: this.attack
   };
