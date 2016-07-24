@@ -96,8 +96,8 @@ Battle.prototype.executeAttackAction = function (attackAction) {
   defender.takeDamage(attackAction.damage);
 
   // not great to mutate state here, but it's the most straightforward way
-  // to add the defender's remaining health after the attack
-  attackAction.defenderHealth = Math.ceil(defender.health);
+  // to add the defender's remaining health to `attackAction`
+  attackAction.defenderHealth = Math.max(0, Math.ceil(defender.health));
 
   // if the defending team dies here, we return `false` to stop the `_.each`
   // loop early.
