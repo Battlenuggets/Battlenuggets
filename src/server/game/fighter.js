@@ -20,7 +20,7 @@ Fighter.prototype.getDamageRoll = function () {
 };
 
 Fighter.prototype.takeDamage = function (damage) {
-  this.health -= damage;
+  this.health = Math.max(0, this.health - damage);
 };
 
 Fighter.prototype.isDead = function () {
