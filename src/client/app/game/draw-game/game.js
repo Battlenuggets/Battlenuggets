@@ -2,9 +2,11 @@ function Game (w, h) {
   this.w = w;
   this.h = h;
 
-  // load nugget image
-  this.nuggetImg = new Image();
-  this.nuggetImg.src = '/img/battlenugget.png';
+  // load nugget images
+  this.leftImg = new Image();
+  this.leftImg.src = '/img/battlenugget.png';
+  this.rightImg = new Image();
+  this.rightImg.src = '/img/goldnugget.png';
 
   this.nuggets = [];
   this.projectiles = [];
@@ -41,13 +43,14 @@ Game.prototype.findNuggetByTeamData = function (target) {
 Game.prototype.createNuggets = function (fighters) {
   this.nuggets = fighters.map(function (fighter) {
     var dims = this.getFighterDimensions(fighter.team);
+    var img = fighter.team.id === 0 ? this.leftImg : this.rightImg;
 
     return new Nugget(
       dims.x,
       dims.y,
       dims.w,
       dims.h,
-      this.nuggetImg,
+      img,
       fighter.team,
       fighter.combat
     );
