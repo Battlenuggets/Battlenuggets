@@ -43,7 +43,7 @@ io.sockets.on('connection', function (socket) {
   });
   // added following two for tests
   socket.on('connection name', function (user) {
-    io.sockets.emit('new user', user.name + ' has joined.');
+    io.sockets.emit('new user', user + ' has joined.');
   });
 
   socket.on('message', function (msg) {

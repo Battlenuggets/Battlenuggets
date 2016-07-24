@@ -4,7 +4,6 @@ var totalBets = {
   0: 0,
   1: 0
 };
-
 exports.bets = bets;
 exports.placeBet = function (bet) {
   totalBets[bet.team] += bet.amount;
@@ -37,3 +36,4 @@ exports.payout = function (battleResults) {
   totalBets[0] = 0;
   totalBets[1] = 0;
 };
+

@@ -1,6 +1,6 @@
 angular.module('battle.store', [])
 
-.controller('StoreController', function ($scope, Store, Auth) {
+.controller('StoreController', ['$scope', 'Store', 'Auth', function ($scope, Store, Auth) {
   $scope.wallet = 0;
   $scope.items = [
     {
@@ -53,4 +53,4 @@ angular.module('battle.store', [])
 
   $scope.updateCurrency();
   $scope.updateInventory();
-});
+}]);
