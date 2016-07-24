@@ -70,9 +70,12 @@ Director.prototype.tick = function () {
 
   this.battle.executeAttackActions(attackActions);
 
-  // `compact` will filter out all the `null` actions, that occur
-  // when dead fighters try to attack
-  this.emitter.emit(tickEvent, _.compact(attackActions));
+  // filter out `null` actions and actions where `valid` is false
+  var validAttackActions = _.filter(attackActions, function (action) {
+    return action && action.valid;
+  });
+
+  this.emitter.emit(tickEvent, validAttackActions);
 
   // if the battle's over, emit `endOfBattleEvent` and stop ticking
   if (this.battle.isEnded()) {
