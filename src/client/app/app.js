@@ -71,7 +71,9 @@ angular.module('battle', [
     if (next.authenticate && !Auth.authed()) {
       $location.path('/signin');
     }
-    Auth.getUserIdFromServer();
+    if (Auth.authed()) {
+      Auth.getUserIdFromServer();
+    }
     socket.removeAllListeners();
   });
 });
