@@ -78,11 +78,17 @@ Game.prototype.startAttack = function (attackData) {
   var defenderTeamData = attackData.defender;
   var defenderHealth = attackData.defenderHealth;
 
-  var p0 = this.getFighterDimensions(attackerTeamData);
-  var p1 = this.getFighterDimensions(defenderTeamData);
+  var attacker = this.findNuggetByTeamData(attackerTeamData);
+  var defender = this.findNuggetByTeamData(defenderTeamData);
+
+  var x0 = attacker.cx;
+  var y0 = attacker.cy;
+  var x1 = defender.cx;
+  var y1 = defender.cy;
 
   // send a projectile from the attacker to the defender
-  var projectile = new Projectile(p0.x, p0.y, p1.x, p1.y, .3);
+  var projectile = new Projectile(x0, y0, x1, y1, .3);
+
   projectile.onComplete(function () {
     // remove the projectile once it reaches its target
     this.removeProjectile(projectile);
