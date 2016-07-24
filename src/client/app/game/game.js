@@ -48,15 +48,15 @@ angular.module('battle.game', [])
 
       // use these handlers to update the game
       onStartOfBattle: function (data) {
-        game.createNuggets(data.fighters);
+        game.startBattle(data);
       },
 
       onTick: function (data) {
-        game.handleTick(data);
-        console.log('tick', data)
+        game.tick(data);
       },
 
       onEndOfBattle: function (data) {
+        game.endBattle(data);
         console.log('end', data);
       }
     };
