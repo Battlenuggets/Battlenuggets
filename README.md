@@ -1,13 +1,5 @@
 # Battle Nuggets
 
-## Team
-
-  - __Product Owner__: [Sam Wainright](https://github.com/budleigh/)
-  - __Scrum Master__: [Forrest Labrum](https://github.com/bscookies/)
-  - __Development Team Members__: [Patrick Truong](https://github.com/vget98),
-    [Nick Fireman](https://github.com/graftss)
-
-
 ## Table of Contents
 
 1. [Prologue](#prologue)
@@ -77,6 +69,12 @@ grunt lint
 
 View the project roadmap [here](https://github.com/hrr17-rattata/hrr17-rattata/issues)
 
+## Team
+
+  - __Product Owner__: [Sam Wainright](https://github.com/budleigh/)
+  - __Scrum Master__: [Forrest Labrum](https://github.com/bscookies/)
+  - __Development Team Members__: [Patrick Truong](https://github.com/vget98),
+    [Nick Fireman](https://github.com/graftss)
 
 ## Contributing
 
