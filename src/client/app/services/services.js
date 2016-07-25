@@ -33,27 +33,11 @@ angular.module('battle.services', [])
       $location.path('/signin');
     };
 
-    var getUserIdFromServer = function () {
-      return $http({
-        method: 'GET',
-        url: '/api/users/user'
-      })
-        .then(function (res) {
-          userId = res.data.userId;
-        });
-    };
-
-    var getId = function () {
-      return userId;
-    };
-
     return {
       signin: signin,
       signup: signup,
       authed: authed,
-      signout: signout,
-      getUserIdFromServer: getUserIdFromServer,
-      getId: getId
+      signout: signout
     };
   }])
   .factory('Bets', ['$http', 'socket', function ($http, socket) {
