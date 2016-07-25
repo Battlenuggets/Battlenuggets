@@ -1,57 +1,54 @@
-angular.module('betting', [])
+angular.module('betboard', ['betting'])
+  .controller('BetboardCtrl', ['$scope', 'socket', function ($scope, socket) {
+    $scope.bets = [];
+    $scope.team0total = 0; // total amount spent on bets for team 0
+    $scope.team1total = 0; // total amount spent on bets for team 1
+    $scope.countdown = 0;
+    $scope.started = true;
 
-  .controller('BetCtrl', ['$scope', '$window', 'Auth', 'socket', 'Bets', function ($scope, $window, Auth, socket, Bets) {
-    // all bets include auth token
-    $scope.bet = {
-      id: $window.localStorage.getItem('nuggets')
-    };
+    // run on first connect to the server, sets local bets equal to the bets from the server
+    socket.on('all bets', function (bets) {
+      $scope.bets = bets;
 
-    $scope.authed = Auth.authed;
-    $scope.betMade = false;
-    $scope.started = false;
+      // for each bet received, add amount to the appropriate total
+      bets.forEach(function (bet) {
+        bet.team ? $scope.team1total += bet.amount : $scope.team0total += bet.amount;
+      });
+    });
 
-    if (Auth.authed()) {
-      Bets.getCurrencyFromServer();
-    }
-
-    // binds factory currency to controller/view
-    $scope.currency = Bets.getCurrency;
-
-    // attempts to place bet, otherwise displays error
-    $scope.placeBet = function () {
-      if (!$scope.betMade) {
-        try {
-          Bets.placeBet($scope.bet);
-          $scope.message = 'Bet placed!';
-          $scope.betMade = true;
-        } catch (e) {
-          $scope.message = e.toString();
-        }
-      }
-    };
+    // when a bet is placed, push it to the bets array
+    socket.on('placed bet', function (bet) {
+      $scope.bets.push(bet);
+      bet.team ? $scope.team1total += bet.amount : $scope.team0total += bet.amount; // TODO: write a function to handle total updates
+      $scope.$digest();
+    });
 
     socket.on('tick', function () {
       $scope.$apply(function () {
         $scope.started = true;
+        $scope.countdown = 0;
       });
     });
 
     socket.on('start of battle', function () {
       $scope.$apply(function () {
+        $scope.countdown = 0;
         $scope.started = true;
       });
     });
 
     socket.on('end of battle', function () {
       $scope.started = false;
-      $scope.betMade = false;
-      $scope.message = '';
-      Bets.getCurrencyFromServer();
+      $scope.bets.length = 0;
+      $scope.team0total = 0;
+      $scope.team1total = 0;
+      $scope.$digest();
     });
 
-    socket.on('countdown', function () {
+    socket.on('countdown', function (timeleft) {
       $scope.$apply(function () {
         $scope.started = false;
+        $scope.countdown = timeleft;
       });
     });
   }]);
