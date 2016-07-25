@@ -53,6 +53,9 @@ angular.module('battle', [
 
 .factory('AttachTokens', function ($window) {
   var attach = {
+    // the following attaches the token stored in local storage
+    // to any outgoing requests so that the server has a means of
+    // securely identifying the logged-in user
     request: function (object) {
       var jwt = $window.localStorage.getItem('nuggets');
       if (jwt) {
@@ -68,9 +71,6 @@ angular.module('battle', [
 .run(function ($rootScope, $location, Auth, Bets, socket, $state) {
   $rootScope.$state = $state;
   $rootScope.$on('$stateChangeStart', function (e, next) {
-    if (next.authenticate && !Auth.authed()) {
-      $location.path('/signin');
-    }
     socket.removeAllListeners();
   });
 });
