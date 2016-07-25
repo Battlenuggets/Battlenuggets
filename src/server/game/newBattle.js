@@ -4,6 +4,7 @@ var Team = require('../../../src/server/game/team');
 var Fighter = require('../../../src/server/game/fighter');
 
 function getMockBattle () {
+  // put 8 fighters on each team. this is quite flexible
   var team0Fighters = _.range(8).map(function () {
     return new Fighter();
   });

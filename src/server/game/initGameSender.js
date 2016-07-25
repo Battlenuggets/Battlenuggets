@@ -1,9 +1,9 @@
 var Director = require('./director');
 var betMaster = require('./betMaster');
 
+// accepts the `io` socket server as input, and adds handlers to it
+// that communicate game and bet information to each client.
 function initGameSender (io) {
-  this.io = io;
-
   // use local one for now, there's no reason to interact with it elsewhere
   var director = new Director(1000, 15000);
 
@@ -17,7 +17,7 @@ function initGameSender (io) {
     }
   });
 
-  // hook up event callbacks to send data to all connected clients
+  // hook up battle-related event callbacks
   director.onStartOfBattle(createSender(io, 'start of battle'));
   director.onStartOfBattle(director.stopCountdown.bind(director));
   director.onTick(createSender(io, 'tick'));
@@ -26,8 +26,8 @@ function initGameSender (io) {
   director.onEndOfBattle(createSender(io, 'end of battle'));
 }
 
-// returns a callback function that sends `data` to all sockets
-// that are connected to `io`
+// returns a callback function that sends `data` to all connected sockets,
+// labelled with `event`
 function createSender (io, event) {
   return function (data) {
     io.sockets.emit(event, data);
