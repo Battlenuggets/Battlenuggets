@@ -31,7 +31,7 @@
       </div>
     </div>
   </div>
-  <div ng-show="authed()" ng-hide="betMade || started" class="betPanel" ng-controller="BetCtrl" >
+  <div ng-show="authed() && !betMade && !started" class="betPanel" ng-controller="BetCtrl" >
     <form ng-submit="placeBet()">
       <h4 class="amount">${{ currency() }}</h4>
       <div ng-if="message">{{ message }}</div>
