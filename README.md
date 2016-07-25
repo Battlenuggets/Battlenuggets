@@ -53,10 +53,24 @@ npm install
 npm start
 ```
 
+### Tasks
+
 For local development (watches changes on server and client):
 
 ```sh
 grunt dev
+```
+
+To run tests:
+
+```sh
+grunt test
+```
+
+To lint:
+
+```sh
+grunt lint
 ```
 
 ### Roadmap
