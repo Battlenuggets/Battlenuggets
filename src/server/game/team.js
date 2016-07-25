@@ -1,5 +1,7 @@
 var _ = require('lodash');
 
+// Essentially, just a wrapper around an array of `Fighter` objects, with
+// the potential to have more helper methods for more complex battles.
 function Team (id, fighters) {
   this.id = id;
   this.fighters = fighters;
