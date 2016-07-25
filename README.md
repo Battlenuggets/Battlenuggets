@@ -10,7 +10,7 @@
 
 ## Table of Contents
 
-1. [Usage](#Usage)
+1. [Prologue](#prologue)
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
@@ -18,13 +18,29 @@
 1. [Team](#team)
 1. [Contributing](#contributing)
 
-## Usage
+## Prologue
 
-> Some usage instructions
+> Ces petits nuggets,
+>
+> naives et fachés
+>
+> Vont maintenant à la guerre
+>
+> La vie, gâchée
+
+The heated conflict between the Chicken Nuggets and the Gold Nuggets
+has finally come to a head. There is no time left for excuses, no place for futile
+negotiations. Civilization has crawled to a halt as the two most technologically
+advanced species on Earth endlessly do battle, wave after brutal wave.
+
+As long as they're gonna be doing that, we, the penitent survivors, might as
+well bet on who's going to win. If you're lucky, you might be able to afford
+fabulous prizes; earthly delights of which no man ought dare dream.
 
 ## Requirements
 
 - Node 6.2.x
+- PostgreSQL
 
 ## Development
 
@@ -33,10 +49,14 @@
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
 npm start
+```
+
+For local development (watches changes on server and client):
+
+```sh
+grunt dev
 ```
 
 ### Roadmap
