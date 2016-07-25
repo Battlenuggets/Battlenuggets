@@ -4,9 +4,24 @@ angular.module('battle.store', [])
   $scope.wallet = 0;
   $scope.items = [
     {
-      name: 'test1',
-      price: 0,
-      img: 'img/chat1.ico'
+      name: 'Signed Dead Golden Nugget',
+      price: 100,
+      img: 'img/DeadGoldSigned.png'
+    },
+    {
+      name: 'Signed Golden Nugget',
+      price: 5000,
+      img: 'img/GoldNuggetSigned.png'
+    },
+    {
+      name: 'Signed Dead Chicken Nugget',
+      price: 900,
+      img: 'img/DeadMeatSigned.png'
+    },
+    {
+      name: 'Signed Chicken Nugget',
+      price: 1000000,
+      img: 'img/ChickenNuggetSigned.png'
     }
   ];
   $scope.inventory = [];
