@@ -59,6 +59,55 @@ canvas {
   color: red;
 }
 
+/*Bet Board*/
+.team0 {
+  width: 50%;
+  float: left;
+}
+
+.team1 {
+  margin-left: 50%;
+}
+
+.team0 .bets {
+  background-color: #ECE2E2;
+  border-top: 1px solid rgb(176, 68, 68);
+}
+
+.team1 .bets {
+  background-color: #E0EAF3;
+  border-top: 1px solid rgb(52, 158, 255);
+}
+.user {
+  padding-right: 8px;
+  border-right: 1px solid;
+}
+
+.bets {
+  padding:
+  5px;
+}
+
+.odds {
+  text-align: center;
+}
+
+.redtext {
+  color: rgb(176, 68, 68);
+}
+
+.bluetext {
+  color: rgb(52, 158, 255);
+}
+
+.amount {
+  color: green; padding-left: 8px;
+}
+
+.betheader {
+  text-align: center;
+}
+
 /*Chat Window*/
 
 .browser-window {
