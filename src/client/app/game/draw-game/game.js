@@ -1,3 +1,6 @@
+var Projectile = window.Projectile;
+var Nugget = window.Nugget;
+
 function Game (w, h) {
   this.w = w;
   this.h = h;
@@ -14,20 +17,14 @@ function Game (w, h) {
 
   this.nuggets = [];
   this.projectiles = [];
-
-  this.inBattle = true;
 }
 
 Game.prototype.startBattle = function (data) {
-  this.inBattle = true;
   this.createNuggets(data.fighters);
 };
 
-// this isn't doing anything right now
-Game.prototype.endBattle = function (data) {
-  this.inBattle = false;
-  this.winningTeamId = data.winningTeamId;
-};
+// didn't end up doing anything with this
+Game.prototype.endBattle = function () {};
 
 // compute where to draw the nugget based on its team data
 Game.prototype.getFighterDimensions = function (teamData) {
@@ -44,7 +41,9 @@ Game.prototype.getFighterDimensions = function (teamData) {
   };
 };
 
-// this could be obsoleted by storing `this.fighters` more intelligently
+// looks through `this.nuggets` for a nugget with team data matching `target`
+// team data has the shape `{ id: Number, position: Number }`
+// (this could be obsoleted by storing `this.fighters` more intelligently...)
 Game.prototype.findNuggetByTeamData = function (target) {
   var team;
 
@@ -76,9 +75,13 @@ Game.prototype.createNuggets = function (fighters) {
   }.bind(this));
 };
 
+// `tickData` is a list of attacks from the server...
 Game.prototype.tick = function (tickData) {
   var self = this;
 
+  // we iterate through the list of attacks, starting each one
+  // with an increasingly long delay, so that they're spaced out
+  // in time, and will happen visually in the correct order
   tickData.forEach(function (attackData, index) {
     setTimeout(function () {
       self.startAttack(attackData);
@@ -94,27 +97,33 @@ Game.prototype.startAttack = function (attackData) {
   var attacker = this.findNuggetByTeamData(attackerTeamData);
   var defender = this.findNuggetByTeamData(defenderTeamData);
 
+  // create a projectile that moves from the center of `attacker`
+  // to the center of `defender` ("shot through the heart")
   var x0 = attacker.cx;
   var y0 = attacker.cy;
   var x1 = defender.cx;
   var y1 = defender.cy;
 
   // send a projectile from the attacker to the defender
-  var projectile = new Projectile(x0, y0, x1, y1, .3);
+  var projectile = new Projectile(x0, y0, x1, y1, 0.3);
 
   projectile.onComplete(function () {
     // remove the projectile once it reaches its target
     this.removeProjectile(projectile);
 
     // set the defender's health to its new, lower, value
-    var defender = this.findNuggetByTeamData(defenderTeamData);
     defender.combat.health = defenderHealth;
+
+    // knock the defender back a little bit
     defender.addKnockback(10);
   }.bind(this));
 
+  // add the new projectile to the `Game` instance's list of projectiles,
+  // so that the game will know to update and draw it
   this.projectiles.push(projectile);
 };
 
+// find `projectile` in the game's `this.projectiles`, and splice it out
 Game.prototype.removeProjectile = function (projectile) {
   var index = this.projectiles.indexOf(projectile);
 
@@ -123,6 +132,7 @@ Game.prototype.removeProjectile = function (projectile) {
   }
 };
 
+// clear the screen, draw the nuggets, and draw the projectiles
 Game.prototype.draw = function (ctx) {
   ctx.clearRect(0, 0, this.w, this.h);
 
@@ -135,6 +145,7 @@ Game.prototype.draw = function (ctx) {
   });
 };
 
+// update the nuggets and update the projectiles
 Game.prototype.update = function (dt) {
   if (!dt) return;
 
