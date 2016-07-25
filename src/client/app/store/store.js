@@ -2,6 +2,8 @@ angular.module('battle.store', [])
 
 .controller('StoreController', ['$scope', 'Store', 'Auth', function ($scope, Store, Auth) {
   $scope.wallet = 0;
+
+  // this is basically a placeholder for an 'items' table in the database
   $scope.items = [
     {
       name: 'Signed Dead Golden Nugget',
@@ -24,6 +26,7 @@ angular.module('battle.store', [])
       img: 'img/ChickenNuggetSigned.png'
     }
   ];
+
   $scope.inventory = [];
   $scope.purchaseCandidate = {};
 
@@ -31,6 +34,7 @@ angular.module('battle.store', [])
     return Auth.authed();
   };
 
+  // the following filter access to the purchase button
   $scope.canAfford = function (item) {
     return $scope.wallet - item.price >= 0;
   };
@@ -40,6 +44,8 @@ angular.module('battle.store', [])
   };
 
   $scope.nominate = function (item) {
+    // when purchase is clicked, first the item is nominated so
+    // the page can offer confirmation, then purchase is called
     $scope.purchaseCandidate = item;
   };
 
@@ -52,6 +58,8 @@ angular.module('battle.store', [])
       });
   };
 
+  // syncs the page with the database, used after a purchase is made
+  // and when the page loads the first time
   $scope.updateCurrency = function () {
     Store.getCurrency()
       .then(function (currency) {
