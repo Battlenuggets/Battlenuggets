@@ -71,7 +71,7 @@ View the project roadmap [here](https://github.com/hrr17-rattata/hrr17-rattata/i
 
 ## Team
 
-  - __Product Owner__: [Sam Wainright](https://github.com/budleigh/)
+  - __Product Owner__: [Sam Wainwright](https://github.com/budleigh/)
   - __Scrum Master__: [Forrest Labrum](https://github.com/bscookies/)
   - __Development Team Members__: [Patrick Truong](https://github.com/vget98),
     [Nick Fireman](https://github.com/graftss)
