@@ -5,7 +5,7 @@
     <h6 ng-show="authed()">${{ wallet }}</h6>
   </div>
 
-  <div ng-hide="authed()">Make an account to get nollars and shop!</div>
+  <div class="alert alert-warning" ng-hide="authed()">Make an account to get nollars and shop!</div>
 
   <div class="row">
     <div class="col-lg-3 thumb" ng-repeat="item in items">
