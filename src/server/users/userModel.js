@@ -7,8 +7,8 @@ var User = db.define('user', {
   userId: Sequelize.STRING,
   password: Sequelize.STRING,
   currency: Sequelize.INTEGER,
-  currentIcon: Sequelize.STRING,
-  ownedIcons: Sequelize.TEXT
+  currentIcon: Sequelize.STRING,  // should be in 'items' table, eventually
+  ownedIcons: Sequelize.TEXT  // should be its own table, as 'items' for the store
 }, {
   timestamps: false  // for later debate
 });
@@ -37,6 +37,7 @@ User.signIn = function (username, password) {
       if (!foundUser) {
         return null;
       } else {
+        // the following compares hashes, not raw passwords
         return User.comparePasswords(password, foundUser.password)
           .then(function (passwordMatch) {
             return passwordMatch ? foundUser : null;
@@ -46,6 +47,9 @@ User.signIn = function (username, password) {
 };
 
 User.update = function (id, model) {
+  // general update model - takes a js object
+  // and attempts to map fields onto then
+  // schema + update.
   return User.findById(id)
     .then(function (foundUser) {
       for (var key in model) {
