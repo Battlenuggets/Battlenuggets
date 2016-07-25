@@ -1,4 +1,4 @@
-// creates a projectile that moves from `(x0, y0)` to `(x1, y1)`
+// creates a projectile that moves from `(x0, y0)` to `(x1, y1)`.
 // the movement takes `duration` seconds
 function Projectile (x0, y0, x1, y1, duration) {
   // current position
@@ -29,17 +29,8 @@ Projectile.prototype.onComplete = function (callback) {
 };
 
 Projectile.prototype.update = function (dt) {
+  // stop updating once we're finished moving
   if (this.completed) return;
-
-  if (!this.completed && this.elapsed > this.duration) {
-    this.completed = true;
-
-    if (this.completedCallback) {
-      this.completedCallback();
-    }
-
-    return;
-  }
 
   this.elapsed += dt;
 
@@ -49,6 +40,12 @@ Projectile.prototype.update = function (dt) {
   } else {
     this.x = this.x1;
     this.y = this.y1;
+
+    this.completed = true;
+
+    if (this.completedCallback) {
+      this.completedCallback();
+    }
   }
 
 };
