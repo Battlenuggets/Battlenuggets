@@ -24,6 +24,13 @@
   background: url(http://orig15.deviantart.net/5237/f/2011/264/f/b/sci_fi_city_in_pixels_by_therogerrr-d4ak2n6.png);
 }
 
+[ui-view='right'] {
+  float: left;
+  width: 25%;
+  height: 700px;
+  background: #efeef1;
+}
+
 canvas {
   padding-left: 0;
   padding-right: 0;
@@ -31,14 +38,6 @@ canvas {
   margin-right: auto;
   display: block;
   width: 600px;
-}
-
-
-[ui-view='right'] {
-  float: left;
-  width: 25%;
-  height: 700px;
-  background: #efeef1;
 }
 
 .footer {
@@ -57,6 +56,56 @@ canvas {
 
 .errorMsg {
   color: red;
+}
+
+/*Bet Board*/
+
+.team0 {
+  width: 50%;
+  float: left;
+}
+
+.team1 {
+  margin-left: 50%;
+}
+
+.team0 .bets {
+  background-color: #ECE2E2;
+  border-top: 1px solid rgb(176, 68, 68);
+}
+
+.team1 .bets {
+  background-color: #E0EAF3;
+  border-top: 1px solid rgb(52, 158, 255);
+}
+.user {
+  padding-right: 8px;
+  border-right: 1px solid;
+}
+
+.bets {
+  padding:
+  5px;
+}
+
+.odds {
+  text-align: center;
+}
+
+.redtext {
+  color: rgb(176, 68, 68);
+}
+
+.bluetext {
+  color: rgb(52, 158, 255);
+}
+
+.amount {
+  color: green; padding-left: 8px;
+}
+
+.betheader {
+  text-align: center;
 }
 
 /*Chat Window*/

@@ -5,8 +5,13 @@
   <meta charset="utf-8">
 
   <title>Battlenuggets</title>
+  <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="lib/angular-scroll-glue/src/scrollglue.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="styles/style.css" />
 </head>
@@ -43,18 +48,10 @@
     </div>
   </div>
 
-  <script src="lib/angular/angular.js"></script>
-  <script src="lib/angular-route/angular-route.js"></script>
-  <script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
-  <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-  <script src="lib/angular-scroll-glue/src/scrollglue.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-
+  <script src="app/game/game.js"></script>
   <script src="app/services/services.js"></script>
   <script src="app/auth/auth.js"></script>
   <script src="app/app.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="app/game/game.js"></script>
   <script src="app/chat/chat.js"></script>
   <script src="app/betboard/betting.js"></script>
   <script src="app/betboard/betboard.js"></script>
@@ -63,5 +60,6 @@
   <script src="app/game/draw-game/nugget.js"></script>
   <script src="app/game/draw-game/game.js"></script>
   <script src="app/game/draw-game/projectile.js"></script>
+
 </body>
 </html>

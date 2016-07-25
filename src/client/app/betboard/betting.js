@@ -21,8 +21,10 @@ angular.module('betting', [])
     $scope.placeBet = function () {
       if (!$scope.betMade) {
         try {
-          Bets.placeBet($scope.bet);
-          $scope.message = 'Bet placed!';
+          if (Auth.authed()) {
+            Bets.placeBet($scope.bet);
+            $scope.message = 'Bet placed!';
+          }
           $scope.betMade = true;
         } catch (e) {
           $scope.message = e.toString();

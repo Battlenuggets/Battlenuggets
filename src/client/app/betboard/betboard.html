@@ -1,31 +1,20 @@
-<style>
-  .team0 { width: 50%; float: left; }
-  .team1 { margin-left: 50%; }
-  .team0 .bets { background-color: #ECE2E2; border-top: 1px solid rgb(176, 68, 68); }
-  .team1 .bets { background-color: #E0EAF3; border-top: 1px solid rgb(52, 158, 255);}
-  .user { padding-right: 8px; border-right: 1px solid; }
-  .bets { padding: 5px; }
-  .odds { text-align: center; }
-  .redtext { color: rgb(176, 68, 68); }
-  .bluetext { color: rgb(52, 158, 255); }
-  .amount { color: green; padding-left: 8px; }
-</style>
-
 <div class="betboard" ng-controller="BetboardCtrl" >
-  <h3>Bets</h3>
-  <h4>Time to next battle: {{ countdown }} seconds</h4>
+  <div class='betheader'>
+    <h3><strong>Place Your Bets</strong></h3>
+    <h4>Time to next battle: {{ countdown }} seconds</h4>
+  </div>
   <!-- Odds are just determining which side has more bets. If larger, divide the larger total by the smaller total or 1. If smaller, just display 1. Round results to nearest decimal place. -->
   <div class="odds">
-    <span class="redtext">
+    <span class="redtext"><strong>
       {{ team0total > team1total ? (team0total / (team1total || 1) | number: 1) : 1 }}
-    </span>
+    </strong></span>
     <span>:</span>
-    <span class="bluetext">
+    <span class="bluetext"><strong>
       {{ team1total > team0total ? (team1total / (team0total || 1) | number: 1) : 1 }}
-    </span>
+    </strong></span>
   </div>
   <div class="team0">
-    <span class="redtext">Chicken</span>
+    <span class="redtext"><strong>Chicken</strong></span>
     <div class="bets">
       <div ng-repeat="bet in bets | filter:{team: 0} | orderBy:'-amount'" >
         <span class="user">{{ bet.username }}</span>
@@ -34,7 +23,7 @@
     </div>
   </div>
   <div class="team1" >
-    <span class="bluetext">Gold</span>
+    <span class="bluetext"><strong>Gold</strong></span>
     <div class="bets">
       <div ng-repeat="bet in bets | filter:{team: 1} | orderBy:'-amount'" >
         <span class="user">{{ bet.username }}</span>
