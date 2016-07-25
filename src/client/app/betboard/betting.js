@@ -19,7 +19,7 @@ angular.module('betting', [])
 
     // attempts to place bet, otherwise displays error
     $scope.placeBet = function () {
-      if (!$scope.betMade && Auth.authed()) {
+      if (!$scope.betMade) {
         try {
           Bets.placeBet($scope.bet);
           $scope.message = 'Bet placed!';
