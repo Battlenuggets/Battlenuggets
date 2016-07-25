@@ -1,5 +1,8 @@
 var _ = require('lodash');
 
+// A `Fighter` is a generic participant in a battle; it should be on
+// a `Team`, and have combat stats that describe how it behaves when
+// attacking (or defending, though that's not implemented at present)
 function Fighter () {
   // combat stats
   this.maxHealth = 100;
@@ -7,6 +10,8 @@ function Fighter () {
   this.attack = 10;
 
   // record the fighter's team and their position in the team
+  // (this will be done automatically when a fighter is assigned to a team;
+  // this object is just a placeholder)
   this.team = {
     name: null,
     position: null
@@ -20,6 +25,8 @@ Fighter.prototype.getDamageRoll = function () {
 };
 
 Fighter.prototype.takeDamage = function (damage) {
+  // don't allow a fighter's health to go below 0, mostly to avoid
+  // rendering issues on the client
   this.health = Math.max(0, this.health - damage);
 };
 
