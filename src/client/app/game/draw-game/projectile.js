@@ -35,9 +35,13 @@ Projectile.prototype.update = function (dt) {
   this.elapsed += dt;
 
   if (this.elapsed < this.duration) {
+    // move distance proportional to the amount of time that's passed
+    // in both the `x` and `y` directions
     this.x += (dt / this.duration) * this.dx;
     this.y += (dt / this.duration) * this.dy;
   } else {
+    // more time has elapsed than our duration, so just move to the
+    // target coordinates and call `completedCallback`, if it's there
     this.x = this.x1;
     this.y = this.y1;
 
@@ -47,16 +51,15 @@ Projectile.prototype.update = function (dt) {
       this.completedCallback();
     }
   }
-
 };
 
 Projectile.prototype.draw = function (ctx) {
   ctx.save();
   ctx.translate(this.x, this.y);
 
+  // literally just a red square. I guess it's ketchup technically
   ctx.fillStyle = 'red';
   ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
 
   ctx.restore();
 };
-
