@@ -1,6 +1,5 @@
 angular.module('battle.services', [])
   .factory('Auth', ['$http', '$window', '$location', function ($http, $window, $location) {
-    var userId;
     var signin = function (user) {
       return $http({
         method: 'POST',
@@ -123,5 +122,6 @@ angular.module('battle.services', [])
     };
   }])
   .factory('socket', function () {
+    // note that socket and io are globally available
     return io.connect();
   });
