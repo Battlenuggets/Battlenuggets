@@ -40,17 +40,19 @@ angular.module('battle.services', [])
       signout: signout
     };
   }])
-  .factory('Bets', ['$http', 'socket', function ($http, socket) {
+  .factory('Bets', ['$http', 'socket', 'Auth', function ($http, socket, Auth) {
     var currency;
     // get user's currency from server and set local currency var
     var getCurrencyFromServer = function () {
-      return $http({
-        method: 'GET',
-        url: '/api/users/user'
-      })
-        .then(function (res) {
-          currency = res.data.currency;
-        });
+      if (Auth.authed()) {
+        return $http({
+          method: 'GET',
+          url: '/api/users/user'
+        })
+          .then(function (res) {
+            currency = res.data.currency;
+          });
+      }
     };
 
     var getCurrency = function () {

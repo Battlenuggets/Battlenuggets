@@ -10,9 +10,10 @@ var User = db.define('user', {
   currentIcon: Sequelize.STRING,
   ownedIcons: Sequelize.TEXT
 }, {
-  timestamps: false  // for later debate
+  timestamps: false
 });
 
+// hashes passwords before adding to the db
 User.hook('beforeCreate', function (user) {
   return bcrypt.hashAsync(user.password, null, null)
     .then(function (hash) {
@@ -20,10 +21,12 @@ User.hook('beforeCreate', function (user) {
     });
 });
 
+// returns a promise with the results of a password compare
 User.comparePasswords = function (possPassword, currPassword) {
   return bcrypt.compareAsync(possPassword, currPassword);
 };
 
+// creates a new user if applicable with a default currency of 0 and no icons
 User.signUp = function (username, password) {
   return User.findOrCreate({ where: {userId: username}, defaults: {password: password, currency: 100, ownedIcons: '[]', currentIcon: ''} })
       .spread(function (userResult, created) {
@@ -31,6 +34,7 @@ User.signUp = function (username, password) {
       });
 };
 
+// compares passwords and either returns the user if password is correct, or null if incorrect
 User.signIn = function (username, password) {
   return User.findOne({ where: {userId: username } })
     .then(function (foundUser) {
@@ -45,6 +49,7 @@ User.signIn = function (username, password) {
     });
 };
 
+// updates user with given model
 User.update = function (id, model) {
   return User.findById(id)
     .then(function (foundUser) {
@@ -55,6 +60,7 @@ User.update = function (id, model) {
     });
 };
 
+// reduces user currency by bet amount if amount is valid
 User.placeBet = function (id, amount) {
   return User.findById(id)
     .then(function (user) {
@@ -67,6 +73,7 @@ User.placeBet = function (id, amount) {
     });
 };
 
+// increases users currency by given amount
 User.increaseCurrency = function (id, amount) {
   return User.findById(id)
     .then(function (user) {

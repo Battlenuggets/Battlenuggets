@@ -10,10 +10,6 @@ angular.module('betting', [])
     $scope.betMade = false;
     $scope.started = false;
 
-    if (Auth.authed()) {
-      Bets.getCurrencyFromServer();
-    }
-
     // binds factory currency to controller/view
     $scope.currency = Bets.getCurrency;
 
@@ -21,10 +17,8 @@ angular.module('betting', [])
     $scope.placeBet = function () {
       if (!$scope.betMade) {
         try {
-          if (Auth.authed()) {
-            Bets.placeBet($scope.bet);
-            $scope.message = 'Bet placed!';
-          }
+          Bets.placeBet($scope.bet);
+          $scope.message = 'Bet placed!';
           $scope.betMade = true;
         } catch (e) {
           $scope.message = e.toString();
@@ -32,18 +26,21 @@ angular.module('betting', [])
       }
     };
 
+    // ensure on each tick battle started flag is set to true
     socket.on('tick', function () {
       $scope.$apply(function () {
         $scope.started = true;
       });
     });
 
+    // ensure on start of battle battle started flag is set to true
     socket.on('start of battle', function () {
       $scope.$apply(function () {
         $scope.started = true;
       });
     });
 
+    // on end of battle, allow betting again and get any winnings from server
     socket.on('end of battle', function () {
       $scope.started = false;
       $scope.betMade = false;
@@ -51,6 +48,7 @@ angular.module('betting', [])
       Bets.getCurrencyFromServer();
     });
 
+    // ensure while counting down started flag is set to false
     socket.on('countdown', function () {
       $scope.$apply(function () {
         $scope.started = false;
