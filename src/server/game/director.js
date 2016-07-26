@@ -1,7 +1,5 @@
 var _ = require('lodash');
 var ee = require('event-emitter');
-
-// TODO: should probably not rely on this
 var getMockBattle = require('./newBattle');
 
 // event name constants
@@ -9,9 +7,11 @@ var tickEvent = 'tick';
 var startOfBattleEvent = 'startOfBattle';
 var endOfBattleEvent = 'endOfBattle';
 
-// an instance of `Director` is a wrapper around a `Battle` instance,
-// providing a simple API for advancing the battle and for communicating
-// it to the clients.
+// the `Director` is responsible for updating and creating new `Battle`
+// instances. it has an event emitter, `this.emitter`, that emits
+// events when the current battle starts, ticks, and ends, and exposes
+// methods to register callbacks to each of those event types:
+// `onStartOfBattle`, `onTick`, and `onEndOfBattle`.
 function Director (tickInterval, timeBetweenBattles, battle) {
   this.tickInterval = tickInterval;
   this.timeBetweenBattles = timeBetweenBattles;
@@ -60,11 +60,11 @@ Director.prototype.startCountdown = function (io) {
     io.sockets.emit('countdown', countdown);
     countdown--;
   }, 1000);
-}
+};
 
 Director.prototype.stopCountdown = function () {
   clearInterval(this.countdownInterval);
-}
+};
 
 // wait `timeBetweenBattles` ms, then create and start a new battle
 Director.prototype.queueNextBattle = function () {

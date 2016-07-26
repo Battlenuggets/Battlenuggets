@@ -65,6 +65,8 @@ Battle.prototype.generateAttackOrder = function () {
   return _.shuffle(this.getAllFighters());
 };
 
+// given an `attacker` fighter, chooses an enemy `defender` fighter and
+// describes an attack by `attacker` on `defender`.
 Battle.prototype.generateAttackAction = function (attacker) {
   // do nothing if the attack is dead
   if (attacker.isDead()) return null;
@@ -85,7 +87,13 @@ Battle.prototype.generateAttackActions = function (attackOrder) {
 };
 
 // execute a single serialized attack action
-// note: this mutates `attackAction`
+// NOTE: this mutates `attackAction`. in particular, we must add a
+// `valid` property that is _truthy_ in order to have the attack
+// be sent to the client by the battle director. this is quite hacky, and
+// I apologize with all of my heart.
+// ANOTHER NOTE: if this function returns `false`, then it halts the
+// `_.each` iteration in `executeAttackActions` early. this is also somewhat
+// hacky but not quite as bad.
 Battle.prototype.executeAttackAction = function (attackAction) {
   // if attackAction is `null`, do nothing
   if (!attackAction) return;
@@ -97,8 +105,9 @@ Battle.prototype.executeAttackAction = function (attackAction) {
   if (attacker.isDead()) {
     attackAction.valid = false;
     return;
-  };
+  }
 
+  // past this point, the attack is valid, and we will now execute it
   attackAction.valid = true;
 
   var defender = this.getFighterFromTeamData(attackAction.defender);
@@ -106,14 +115,13 @@ Battle.prototype.executeAttackAction = function (attackAction) {
 
   defender.takeDamage(attackAction.damage);
 
-  // not great to mutate state here, but it's the most straightforward way
-  // to add the defender's remaining health to `attackAction`
+  // mutates an extra property onto `attackAction`
   attackAction.defenderHealth = Math.ceil(defender.health);
 
   // if the defending team dies here, we return `false` to stop the `_.each`
   // loop early.
-  // TODO: if we ever want to have more than 2 teams, we'd only want to
-  // return false when ALL teams besides one is dead; this would return
+  // NOTE: if we ever want to have more than 2 teams, we'd only want to
+  // return false when ALL teams besides one is dead; this currently returns
   // false every time any team dies
   if (defendingTeam.isDead()) {
     this.ended = true;
