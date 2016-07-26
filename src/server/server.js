@@ -38,7 +38,10 @@ db.sync().then(function () {
 io.sockets.on('connection', function (socket) {
   socket.emit('all bets', betMaster.bets);
 
+  // Listens for send msg event from clients connected to the server
   socket.on('send msg', function (data) {
+    // when the server recieves the send msg event from the client will then emit
+    // this sends the get msg event with the data to all clients connected
     io.sockets.emit('get msg', data);
   });
   // added following two for tests

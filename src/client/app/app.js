@@ -13,11 +13,12 @@ angular.module('battle', [
 
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
   $urlRouterProvider.otherwise('/');
-
+  // the main state
   $stateProvider
     .state('home', {
       url: '/',
       templateUrl: 'index.html',
+      // the left, gameview and right are nested states of the home
       views: {
         'left': {
           templateUrl: 'app/betboard/betboard.html'
