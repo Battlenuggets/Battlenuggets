@@ -36,13 +36,13 @@
 
   <div ui-view></div>
 
-  <div ng-show="$state.includes('home')" >
-    <div ui-view="left"></div>
+  <div ng-show="$state.includes('home')" class="ui">
+    <div ui-view="left" class="bet"></div>
     <div ui-view='gameview' class="gameview"></div>
     <div ui-view='right'></div>
   </div>
 
-  <div class='footer'>
+  <div class='footer navbar-fixed-bottom'>
     <div class='footericon'>
       <a ui-sref="home"><img src="img/battle_nugget_header.png"></a>
     </div>
